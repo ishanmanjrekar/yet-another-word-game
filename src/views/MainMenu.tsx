@@ -1,7 +1,5 @@
 import React from 'react';
 import { useGameStore } from '../store/gameStore';
-import { ChunkyButton } from '../components/ui/ChunkyButton';
-import { Tile } from '../components/ui/Tile';
 import { generateStage } from '../utils/gridGeneration';
 
 export const MainMenu: React.FC = () => {
@@ -20,89 +18,100 @@ export const MainMenu: React.FC = () => {
     }
   };
 
-  // Decorative floating tiles
-  const floatingTiles = [
-    { letter: 'Y', top: '10%', left: '5%', delay: '0s', alt: false },
-    { letter: 'A', top: '15%', left: '85%', delay: '1s', alt: true },
-    { letter: 'W', top: '70%', left: '10%', delay: '2s', alt: false },
-    { letter: 'G', top: '75%', left: '80%', delay: '3.5s', alt: true },
-    { letter: '!', top: '40%', left: '90%', delay: '0.5s', alt: false },
-    { letter: '?', top: '60%', left: '5%', delay: '2.5s', alt: true },
-  ];
-
   return (
-    <div className="relative min-h-screen w-full bg-surface flex flex-col items-center justify-center overflow-hidden">
-      
-      {/* Background Decorative Tiles */}
-      <div className="absolute inset-0 pointer-events-none opacity-10">
-        {floatingTiles.map((tile, i) => (
-          <div 
-            key={i}
-            className={`absolute hardware-accelerated ${tile.alt ? 'tile-floating-alt' : 'tile-floating'}`}
-            style={{ 
-              top: tile.top, 
-              left: tile.left,
-              animationDelay: tile.delay,
-              transform: 'scale(1.5)'
-            }}
-          >
-            <Tile letter={tile.letter} />
-          </div>
-        ))}
-      </div>
-
+    <div className="relative min-h-screen w-full bg-surface text-on-surface font-body overflow-hidden select-none flex flex-col">
       {/* Top Header Bar */}
-      <div className="absolute top-0 left-0 w-full p-6 flex justify-end items-center pointer-events-none">
-        <div className="bg-surface-low px-4 py-2 rounded-xl border-b-4 border-surface-lowest flex items-center gap-2 pointer-events-auto">
-          <span className="text-primary font-headline text-xl">🪙</span>
-          <span className="font-headline text-xl text-on-surface">{coins}</span>
+      <header className="bg-transparent flex justify-end items-center w-full px-6 py-4 absolute top-0 z-50">
+        <div className="flex items-center gap-2 bg-surface-container/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-primary/20 pointer-events-auto">
+          <span className="material-symbols-outlined text-primary text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>monetization_on</span>
+          <span className="font-headline text-lg text-primary">{coins.toLocaleString()}</span>
         </div>
-      </div>
+      </header>
 
-      {/* Hero Section */}
-      <div className="flex flex-col items-center gap-12 z-10">
-        <div className="text-center">
-          <h1 className="font-headline text-8xl text-primary text-3d-title mb-2">
-            YAWG
-          </h1>
-          <p className="font-body text-secondary tracking-widest uppercase text-sm font-bold opacity-80">
-            Yet Another Word Game
-          </p>
+      <main className="flex-1 flex flex-col items-center justify-center relative px-6 py-8">
+        {/* Decorative Floating Tiles */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
+          <div 
+            className="absolute top-[15%] left-[10%] w-16 h-16 bg-surface-highest rounded-2xl flex items-center justify-center tile-floating-ref border-t border-surface-bright/20 shadow-2xl"
+            style={{ animation: 'tile-floating 6s ease-in-out infinite' }}
+          >
+            <span className="font-headline text-3xl text-secondary">A</span>
+          </div>
+          <div 
+            className="absolute top-[10%] right-[15%] w-14 h-14 bg-primary rounded-2xl flex items-center justify-center tile-floating-alt-ref border-t border-white/20 shadow-2xl"
+            style={{ animation: 'tile-floating-alt 8s ease-in-out infinite' }}
+          >
+            <span className="font-headline text-2xl text-on-primary">W</span>
+          </div>
+          <div 
+            className="absolute bottom-[35%] left-[5%] w-20 h-20 bg-surface-highest rounded-2xl flex items-center justify-center tile-floating-alt-ref border-t border-surface-bright/20 shadow-2xl"
+            style={{ animation: 'tile-floating-alt 7s ease-in-out infinite' }}
+          >
+            <span className="font-headline text-4xl text-tertiary">G</span>
+          </div>
+          <div 
+            className="absolute bottom-[25%] right-[10%] w-16 h-16 bg-surface-highest rounded-2xl flex items-center justify-center tile-floating-ref border-t border-surface-bright/20 shadow-2xl"
+            style={{ animation: 'tile-floating 9s ease-in-out infinite' }}
+          >
+            <span className="font-headline text-3xl text-secondary">Y</span>
+          </div>
+          <div 
+            className="absolute top-[40%] right-[5%] w-12 h-12 bg-primary rounded-xl flex items-center justify-center tile-floating-ref border-t border-white/20 shadow-2xl"
+            style={{ animation: 'tile-floating 10s ease-in-out infinite' }}
+          >
+            <span className="font-headline text-xl text-on-primary">!</span>
+          </div>
         </div>
 
-        {/* Navigation Buttons */}
-        <div className="flex flex-col gap-8 w-full max-w-[280px]">
-          {/* Arcade Mode */}
-          <div className="flex flex-col items-center gap-3">
-            <ChunkyButton variant="primary" className="w-full" onClick={handleArcadeClick}>
-              ARCADE
-            </ChunkyButton>
-            <div className="bg-[#4b007e] px-4 py-1 rounded-full shadow-[0_4px_0_0_rgba(0,0,0,0.3)]">
-              <div className="bg-gradient-to-b from-[#E8E8E8] to-[#B0B0B0] text-[#4b007e] font-headline text-xs px-3 py-0.5 rounded-full">
-                BEST: STAGE 12
+        {/* Inner Content Wrapper - Moving content up slightly to offset the footer and reduce top gap */}
+        <div className="flex flex-col items-center -mt-16 w-full z-10">
+          {/* Hero Section */}
+          <div className="text-center mb-10">
+            <h2 className="text-8xl font-headline text-primary tracking-tighter mb-2 drop-shadow-[0_6px_0_rgba(85,70,0,0.8)]">YAWG</h2>
+            <p className="text-secondary font-body font-bold text-xs tracking-[0.2em] uppercase opacity-80">Yet Another Word Game</p>
+          </div>
+
+          {/* Game Modes Grid */}
+          <div className="flex flex-col gap-8 w-full max-w-sm">
+            {/* Arcade Mode */}
+            <div className="flex flex-col items-center">
+              <button 
+                onClick={handleArcadeClick}
+                className="chunky-button-primary w-full py-7 bg-primary rounded-[32px] flex flex-col items-center justify-center transition-all duration-100 hover:brightness-110 active:scale-95 group"
+              >
+                <span className="material-symbols-outlined text-on-primary text-5xl mb-1 group-hover:scale-110 transition-transform" style={{ fontVariationSettings: "'opsz' 48" }}>sports_esports</span>
+                <span className="font-headline text-3xl text-on-primary">Arcade</span>
+              </button>
+              <div className="mt-4 bg-gradient-to-b from-[#E8E8E8] to-[#B0B0B0] px-5 py-1.5 rounded-full border border-[#690bac]/50 flex items-center gap-2 shadow-[0_4px_15px_rgba(105,11,172,0.3)]">
+                <span className="material-symbols-outlined text-[#690bac] text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>emoji_events</span>
+                <span className="text-[#690bac] font-body font-bold text-sm tracking-tight">Highscore: Stage {activeStage}</span>
+              </div>
+            </div>
+
+            {/* WOTD Mode */}
+            <div className="flex flex-col items-center">
+              <button className="chunky-button-secondary w-full py-7 bg-secondary-container rounded-[32px] flex flex-col items-center justify-center transition-all duration-100 hover:brightness-110 active:scale-95 border-t border-white/10 group">
+                <span className="material-symbols-outlined text-secondary text-5xl mb-1 group-hover:scale-110 transition-transform" style={{ fontVariationSettings: "'opsz' 48" }}>today</span>
+                <span className="font-headline text-3xl text-secondary">WOTD</span>
+                <span className="text-secondary/60 font-body font-bold text-[10px] uppercase tracking-[0.2em] mt-1 group-hover:text-secondary transition-colors">Words of the Day</span>
+              </button>
+              <div className="mt-4 bg-gradient-to-b from-[#E8E8E8] to-[#B0B0B0] px-5 py-1.5 rounded-full border border-[#690bac]/50 flex items-center gap-2 shadow-[0_4px_15px_rgba(105,11,172,0.3)]">
+                <span className="material-symbols-outlined text-[#690bac] text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>local_fire_department</span>
+                <span className="text-[#690bac] font-body font-bold text-sm tracking-tight">7 Day Streak</span>
               </div>
             </div>
           </div>
-
-          {/* Word of the Day */}
-          <div className="flex flex-col items-center gap-3">
-            <ChunkyButton variant="secondary" className="w-full">
-              WOTD
-            </ChunkyButton>
-            <div className="bg-[#4b007e] px-4 py-1 rounded-full shadow-[0_4px_0_0_rgba(0,0,0,0.3)]">
-              <div className="bg-gradient-to-b from-[#E8E8E8] to-[#B0B0B0] text-[#4b007e] font-headline text-xs px-3 py-0.5 rounded-full">
-                STREAK: 5 DAYS
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
+      </main>
 
       {/* Footer Info */}
-      <div className="absolute bottom-8 opacity-40 text-xs font-body uppercase tracking-tighter">
-        v0.1.0-alpha // Hyper-Glossy Irony
-      </div>
-
+      <footer className="w-full py-6 flex justify-center items-center z-10">
+        <div className="opacity-40 text-[10px] font-body font-bold uppercase tracking-[0.3em] flex items-center gap-4">
+          <span>v1.0.42</span>
+          <span className="w-1 h-1 bg-on-surface rounded-full"></span>
+          <span>Hyper-Glossy Irony</span>
+        </div>
+      </footer>
     </div>
   );
 };

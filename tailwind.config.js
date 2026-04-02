@@ -24,9 +24,15 @@ export default {
           low: '#1a1a2e',
           lowest: '#0c0c1f',
           highest: '#1d1d3d',
+          container: '#1e1e32',
+          bright: '#37374d',
+        },
+        'on-secondary': {
+          container: '#d5a4ff',
+          'fixed-variant': '#690bac',
         },
         'on-surface': '#ffffff',
-        'on-primary': '#000000',
+        'on-primary': '#3a3000',
       },
       fontFamily: {
         headline: ['Lilita One', 'sans-serif'],
