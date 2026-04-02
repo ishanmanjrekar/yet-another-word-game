@@ -3,6 +3,7 @@ import React from 'react';
 interface TileProps {
   letter: string;
   isActive?: boolean;
+  isHighlighted?: boolean;
   onClick?: () => void;
   className?: string;
 }
@@ -10,6 +11,7 @@ interface TileProps {
 export const Tile: React.FC<TileProps> = ({ 
   letter, 
   isActive = false, 
+  isHighlighted = false,
   onClick, 
   className = '' 
 }) => {
@@ -17,14 +19,13 @@ export const Tile: React.FC<TileProps> = ({
     <button 
       onClick={onClick}
       className={`
-        aspect-square rounded-xl bg-surface-highest
-        flex items-center justify-center
-        font-headline text-3xl text-on-surface select-none
-        border-b-4 border-surface-lowest
-        shadow-[inset_0_2px_0_0_rgba(255,255,255,0.1)]
-        transition-all duration-100 ease-in-out cursor-pointer
-        active:translate-y-1 active:border-b-0
-        ${isActive ? 'translate-y-1 border-b-0 opacity-80' : ''}
+        aspect-square rounded-[14px] flex items-center justify-center
+        font-headline text-[2.25rem] select-none uppercase
+        shadow-[inset_0_2px_0_0_rgba(255,255,255,0.05),0_4px_0_0_#1a1a2e]
+        transition-all duration-100 ease-in-out cursor-pointer outline-none pb-1
+        active:translate-y-[4px] active:shadow-[inset_0_2px_0_0_rgba(255,255,255,0.05),0_0px_0_0_#1a1a2e]
+        ${isActive ? 'translate-y-[4px] shadow-[inset_0_2px_0_0_rgba(255,255,255,0.05),0_0px_0_0_#1a1a2e] opacity-40 bg-[#2b2b40] text-gray-400' : 'bg-[#35354f] text-white hover:bg-[#3d3d5a]'}
+        ${isHighlighted ? 'ring-4 ring-secondary animate-pulse' : ''}
         ${className}
       `}
     >

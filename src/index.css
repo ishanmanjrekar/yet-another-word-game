@@ -102,3 +102,39 @@ html, body {
     0 20px 20px rgba(0,0,0,.15);
 }
 
+/* Stage Start Overlay Styles */
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 2s ease-in-out infinite;
+}
+
+.stage-overlay-text {
+  text-shadow: 
+    0 4px 0 #554600, 
+    0 8px 0 #554600, 
+    0 0 20px rgba(233,196,0,0.3);
+}
+/* Power-up Tooltip Styles */
+@keyframes bounce-short {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.animate-bounce-short {
+  animation: bounce-short 2s infinite ease-in-out;
+}
+
+.tooltip-arrow::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #e2e0fc; /* Light purple to match bg-inverse-surface */
+}

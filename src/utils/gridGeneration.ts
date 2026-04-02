@@ -48,7 +48,8 @@ export function generateStage(
   
   // Select words based on requirements
   for (const req of stageConfig.words) {
-    const availableWords = wordBank[req.wordLength.toString()]?.[req.difficulty.toString()] || [];
+    const availableWords = (wordBank[req.wordLength.toString()] || [])
+        .filter(w => w.difficulty === req.difficulty);
     let validWords = availableWords.filter(w => !history.has(w.word));
     
     // If we exhausted all valid words, just pick from available without history constraint

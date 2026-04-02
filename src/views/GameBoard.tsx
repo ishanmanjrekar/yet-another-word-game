@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useGameStore } from '../store/gameStore';
 import { useInterval } from '../hooks/useInterval';
 import { Tile } from '../components/ui/Tile';
+import { StageStartOverlay } from '../components/ui/StageStartOverlay';
 
 export const GameBoard: React.FC = () => {
   const {
@@ -13,11 +14,20 @@ export const GameBoard: React.FC = () => {
     selectedIndices,
     activeWordIndex,
     selectTile,
+    deselectSlot,
     completedWords,
+    highlightedIndices,
     nextWord,
     prevWord,
-    setGameState
+    setGameState,
+    gameState,
+    economy,
+    executeShuffle,
+    executeHint,
+    executeLightning
   } = useGameStore((state) => state);
+
+  const [activeTooltip, setActiveTooltip] = useState<'shuffle' | 'hint' | 'lightning' | null>(null);
 
   const [timeLeft, setTimeLeft] = useState(0);
 
@@ -33,106 +43,287 @@ export const GameBoard: React.FC = () => {
   useInterval(() => {
     setTimeLeft(t => {
       if (t <= 1) {
-        // Time's up
-        setGameState('menu');
+        setGameState('gameover');
         return 0;
       }
       return t - 1;
     });
-  }, 1000);
+  }, gameState === 'playing' ? 1000 : null);
+  
+  // Auto-transition logic with delay
+  useEffect(() => {
+    const isCompleted = completedWords.includes(activeWordIndex);
+    const isLastWord = activeWordIndex === stageWords.length - 1;
+    
+    if (isCompleted && !isLastWord) {
+      const timer = setTimeout(() => {
+        nextWord();
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [completedWords, activeWordIndex, stageWords.length, nextWord]);
 
   const activeWordObj = stageWords[activeWordIndex];
+  const stageConfig = levelDesign?.stages[activeStage.toString()];
+  const gridCols = stageConfig?.grid.cols || 4;
 
-  if (!activeWordObj) return <div className="flex bg-surface min-h-screen text-on-surface items-center justify-center font-headline text-2xl">Loading...</div>;
+  if (!activeWordObj) return <div className="flex bg-[#161625] h-screen w-full text-white items-center justify-center font-headline text-2xl">Loading...</div>;
+  
+  const formatDefinition = (def: string) => {
+    const semiIndex = def.indexOf(';');
+    if (semiIndex !== -1) {
+      return def.substring(0, semiIndex).trim() + '.';
+    }
+    return def;
+  };
+
+  // Check if more hints can be provided for the current word
+  const isHintAvailable = (() => {
+    if (!activeWordObj) return false;
+    const activeWord = activeWordObj.word.toUpperCase();
+    
+    const charCounts: Record<string, number> = {};
+    for (const char of activeWord) {
+      charCounts[char] = (charCounts[char] || 0) + 1;
+    }
+    
+    const addressedIndices = [...selectedIndices, ...highlightedIndices].filter((idx): idx is number => idx !== null);
+    for (const idx of addressedIndices) {
+      const char = gridLetters[idx]?.toUpperCase();
+      if (char && charCounts[char] !== undefined && charCounts[char] > 0) {
+        charCounts[char]--;
+      }
+    }
+    
+    const neededChars = Object.keys(charCounts).filter(char => charCounts[char] > 0);
+    if (neededChars.length === 0) return false;
+    
+    return gridLetters.some((char, idx) => {
+      const upperChar = char.toUpperCase();
+      return neededChars.includes(upperChar) && !addressedIndices.includes(idx);
+    });
+  })();
+
+  // Check if lightning can correct any slots
+  const isLightningAvailable = (() => {
+    if (!activeWordObj) return false;
+    const activeWord = activeWordObj.word.toUpperCase();
+    return selectedIndices.some((tileIdx, i) => {
+      if (tileIdx === null) return true;
+      return gridLetters[tileIdx]?.toUpperCase() !== activeWord[i];
+    });
+  })();
 
   return (
-    <div className="relative min-h-screen w-full bg-surface flex flex-col overflow-hidden text-on-surface">
-      {/* Top Bar Fixed */}
-      <div className="sticky top-0 z-50 bg-surface-container-low shadow-md p-4 flex justify-between items-center">
-        <button onClick={() => setGameState('menu')} className="w-10 h-10 bg-surface-dim rounded-full flex items-center justify-center font-headline hover:bg-surface-dimmer transition-colors">
-          ||
+    <div className="flex flex-col h-full w-full bg-[#161625] overflow-hidden text-white font-body selection:bg-transparent tracking-wide absolute inset-0">
+      {/* Top Bar */}
+      <div className="flex-none h-16 sm:h-20 px-4 sm:px-6 flex justify-between items-center z-10 border-b border-[#1f1f33]">
+        {/* Pause Button */}
+        <button onClick={() => setGameState('paused')} className="w-10 h-10 sm:w-[3.25rem] sm:h-[3.25rem] bg-[#2a2a4b] rounded-xl sm:rounded-2xl flex items-center justify-center border-b-[5px] border-[#18182b] active:border-b-0 active:translate-y-[5px] transition-all">
+          <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-6 sm:h-6 text-primary fill-current"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
         </button>
-        <div className={`font-headline text-2xl ${timeLeft <= 10 ? 'text-error animate-pulse' : 'text-primary'}`}>
-          {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}
+        {/* Timer */}
+        <div className={`font-headline text-4xl sm:text-[2.75rem] ${timeLeft <= 10 ? 'text-red-500 animate-pulse' : 'text-primary'}`} style={{ textShadow: '0 3px 0 #8c7600' }}>
+          {Math.floor(timeLeft / 60).toString().padStart(2, '0')}:{(timeLeft % 60).toString().padStart(2, '0')}
         </div>
-        <div className="bg-surface-dim px-3 py-1 rounded-xl flex items-center gap-2">
-          <span className="text-secondary font-headline">🪙</span>
-          <span className="font-headline text-on-surface">{coins}</span>
+        {/* Coins Pill */}
+        <div className="h-10 sm:h-[3.25rem] bg-[#2a2a4b] px-3 sm:px-4 rounded-full flex items-center justify-center gap-2 border-b-[5px] border-[#18182b]">
+          <div className="w-5 h-5 sm:w-6 sm:h-6 bg-primary rounded-full text-black flex items-center justify-center font-headline text-sm sm:text-lg"><span className="-mt-0.5">$</span></div>
+          <span className="font-headline text-lg sm:text-xl text-white mt-1">{coins.toLocaleString()}</span>
         </div>
       </div>
 
-      {/* Upper Half */}
-      <div className="flex-1 p-6 flex flex-col justify-center gap-8 pt-8">
-        {/* Active Word Slots */}
-        <div className="flex justify-center gap-2">
-          {activeWordObj.word.split('').map((_, i) => {
-            const hasSelectionForSlot = i < selectedIndices.length;
-            const displayedLetter = hasSelectionForSlot ? gridLetters[selectedIndices[i]] : '';
-            return (
-              <div 
-                key={i} 
-                className={`w-12 h-14 rounded-lg flex items-center justify-center font-headline text-2xl uppercase transition-colors
-                  ${hasSelectionForSlot ? 'bg-primary text-on-primary shadow-lg shadow-primary/30' : 'bg-surface-container-high text-on-surface-variant border-b-4 border-surface-container-highest'}`}
-              >
-                {displayedLetter}
-              </div>
-            );
-          })}
-        </div>
+      {/* Main Containers */}
+      <div className="flex-1 flex flex-col p-2 sm:p-5 gap-2 sm:gap-4 min-h-0 overflow-hidden text-base">
         
-        {/* Definition Text */}
-        <div className="bg-surface-container-lowest p-5 rounded-2xl shadow-inner border border-surface-dim relative overflow-visible mt-2">
-           <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-surface-container-highest px-3 py-0.5 rounded-full text-[10px] font-headline tracking-widest text-on-surface-variant uppercase">
-             Hint
-           </div>
-          <p className="font-body text-center text-sm md:text-base text-on-surface leading-snug">
-            {activeWordObj.definition}
-          </p>
-        </div>
-
-        {/* Word Toggles */}
-        <div className="flex justify-between items-center mt-auto pb-4">
-          <button onClick={prevWord} className="text-secondary font-headline text-xs tracking-widest uppercase px-4 py-2 hover:bg-surface-container-high rounded-full transition-colors">
-            Prev
-          </button>
-          <div className="flex gap-2 isolate">
-            {stageWords.map((_, i) => (
-              <div key={i} className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ease-in-out ${
-                i === activeWordIndex 
-                  ? 'bg-primary scale-125 shadow-[0_0_8px_rgba(var(--color-primary),0.6)]' 
-                  : completedWords.includes(i) 
-                    ? 'bg-tertiary shadow-[0_0_8px_rgba(var(--color-tertiary),0.6)]' 
-                    : 'bg-surface-container-highest'}`} />
-            ))}
+        {/* Upper Card: Definition & Progress */}
+        <div className="bg-[#1d1d3d] rounded-2xl sm:rounded-[2rem] flex flex-col p-2 sm:p-4 shadow-xl shrink-0">
+          {/* Progress Dots */}
+          <div className="flex justify-center items-center gap-1.5 sm:gap-3 mb-1 sm:mb-2 mt-0.5 h-3 sm:h-5">
+            {stageWords.map((_, i) => {
+              const isActive = i === activeWordIndex;
+              const isComp = completedWords.includes(i);
+              return isActive ? (
+                <div key={i} className="w-2.5 h-2.5 sm:w-4 sm:h-4 rounded-full border-[2px] border-[#8a8a25] flex items-center justify-center relative">
+                   <div className="absolute w-1 h-1 sm:w-2 sm:h-2 bg-primary rounded-full"></div>
+                </div>
+              ) : isComp ? (
+                <div key={i} className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 bg-tertiary rounded-full flex items-center justify-center">
+                  <svg className="w-2 h-2 text-black" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                </div>
+              ) : (
+                <div key={i} className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 bg-[#3b2b6b] rounded-full"></div>
+              );
+            })}
           </div>
-          <button onClick={nextWord} className="text-secondary font-headline text-xs tracking-widest uppercase px-4 py-2 hover:bg-surface-container-high rounded-full transition-colors">
-            Next
-          </button>
-        </div>
-      </div>
 
-      {/* Lower Half */}
-      <div className="bg-surface-container shadow-[inset_0_4px_12px_rgba(0,0,0,0.5)] p-6 rounded-t-[32px] pb-12 pt-8">
-        <div className="grid grid-cols-4 gap-3 aspect-square max-w-[340px] mx-auto">
-          {gridLetters.map((char, index) => {
-            const isSelected = selectedIndices.includes(index);
-            return (
-              <div key={index} onClick={() => selectTile(index)} className={`hardware-accelerated cursor-pointer transition-transform ${isSelected ? 'scale-90 opacity-70' : 'hover:scale-105 active:scale-95'}`}>
-                <Tile letter={char} isActive={isSelected} />
-              </div>
-            );
-          })}
-        </div>
+          {/* Active Word Slots */}
+          <div className="flex justify-center gap-1 sm:gap-2 mb-1.5 sm:mb-3 h-8 sm:h-12">
+            {selectedIndices.map((tileIndex, i) => {
+              const isCompleted = completedWords.includes(activeWordIndex);
+              const targetChar = activeWordObj.word[i].toUpperCase();
+              const currentChar = tileIndex !== null ? gridLetters[tileIndex].toUpperCase() : null;
+              const isCorrect = currentChar === targetChar;
+              const showSuccess = isCompleted || isCorrect;
+              
+              const displayedLetter = isCompleted 
+                ? activeWordObj.word[i] 
+                : (tileIndex !== null ? gridLetters[tileIndex] : '');
+              
+              return (
+                <div 
+                  key={i} 
+                  onClick={() => !isCompleted && tileIndex !== null && deselectSlot(i)}
+                  className={`w-7 sm:w-10 h-8 sm:h-12 bg-[#111125] rounded-lg flex items-center justify-center font-headline text-sm sm:text-2xl shadow-inner relative overflow-hidden transition-all ${showSuccess ? 'border-2 border-tertiary shadow-[0_0_8px_rgba(0,228,113,0.4)]' : 'border border-white/5'} ${!isCompleted && tileIndex !== null ? 'cursor-pointer hover:bg-[#1a1a35] active:scale-95' : ''}`}
+                >
+                  <span className={`text-[#77778b] absolute font-black tracking-tighter ${displayedLetter ? 'hidden' : 'block'}`}>_</span>
+                  <span className={`${showSuccess ? 'text-tertiary' : 'text-primary'} uppercase ${displayedLetter ? 'block' : 'hidden'}`}>{displayedLetter}</span>
+                </div>
+              );
+            })}
+          </div>
+          
+          {/* Definition Area */}
+          <div className="flex flex-col justify-center mb-1.5 sm:mb-3">
+             <h3 className="tracking-[0.1em] text-[#dfb7ff] text-[0.45rem] sm:text-[0.6rem] uppercase font-headline mb-0.5 text-center opacity-70">
+               DEFINITION
+             </h3>
+             <p className="font-body tracking-wide text-center text-[0.6rem] sm:text-base lg:text-lg leading-tight text-white px-2 break-words italic line-clamp-3">
+               {formatDefinition(activeWordObj.definition)}
+             </p>
+          </div>
 
-        {/* Power up tray (mocked for now) */}
-        <div className="flex justify-center gap-6 mt-10">
-          {['🔀', '💡', '⚡'].map((icon, i) => (
-            <button key={i} className="w-14 h-14 rounded-full bg-surface-container-high border-b-[6px] border-surface-container-highest shadow-xl flex items-center justify-center text-xl hover:-translate-y-1 active:translate-y-1 active:border-b-2 active:mt-1 transition-all hardware-accelerated">
-              {icon}
+          {/* Navigation Buttons */}
+          <div className="flex justify-between gap-1.5 sm:gap-4 mt-auto">
+            <button 
+              onClick={prevWord} 
+              disabled={activeWordIndex === 0}
+              className={`flex-1 bg-[#2a2a4b] text-[#dfb7ff] border-b-[3px] sm:border-b-[6px] border-[#18182b] active:border-b-0 active:translate-y-[3px] sm:active:translate-y-[6px] font-headline tracking-widest uppercase py-1 sm:py-3.5 rounded-lg sm:rounded-[1.25rem] transition-all text-[0.6rem] sm:text-sm ${activeWordIndex === 0 ? 'opacity-40 grayscale pointer-events-none' : ''}`}
+            >
+              PREVIOUS
             </button>
-          ))}
+            <button 
+              onClick={nextWord} 
+              disabled={activeWordIndex === stageWords.length - 1}
+              className={`flex-1 bg-primary text-[#554600] border-b-[3px] sm:border-b-[6px] border-[#b09400] active:border-b-0 active:translate-y-[3px] sm:active:translate-y-[6px] font-headline tracking-widest uppercase py-1 sm:py-3.5 rounded-lg sm:rounded-[1.25rem] transition-all text-[0.6rem] sm:text-sm ${activeWordIndex === stageWords.length - 1 ? 'opacity-40 grayscale pointer-events-none' : ''}`}
+            >
+              NEXT
+            </button>
+          </div>
         </div>
+
+        {/* Lower Card: Grid & Powerups */}
+        <div className="flex-1 min-h-0 flex flex-col justify-between bg-[#1d1d3d] rounded-2xl sm:rounded-[2rem] p-2.5 sm:p-5 shadow-xl overflow-hidden">
+          {/* Grid Area */}
+          <div className="flex-1 flex justify-center items-center min-h-0 w-full">
+            <div 
+              className="grid gap-1.5 sm:gap-3.5 w-full max-h-[220px] sm:max-h-[320px] max-w-[220px] sm:max-w-[320px] aspect-square"
+              style={{ gridTemplateColumns: `repeat(${gridCols}, minmax(0, 1fr))` }}
+            >
+              {gridLetters.map((char, index) => {
+                const isSelected = selectedIndices.includes(index);
+                const isHighlighted = highlightedIndices.includes(index);
+                return (
+                  <Tile 
+                    key={`${index}-${char}`}
+                    letter={char} 
+                    className="w-full h-full !text-base sm:!text-[2.25rem] pb-0 sm:pb-1"
+                    isActive={isSelected} 
+                    isHighlighted={isHighlighted}
+                    onClick={() => selectTile(index)} 
+                  />
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Power up row */}
+          <div className="flex justify-center items-center gap-4 sm:gap-8 mt-2 shrink-0 pb-1">
+            {/* Shuffle Tooltip & Button */}
+            <div className="relative flex flex-col items-center">
+              {activeTooltip === 'shuffle' && (
+                <div className="absolute bottom-[calc(100%+12px)] z-50 flex flex-col items-center bg-[#e2e0fc] rounded-xl p-2 shadow-2xl tooltip-arrow animate-bounce-short px-3 w-32 border border-white/20">
+                  <div className="flex flex-col items-center gap-1">
+                    <span className="text-[#2f2e43] font-body text-[11px] font-medium leading-tight text-center px-1">Rearrange the tiles</span>
+                    <button 
+                      onClick={() => { executeShuffle(); setActiveTooltip(null); }}
+                      className="mt-1 flex items-center gap-1 bg-primary text-[#3a3000] px-3 py-1 rounded-full text-[10px] font-bold shadow-sm border-b-2 border-[#554600] active:translate-y-0.5 active:border-b-0 transition-all uppercase tracking-tight"
+                    >
+                      <span>USE {economy?.powerups.shuffle.cost ?? 0}</span>
+                      <span className="w-3 h-3 bg-[#3a3000] rounded-full flex items-center justify-center text-[8px] text-primary">$</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+              <button 
+                onClick={() => setActiveTooltip(activeTooltip === 'shuffle' ? null : 'shuffle')}
+                className={`w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-tertiary border-b-[4px] sm:border-b-[8px] border-[#009b4c] flex items-center justify-center active:border-b-0 active:translate-y-[4px] sm:active:translate-y-[8px] transition-all ${activeTooltip === 'shuffle' ? 'ring-4 ring-tertiary/40 brightness-110 shadow-lg' : ''}`}
+              >
+                <svg viewBox="0 0 24 24" className="w-7 h-7 sm:w-10 sm:h-10 text-[#00602f]" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+              </button>
+            </div>
+
+            {/* Hint Tooltip & Button */}
+            <div className="relative flex flex-col items-center">
+              {activeTooltip === 'hint' && (
+                <div className="absolute bottom-[calc(100%+12px)] z-50 flex flex-col items-center bg-[#e2e0fc] rounded-xl p-2 shadow-2xl tooltip-arrow animate-bounce-short px-3 w-32 border border-white/20">
+                  <div className="flex flex-col items-center gap-1">
+                    <span className="text-[#2f2e43] font-body text-[11px] font-medium leading-tight text-center px-1">Highlight a correct letter</span>
+                    <button 
+                      onClick={() => { executeHint(); setActiveTooltip(null); }}
+                      disabled={!isHintAvailable}
+                      className={`mt-1 flex items-center gap-1 bg-primary text-[#3a3000] px-3 py-1 rounded-full text-[10px] font-bold shadow-sm border-b-2 border-[#554600] active:translate-y-0.5 active:border-b-0 transition-all uppercase tracking-tight ${!isHintAvailable ? 'opacity-50 grayscale pointer-events-none' : ''}`}
+                    >
+                      <span>{isHintAvailable ? `USE ${economy?.powerups.hint.cost ?? 0}` : 'NO HINTS LEFT'}</span>
+                      {isHintAvailable && <span className="w-3 h-3 bg-[#3a3000] rounded-full flex items-center justify-center text-[8px] text-primary">$</span>}
+                    </button>
+                  </div>
+                </div>
+              )}
+              <button 
+                onClick={() => setActiveTooltip(activeTooltip === 'hint' ? null : 'hint')}
+                className={`w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-secondary border-b-[4px] sm:border-b-[8px] border-[#b580e0] flex items-center justify-center active:border-b-0 active:translate-y-[4px] sm:active:translate-y-[8px] transition-all ${activeTooltip === 'hint' ? 'ring-4 ring-secondary/40 brightness-110 shadow-lg' : ''}`}
+              >
+                <svg viewBox="0 0 24 24" className="w-8 h-8 sm:w-12 sm:h-12 text-[#6c11af] fill-current"><path d="M12 22a2.98 2.98 0 0 0 2.818-2H9.182A2.98 2.98 0 0 0 12 22zm7-7.41V11c0-3.866-3.134-7-7-7s-7 3.134-7 7v3.59l-2 2V18h18v-1.41l-2-2z"/></svg>
+              </button>
+            </div>
+
+            {/* Lightning Tooltip & Button */}
+            <div className="relative flex flex-col items-center">
+              {activeTooltip === 'lightning' && (
+                <div className="absolute bottom-[calc(100%+12px)] z-50 flex flex-col items-center bg-[#e2e0fc] rounded-xl p-2 shadow-2xl tooltip-arrow animate-bounce-short px-3 w-32 border border-white/20">
+                  <div className="flex flex-col items-center gap-1">
+                    <span className="text-[#2f2e43] font-body text-[11px] font-medium leading-tight text-center px-1">Place a correct letter</span>
+                    <button 
+                      onClick={() => { executeLightning(); setActiveTooltip(null); }}
+                      disabled={!isLightningAvailable}
+                      className={`mt-1 flex items-center gap-1 bg-primary text-[#3a3000] px-3 py-1 rounded-full text-[10px] font-bold shadow-sm border-b-2 border-[#554600] active:translate-y-0.5 active:border-b-0 transition-all uppercase tracking-tight ${!isLightningAvailable ? 'opacity-50 grayscale pointer-events-none' : ''}`}
+                    >
+                      <span>{isLightningAvailable ? `USE ${economy?.powerups.lightning.cost ?? 0}` : 'NO SLOTS LEFT'}</span>
+                      {isLightningAvailable && <span className="w-3 h-3 bg-[#3a3000] rounded-full flex items-center justify-center text-[8px] text-primary">$</span>}
+                    </button>
+                  </div>
+                </div>
+              )}
+              <button 
+                onClick={() => setActiveTooltip(activeTooltip === 'lightning' ? null : 'lightning')}
+                className={`w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-primary border-b-[4px] sm:border-b-[8px] border-[#ba9a00] flex items-center justify-center active:border-b-0 active:translate-y-[4px] sm:active:translate-y-[8px] transition-all ${activeTooltip === 'lightning' ? 'ring-4 ring-primary/40 brightness-110 shadow-lg' : ''}`}
+              >
+                <svg viewBox="0 0 24 24" className="w-7 h-7 sm:w-10 sm:h-10 text-[#665400] fill-current"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
       </div>
+
+      {/* Overlay Screens */}
+      {gameState === 'stageStart' && (
+        <StageStartOverlay 
+          stageNumber={activeStage} 
+          onStart={() => setGameState('playing')} 
+        />
+      )}
     </div>
   );
 };

@@ -2,35 +2,27 @@
   "stages": {
     "1": {
       "grid": {
-        "rows": 4,
-        "cols": 4
+        "rows": 3,
+        "cols": 3
       },
-      "timer": 60,
+      "timer": 180,
       "words": [
         {
           "wordLength": 4,
-          "difficulty": 2
+          "difficulty": 1
         },
         {
           "wordLength": 4,
-          "difficulty": 2
-        },
-        {
-          "wordLength": 4,
-          "difficulty": 2
-        },
-        {
-          "wordLength": 4,
-          "difficulty": 3
+          "difficulty": 1
         }
       ]
     },
     "2": {
       "grid": {
-        "rows": 4,
-        "cols": 4
+        "rows": 3,
+        "cols": 3
       },
-      "timer": 55,
+      "timer": 180,
       "words": [
         {
           "wordLength": 5,
@@ -38,14 +30,6 @@
         },
         {
           "wordLength": 4,
-          "difficulty": 3
-        },
-        {
-          "wordLength": 4,
-          "difficulty": 3
-        },
-        {
-          "wordLength": 3,
           "difficulty": 2
         }
       ]
@@ -53,9 +37,9 @@
     "3": {
       "grid": {
         "rows": 3,
-        "cols": 3
+        "cols": 4
       },
-      "timer": 45,
+      "timer": 180,
       "words": [
         {
           "wordLength": 4,
@@ -66,8 +50,8 @@
           "difficulty": 2
         },
         {
-          "wordLength": 1,
-          "difficulty": 1
+          "wordLength": 5,
+          "difficulty": 5
         }
       ]
     },

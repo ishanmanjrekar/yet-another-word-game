@@ -8,12 +8,12 @@ const API_URL = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
 
 // Target buckets (25 words each)
 const TARGETS = {
-  '4': [2, 3, 4, 6],
-  '5': [2, 3, 4, 5, 6],
+  '4': [1, 2, 3, 4, 6],
+  '5': [1, 2, 3, 4, 5, 6],
   '6': [1, 2, 3, 4, 5, 6],
   '7': [1, 2, 3, 4, 6],
 };
-const WORDS_PER_BUCKET = 50; // Increased to give you a massive word bank
+const WORDS_PER_BUCKET = 50; // Increased to ensure we get at least 25 per bucket after skips
 
 async function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -52,10 +52,7 @@ async function main() {
 
   // Initialize buckets
   for (const length in TARGETS) {
-    wordsByBucket[length] = {};
-    for (const difficulty of TARGETS[length]) {
-      wordsByBucket[length][difficulty] = [];
-    }
+    wordsByBucket[length] = [];
   }
 
   const rawWords = [];
@@ -89,7 +86,7 @@ async function main() {
   const wordBank = {};
 
   for (const length in TARGETS) {
-    wordBank[length] = {};
+    wordBank[length] = [];
     for (const difficulty of TARGETS[length]) {
       console.log(`Processing bucket: Length ${length}, Difficulty ${difficulty}...`);
       const bucketWords = rawWords.filter(w => w.length === length && Number(w.level) === difficulty);
@@ -102,7 +99,8 @@ async function main() {
         if (definition) {
           successfulWords.push({
             word: item.word,
-            definition: definition
+            definition: definition,
+            difficulty: difficulty
           });
           console.log(`  [OK] ${item.word}`);
         } else {
@@ -113,7 +111,7 @@ async function main() {
         await sleep(200);
       }
       
-      wordBank[length][difficulty] = successfulWords;
+      wordBank[length].push(...successfulWords);
     }
   }
 

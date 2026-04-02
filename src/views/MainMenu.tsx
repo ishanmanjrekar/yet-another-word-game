@@ -14,7 +14,7 @@ export const MainMenu: React.FC = () => {
     try {
       const { selectedWords, grid } = generateStage(stageConfig, wordBank, new Set());
       initStage(selectedWords, grid);
-      setGameState('playing');
+      setGameState('stageStart');
     } catch (e) {
       console.error(e);
     }

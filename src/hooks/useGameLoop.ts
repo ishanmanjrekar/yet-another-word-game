@@ -7,8 +7,8 @@ import { useEffect, useRef } from 'react';
  * that maintains a steady tick rate independent of framerate.
  */
 export function useGameLoop(callback: (deltaTime: number) => void) {
-  const requestRef = useRef<number>();
-  const previousTimeRef = useRef<number>();
+  const requestRef = useRef<number>(undefined);
+  const previousTimeRef = useRef<number>(undefined);
 
   const animate = (time: number) => {
     if (previousTimeRef.current !== undefined) {
