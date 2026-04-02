@@ -1,13 +1,20 @@
 # YAWG: Yet Another Word Game - Game Design Document
 
+> **Architecture & Sub-Documents Reference:**
+> - [Level Design Core](./level-design.md)
+> - [Grid Generation Algorithm](./grid-generation-algorithm.md)
+> - [JSON Data Schemas](./json-schemas.md)
+> - [Powerups & Mechanics](./powerups-logic.md)
+> - [Vocabulary Offline Pipeline](./vocabulary-generation-pipeline.md)
+
 ## 1. Overview
 - **Game Name:** YAWG (Yet Another Word Game)
 - **Core Concept:** A word game where players guess target words based on their dictionary definitions using a 4x4 grid of letter tiles.
 - **Objective:** Solve all the required words for a stage or a daily challenge using the provided grid of tiles.
 
 ## 2. Core Gameplay Mechanics
-- **Grid Layout:** 16 letter tiles arranged in a 4x4 grid.
-- **Word Constraints:** Words to be guessed range from a minimum of 4 letters to a maximum of 8 letters.
+- **Grid Layout:** Variable grid layouts (e.g., 3x3, 4x4) configured dynamically per stage within `level-design.json`. Maximum size is 4x4 (16 tiles).
+- **Word Constraints:** Words range from a minimum of 4 letters to a maximum of 8 letters. The sum of all word lengths in a single stage must physically fit within the active grid.
 - **Tile Selection:** Players can select any tile from the 16-tile grid in any order (tiles do not need to be adjacent). A single tile can only be used once per active word.
 - **Word Presentation:** A stage usually features multiple words to guess within the same 16-tile set (e.g., one 4-letter word, two 5-letter words, and one 8-letter word).
   - Only one blank word and its corresponding definition are presented on screen at a given time.
@@ -24,16 +31,16 @@
 - **Stage Completion:** The player must successfully guess all the words in a stage to clear it and advance to the next.
 - **Level Generation:** Words in each level are procedurally generated and categorized by difficulty based on the CEFR (Common European Framework of Reference for Languages) scale. *(Logic expanded in the level design document).*
 - **Timer Mechanics:** 
-  - Each stage possesses a countdown timer. This timer starts fresh for every new stage.
-  - Correctly guessing a word grants bonus time to the active timer.
+  - Each stage possesses a countdown timer defined in `level-design.json` (e.g., defaulting to 60 seconds). This timer starts fresh for every new stage.
+  - *(TBD)*: Correctly guessing a word may grant bonus time to the active timer depending on exact difficulty scaling requirements.
   - Failing to guess all words before the timer expires results in game over.
 - **Scoring & Rewards:** 
   - There is no traditional point system. The player's **High Score** is exclusively the highest stage number they reach.
-  - Completing stages rewards the player with **Coins**. The payout of coins scales dynamically depending on the difficulty of the cleared stage.
+  - Completing stages rewards the player with **Coins**. Base payouts start at a fixed value (e.g., 10) and dynamically scale by +10% compounding for every subsequent stage (managed mathematically via `rewards.json`).
 
 ### 3.2 Word of the Day
-- **Structure:** A daily puzzle synchronized to the UTC calendar time. It consists of exactly one stage.
-- **Content:** The daily stage features an 8-letter master word and multiple smaller sub-words (e.g., three 5-letter words and two 4-letter words), all built from the same shared 16-tile daily grid. Every word has its respective definition attached.
+- **Structure:** A daily puzzle synchronized to the UTC calendar time. It consists of exactly one stage identical for all players globally, utilizing an offline Seeded RNG based on the UTC Date integer.
+- **Content:** The daily stage features an 8-letter master word and multiple smaller sub-words (e.g., three 5-letter words and two 4-letter words), all built from the same shared daily grid. Every word has its respective definition attached.
 - **Rules:** 
   - **No Timer:** Players can play at their own leisure.
   - **Unlimited attempts:** No strike limit.
