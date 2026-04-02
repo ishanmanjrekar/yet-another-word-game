@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { generateStage } from '../utils/gridGeneration';
 
 export interface WordBankItem {
   word: string;
@@ -76,6 +77,8 @@ interface GameState {
   executeShuffle: () => void;
   executeHint: () => void;
   executeLightning: () => void;
+  completeStage: () => void;
+  advanceToNextStage: () => void;
 }
 
 export const useGameStore = create<GameState>((set) => ({
@@ -168,8 +171,8 @@ export const useGameStore = create<GameState>((set) => ({
             finalIndices = finalIndices.map(() => null);
             
             if (newlyCompleted.length === state.stageWords.length) {
-                newCoins += (state.economy?.rewards.baseCoinPayout || 50);
-                newGameState = 'stageClear';
+                // We'll let the GameBoard handle the delay before setting state to 'stageClear'
+                // and awarding coins via a new action
             }
          }
       }
@@ -278,7 +281,7 @@ export const useGameStore = create<GameState>((set) => ({
       }, []);
       
       if (candidates.length === 0) return {};
-
+ 
       const randomTarget = candidates[Math.floor(Math.random() * candidates.length)];
       return {
         coins: state.coins - state.economy.powerups.hint.cost,
@@ -337,30 +340,70 @@ export const useGameStore = create<GameState>((set) => ({
       }
       
       currentIndices[targetSlotPos] = targetGridIndex;
-
+ 
       // 5. Completion Check
       let newlyCompleted = [...state.completedWords];
       let newCoins = state.coins - state.economy.powerups.lightning.cost;
       let newGameState = state.gameState;
       let finalIndices = currentIndices;
-
+ 
       if (currentIndices.every(idx => idx !== null)) {
          const spelledWord = currentIndices.map(idx => state.gridLetters[idx!]).join('');
          if (spelledWord.toUpperCase() === activeWord.toUpperCase()) {
             newlyCompleted.push(state.activeWordIndex);
             finalIndices = finalIndices.map(() => null);
             if (newlyCompleted.length === state.stageWords.length) {
-                newCoins += (state.economy?.rewards.baseCoinPayout || 50);
-                newGameState = 'stageClear';
+                // We'll let the GameBoard handle the delay
             }
          }
       }
-
+ 
       return {
         selectedIndices: finalIndices,
         completedWords: newlyCompleted,
         coins: newCoins,
         gameState: newGameState
       };
+    }),
+ 
+  completeStage: () =>
+    set((state) => {
+      if (state.gameState === 'stageClear') return {};
+      const reward = state.economy?.rewards.baseCoinPayout || 50;
+      return {
+        coins: state.coins + reward,
+        gameState: 'stageClear'
+      };
+    }),
+
+  advanceToNextStage: () =>
+    set((state) => {
+      if (!state.levelDesign || !state.wordBank) return {};
+      
+      const nextStageNum = state.activeStage + 1;
+      const stageConfig = state.levelDesign.stages[nextStageNum.toString()];
+      
+      if (!stageConfig) {
+        return { gameState: 'menu' };
+      }
+
+      try {
+        const { selectedWords, grid } = generateStage(stageConfig, state.wordBank, new Set());
+        const firstWordLen = selectedWords[0].word.length;
+        
+        return {
+          activeStage: nextStageNum,
+          gameState: 'stageStart',
+          stageWords: selectedWords,
+          gridLetters: grid,
+          selectedIndices: new Array(firstWordLen).fill(null),
+          activeWordIndex: 0,
+          completedWords: [],
+          highlightedIndices: []
+        };
+      } catch (e) {
+        console.error('Failed to generate next stage:', e);
+        return { gameState: 'menu' };
+      }
     })
 }));

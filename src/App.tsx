@@ -3,7 +3,6 @@ import { MainMenu } from './views/MainMenu';
 import { GameBoard } from './views/GameBoard';
 import { PauseMenu } from './views/PauseMenu';
 import { GameOverModal } from './views/GameOverModal';
-import { StageClearModal } from './views/StageClearModal';
 import { BoundingBox } from './components/BoundingBox';
 import { useGameStore } from './store/gameStore';
 
@@ -36,7 +35,6 @@ function App() {
              <GameBoard key={activeStage} />
              {gameState === 'paused' && <PauseMenu />}
              {gameState === 'gameover' && <GameOverModal />}
-             {gameState === 'stageClear' && <StageClearModal />}
           </div>
         )}
       </BoundingBox>

@@ -3,6 +3,8 @@ import { useGameStore } from '../store/gameStore';
 import { useInterval } from '../hooks/useInterval';
 import { Tile } from '../components/ui/Tile';
 import { StageStartOverlay } from '../components/ui/StageStartOverlay';
+import { StageSuccessOverlay } from '../components/ui/StageSuccessOverlay';
+import { motion } from 'framer-motion';
 
 export const GameBoard: React.FC = () => {
   const {
@@ -24,10 +26,26 @@ export const GameBoard: React.FC = () => {
     economy,
     executeShuffle,
     executeHint,
-    executeLightning
+    executeLightning,
+    completeStage,
+    advanceToNextStage
   } = useGameStore((state) => state);
 
   const [activeTooltip, setActiveTooltip] = useState<'shuffle' | 'hint' | 'lightning' | null>(null);
+  const [isShuffling, setIsShuffling] = useState(false);
+
+  const handleShuffleAction = () => {
+    if (isShuffling) return;
+    setIsShuffling(true);
+    // Phase 1: Converge to center
+    setTimeout(() => {
+      executeShuffle();
+      // Phase 2: Spread back out with new letters
+      setTimeout(() => {
+        setIsShuffling(false);
+      }, 100);
+    }, 450);
+  };
 
   const [timeLeft, setTimeLeft] = useState(0);
 
@@ -54,14 +72,20 @@ export const GameBoard: React.FC = () => {
   useEffect(() => {
     const isCompleted = completedWords.includes(activeWordIndex);
     const isLastWord = activeWordIndex === stageWords.length - 1;
+    const allWordsCompleted = completedWords.length === stageWords.length;
     
     if (isCompleted && !isLastWord) {
       const timer = setTimeout(() => {
         nextWord();
       }, 1000);
       return () => clearTimeout(timer);
+    } else if (allWordsCompleted && gameState === 'playing') {
+      const timer = setTimeout(() => {
+        completeStage();
+      }, 1500); // 1.5s delay to show final word
+      return () => clearTimeout(timer);
     }
-  }, [completedWords, activeWordIndex, stageWords.length, nextWord]);
+  }, [completedWords, activeWordIndex, stageWords.length, nextWord, gameState, completeStage]);
 
   const activeWordObj = stageWords[activeWordIndex];
   const stageConfig = levelDesign?.stages[activeStage.toString()];
@@ -95,10 +119,10 @@ export const GameBoard: React.FC = () => {
       }
     }
     
-    const neededChars = Object.keys(charCounts).filter(char => charCounts[char] > 0);
+    const neededChars = Object.keys(charCounts).filter((char: string) => charCounts[char] > 0);
     if (neededChars.length === 0) return false;
     
-    return gridLetters.some((char, idx) => {
+    return gridLetters.some((char: string, idx: number) => {
       const upperChar = char.toUpperCase();
       return neededChars.includes(upperChar) && !addressedIndices.includes(idx);
     });
@@ -108,11 +132,15 @@ export const GameBoard: React.FC = () => {
   const isLightningAvailable = (() => {
     if (!activeWordObj) return false;
     const activeWord = activeWordObj.word.toUpperCase();
-    return selectedIndices.some((tileIdx, i) => {
+    return selectedIndices.some((tileIdx: number | null, i: number) => {
       if (tileIdx === null) return true;
       return gridLetters[tileIdx]?.toUpperCase() !== activeWord[i];
     });
   })();
+
+  const handleContinue = () => {
+    advanceToNextStage();
+  };
 
   return (
     <div className="flex flex-col h-full w-full bg-[#161625] overflow-hidden text-white font-body selection:bg-transparent tracking-wide absolute inset-0">
@@ -140,7 +168,7 @@ export const GameBoard: React.FC = () => {
         <div className="bg-[#1d1d3d] rounded-2xl sm:rounded-[2rem] flex flex-col p-2 sm:p-4 shadow-xl shrink-0">
           {/* Progress Dots */}
           <div className="flex justify-center items-center gap-1.5 sm:gap-3 mb-1 sm:mb-2 mt-0.5 h-3 sm:h-5">
-            {stageWords.map((_, i) => {
+            {stageWords.map((_: any, i: number) => {
               const isActive = i === activeWordIndex;
               const isComp = completedWords.includes(i);
               return isActive ? (
@@ -159,7 +187,7 @@ export const GameBoard: React.FC = () => {
 
           {/* Active Word Slots */}
           <div className="flex justify-center gap-1 sm:gap-2 mb-1.5 sm:mb-3 h-8 sm:h-12">
-            {selectedIndices.map((tileIndex, i) => {
+            {selectedIndices.map((tileIndex: number | null, i: number) => {
               const isCompleted = completedWords.includes(activeWordIndex);
               const targetChar = activeWordObj.word[i].toUpperCase();
               const currentChar = tileIndex !== null ? gridLetters[tileIndex].toUpperCase() : null;
@@ -220,18 +248,52 @@ export const GameBoard: React.FC = () => {
               className="grid gap-1.5 sm:gap-3.5 w-full max-h-[220px] sm:max-h-[320px] max-w-[220px] sm:max-w-[320px] aspect-square"
               style={{ gridTemplateColumns: `repeat(${gridCols}, minmax(0, 1fr))` }}
             >
-              {gridLetters.map((char, index) => {
+              {gridLetters.map((char: string, index: number) => {
                 const isSelected = selectedIndices.includes(index);
                 const isHighlighted = highlightedIndices.includes(index);
+                
+                const row = Math.floor(index / gridCols);
+                const col = index % gridCols;
+                const numRows = Math.ceil(gridLetters.length / gridCols);
+                
+                // Calculate directional offset to the center of the grid area
+                // We use percentage-based estimation for responsiveness
+                const xOffset = ((gridCols - 1) / 2 - col) * 100;
+                const yOffset = ((numRows - 1) / 2 - row) * 100;
+
                 return (
-                  <Tile 
-                    key={`${index}-${char}`}
-                    letter={char} 
-                    className="w-full h-full !text-base sm:!text-[2.25rem] pb-0 sm:pb-1"
-                    isActive={isSelected} 
-                    isHighlighted={isHighlighted}
-                    onClick={() => selectTile(index)} 
-                  />
+                  <motion.div 
+                    key={index}
+                    animate={isShuffling ? { 
+                      x: xOffset, 
+                      y: yOffset,
+                      scale: 0.2,
+                      rotate: 180,
+                      opacity: 0.5
+                    } : { 
+                      x: 0, 
+                      y: 0,
+                      scale: 1,
+                      rotate: 0,
+                      opacity: 1
+                    }}
+                    transition={{
+                      type: "spring",
+                      stiffness: isShuffling ? 100 : 200,
+                      damping: isShuffling ? 20 : 15,
+                      mass: 0.8
+                    }}
+                    className="w-full h-full"
+                  >
+                    <Tile 
+                      key={`${index}-${char}`}
+                      letter={char} 
+                      className="w-full h-full !text-base sm:!text-[2.25rem] pb-0 sm:pb-1"
+                      isActive={isSelected} 
+                      isHighlighted={isHighlighted}
+                      onClick={() => !isShuffling && selectTile(index)} 
+                    />
+                  </motion.div>
                 );
               })}
             </div>
@@ -246,8 +308,8 @@ export const GameBoard: React.FC = () => {
                   <div className="flex flex-col items-center gap-1">
                     <span className="text-[#2f2e43] font-body text-[11px] font-medium leading-tight text-center px-1">Rearrange the tiles</span>
                     <button 
-                      onClick={() => { executeShuffle(); setActiveTooltip(null); }}
-                      className="mt-1 flex items-center gap-1 bg-primary text-[#3a3000] px-3 py-1 rounded-full text-[10px] font-bold shadow-sm border-b-2 border-[#554600] active:translate-y-0.5 active:border-b-0 transition-all uppercase tracking-tight"
+                      onClick={() => { handleShuffleAction(); setActiveTooltip(null); }}
+                      className="mt-1 flex items-center gap-1 bg-primary text-[#3a3000] px-3 py-1 rounded-full text-[10px] font-bold shadow-sm border-b-2 border-[#554600] active:translate-y.5 active:border-b-0 transition-all uppercase tracking-tight"
                     >
                       <span>USE {economy?.powerups.shuffle.cost ?? 0}</span>
                       <span className="w-3 h-3 bg-[#3a3000] rounded-full flex items-center justify-center text-[8px] text-primary">$</span>
@@ -322,6 +384,13 @@ export const GameBoard: React.FC = () => {
         <StageStartOverlay 
           stageNumber={activeStage} 
           onStart={() => setGameState('playing')} 
+        />
+      )}
+      {gameState === 'stageClear' && (
+        <StageSuccessOverlay 
+          stageNumber={activeStage} 
+          coinsAwarded={economy?.rewards.baseCoinPayout || 50} 
+          onContinue={handleContinue} 
         />
       )}
     </div>
