@@ -47,12 +47,41 @@ In this system, depth is a feature, not an afterthought. We use **Tonal Layering
 
 ---
 
-## 5. Spacing & Rhythm
+## 5. Components
+
+### Buttons (The "Satisfying Click")
+- **Primary:** `Lilita One`, `primary` background, `primary-container` 4px bottom-border. On hover, the border shrinks; on press, the button shifts down 2px.
+- **Secondary:** `secondary-container` background with `on-secondary-container` text.
+- **Tertiary:** No background. Bold `Lilita One` text with an `outline-variant` "Ghost Border" at 20% opacity.
+
+### Tiles (The Core Game Unit)
+- **The Letter Tile:** Use `surface-container-highest`. Apply a subtle inner-glow (top-down) using `surface-bright` at 10% opacity to give it a "beveled" look. Forbid dividers; use `spacing-1` as the gap between tiles.
+
+### Cards & Lists
+- **The "No-Divider" Rule:** Lists are separated by `spacing-2` vertical gaps. Each list item sits on a `surface-container-low` background. 
+- **Header Asymmetry:** Headlines in cards should be slightly offset (e.g., `spacing-1` to the left) to break the "Bootstrap" grid feel.
+
+### Input Fields
+- **Tactile Inputs:** Use `surface-container-lowest` as the background (sunken look). The active state uses a `primary` "Ghost Border" (20% opacity) and a `primary` cursor.
+
+---
+
+## 6. Do’s and Don'ts
+
+### Do:
+- **Use "Meta" Humor:** Use `Be Vietnam Pro` in `label-sm` to explain the game mechanics in a dry, self-aware tone.
+- **Embrace the Glow:** Use the `tertiary` (Mint) color for "Success" states with a heavy outer glow to make it feel like the screen is radiating.
+- **Layer Surfaces:** Stack `surface-container-low` on `surface` to define the play area.
+
+### Don’t:
+- **No Hairlines:** Never use a 1px solid line to separate content. It kills the "Game" vibe. Use white space or color shifts.
+- **No Grey Shadows:** Never use `#000000` for shadows. Use a darkened version of your background purple (`#0c0c1f`).
+- **No Flat Buttons:** A button without a 3D "bottom-edge" is a bug, not a feature.
+
+---
+
+## 7. Spacing & Rhythm
 We avoid the standard 8px grid in favor of a "Punchy Scale."
 - **Spacing-3 (1rem):** The standard gutter.
 - **Spacing-6 (2rem):** Used to separate major "Game Phases" (e.g., Title vs. Grid).
 - **Rounding:** Use `xl` (1.5rem) for main game containers and `md` (0.75rem) for tiles. This creates a "friendly-chunky" silhouette.
-
-> **Next Reference Links:**
-> - [UI Components Architecture](./ui-components.md)
-> - [UI Screens Layouts](./ui-screens.md)
