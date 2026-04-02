@@ -13,7 +13,7 @@ const TARGETS = {
   '6': [1, 2, 3, 4, 5, 6],
   '7': [1, 2, 3, 4, 6],
 };
-const WORDS_PER_BUCKET = 25;
+const WORDS_PER_BUCKET = 50; // Increased to give you a massive word bank
 
 async function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -65,8 +65,14 @@ async function main() {
     fs.createReadStream(INPUT_CSV)
       .pipe(csv())
       .on('data', (row) => {
-        const word = row.word.toLowerCase().trim();
-        const level = row.level;
+        if (!row.headword) return; // Fix: Prevent crashes on empty lines
+        const word = row.headword.toLowerCase().trim();
+        
+        // Fix: Map the new dataset's A1-C2 ratings to your 1-6 internal integers
+        const cefrMap = { 'A1': 1, 'A2': 2, 'B1': 3, 'B2': 4, 'C1': 5, 'C2': 6 };
+        const level = cefrMap[row.CEFR ? row.CEFR.trim().toUpperCase() : ''];
+        if (!level) return; // Skip words without a valid rating
+
         const length = word.length.toString();
         
         if (isValidWord(word) && TARGETS[length] && TARGETS[length].includes(Number(level))) {
