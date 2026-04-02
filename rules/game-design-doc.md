@@ -4,6 +4,7 @@
 > - [Level Design Core](./level-design.md)
 > - [Grid Generation Algorithm](./grid-generation-algorithm.md)
 > - [JSON Data Schemas](./json-schemas.md)
+> - [Level CSV Build Pipeline](./level-generation-pipeline.md)
 > - [Powerups & Mechanics](./powerups-logic.md)
 > - [Vocabulary Offline Pipeline](./vocabulary-generation-pipeline.md)
 
