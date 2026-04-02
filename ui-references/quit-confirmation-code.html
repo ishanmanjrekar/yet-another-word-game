@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;800&amp;family=Be+Vietnam+Pro:wght@400;500;700&amp;family=Lilita+One&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "error": "#ffb4ab",
+                        "surface-bright": "#37374d",
+                        "on-surface": "#e2e0fc",
+                        "surface-container": "#1e1e32",
+                        "tertiary-fixed-dim": "#00e471",
+                        "secondary-fixed-dim": "#dfb7ff",
+                        "primary-container": "#554600",
+                        "on-surface-variant": "#cfc2d5",
+                        "on-primary-fixed": "#221b00",
+                        "inverse-on-surface": "#2f2e43",
+                        "primary-fixed-dim": "#e9c400",
+                        "primary-fixed": "#ffe16d",
+                        "surface": "#111125",
+                        "inverse-surface": "#e2e0fc",
+                        "surface-variant": "#333348",
+                        "on-primary": "#3a3000",
+                        "background": "#111125",
+                        "secondary": "#dfb7ff",
+                        "on-secondary-container": "#d5a4ff",
+                        "on-primary-container": "#d6b400",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-low": "#1a1a2e",
+                        "error-container": "#93000a",
+                        "on-background": "#e2e0fc",
+                        "secondary-fixed": "#f1daff",
+                        "outline-variant": "#4d4353",
+                        "secondary-container": "#6c11af",
+                        "inverse-primary": "#705d00",
+                        "on-tertiary-fixed-variant": "#005224",
+                        "tertiary-container": "#005325",
+                        "tertiary-fixed": "#63ff93",
+                        "outline": "#988d9e",
+                        "surface-tint": "#e9c400",
+                        "surface-container-high": "#28283d",
+                        "on-tertiary": "#003917",
+                        "tertiary": "#00e471",
+                        "surface-container-highest": "#333348",
+                        "on-tertiary-fixed": "#00210b",
+                        "on-tertiary-container": "#00d167",
+                        "surface-dim": "#111125",
+                        "on-primary-fixed-variant": "#544600",
+                        "on-secondary-fixed-variant": "#690bac",
+                        "on-error": "#690005",
+                        "surface-container-lowest": "#0c0c1f",
+                        "on-secondary-fixed": "#2d004f",
+                        "on-secondary": "#4b007e",
+                        "primary": "#e9c400"
+                    },
+                    fontFamily: {
+                        "headline": ["Epilogue"],
+                        "body": ["Be Vietnam Pro"],
+                        "label": ["Be Vietnam Pro"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .chunky-shadow-primary {
+            box-shadow: 0 4px 0 0 #554600;
+        }
+        .chunky-shadow-error {
+            box-shadow: 0 4px 0 0 #690005;
+        }
+        .chunky-shadow-surface {
+            box-shadow: 0 4px 0 0 #0c0c1f;
+        }
+        .recessed-inner {
+            box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.4);
+        }
+        body {
+            height: 100vh;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary overflow-hidden">
+<div class="fixed inset-0 z-0 overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center opacity-40 blur-2xl scale-110" data-alt="Blurred gameplay screen with colorful letter tiles scattered across a deep purple game board background" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC9nlsSBwZjdaLKNssmYKYgTkVQASutC4hf8mhhMtNUX8FNcaOAAgVSJStXjtXDUd05YPp7JIQEdKzmOl8Cla8LXhTmvV1nYLl0E5FKODS_6nvTa3leVml7eoV7BqshtIAcD7C6Iw4vH-wjhpgmR587UoytpxItWSrBGaEjDeqQ4crLW_esJ3DVMdBXkA8ajtC7UPbDtPb6-VqYjiGlo11MLoxIKhv02aA-UNOLFyazi52sazRGGGVVUOm8_Dl642NnfzDvsp1suQ');">
+</div>
+<div class="absolute inset-0 bg-surface/60 backdrop-blur-md"></div>
+</div>
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 w-full">
+<!-- Navigation items removed as per request -->
+</nav>
+<main class="relative z-10 h-screen flex items-center justify-center p-6">
+<div class="w-full max-w-md bg-surface-container-low rounded-xl p-8 flex flex-col items-center gap-8 relative shadow-2xl">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-surface-container-high px-6 py-2 rounded-full border-4 border-surface-container-low shadow-lg">
+<span class="font-['Be_Vietnam_Pro'] font-bold text-xs uppercase tracking-widest text-secondary">Warning</span>
+</div>
+<div class="text-center space-y-4 pt-4">
+<h2 class="font-['Lilita_One'] text-4xl md:text-5xl text-on-surface leading-tight tracking-tight uppercase">ARE YOU SURE?</h2>
+<p class="font-['Be_Vietnam_Pro'] text-on-surface-variant text-sm max-w-[280px] mx-auto leading-relaxed">
+                You will lose your current progress.
+            </p>
+</div>
+<div class="w-full space-y-4">
+<button class="w-full group relative transition-all active:translate-y-[2px]">
+<div class="bg-primary text-on-primary py-5 rounded-xl flex items-center justify-center gap-3 chunky-shadow-primary transition-all group-hover:brightness-110">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+<span class="font-['Lilita_One'] text-2xl uppercase tracking-wide">CANCEL</span>
+</div>
+</button>
+<button class="w-full group relative transition-all active:translate-y-[2px]">
+<div class="bg-error-container text-on-error-container py-5 rounded-xl flex items-center justify-center gap-3 chunky-shadow-error border border-white/5 transition-all group-hover:bg-error-container/80">
+<span class="material-symbols-outlined text-2xl" data-icon="exit_to_app">exit_to_app</span>
+<span class="font-['Lilita_One'] text-2xl uppercase tracking-wide">YES, QUIT</span>
+</div>
+</button>
+</div>
+</div>
+</main>
+<div class="fixed inset-0 pointer-events-none border-[16px] border-surface-container-lowest/20 z-40"></div>
+</body></html>

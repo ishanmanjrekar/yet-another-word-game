@@ -10,7 +10,9 @@
     "preview": "vite preview",
     "build:web": "vite build",
     "build:itch": "vite build && bestzip dump/game-upload.zip dist/*",
-    "build:mobile": "vite build && cap sync"
+    "build:mobile": "vite build && cap sync",
+    "generate-words": "node scripts/generate-vocabulary.js",
+    "compile-levels": "node scripts/compile-levels.js"
   },
   "dependencies": {
     "@capacitor/core": "^8.3.0",
@@ -27,6 +29,7 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
     "bestzip": "^2.2.3",
+    "csv-parser": "^3.2.0",
     "eslint": "^9.39.4",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",

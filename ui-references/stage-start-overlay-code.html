@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>YAWG: Game Board</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&amp;family=Be+Vietnam+Pro:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-container": "#005325",
+              "secondary-container": "#6c11af",
+              "error-container": "#93000a",
+              "on-tertiary-fixed-variant": "#005224",
+              "surface-container-lowest": "#0c0c1f",
+              "surface-container-highest": "#333348",
+              "on-secondary": "#4b007e",
+              "tertiary-fixed-dim": "#00e471",
+              "on-tertiary": "#003917",
+              "tertiary": "#00e471",
+              "on-secondary-fixed": "#2d004f",
+              "on-primary-fixed-variant": "#544600",
+              "inverse-surface": "#e2e0fc",
+              "error": "#ffb4ab",
+              "on-secondary-fixed-variant": "#690bac",
+              "on-primary": "#3a3000",
+              "primary-fixed": "#ffe16d",
+              "primary": "#e9c400",
+              "inverse-primary": "#705d00",
+              "surface-container-high": "#28283d",
+              "surface": "#111125",
+              "on-surface-variant": "#cfc2d5",
+              "surface-bright": "#37374d",
+              "surface-container-low": "#1a1a2e",
+              "tertiary-fixed": "#63ff93",
+              "surface-tint": "#e9c400",
+              "secondary": "#dfb7ff",
+              "on-error": "#690005",
+              "primary-fixed-dim": "#e9c400",
+              "surface-container": "#1e1e32",
+              "on-primary-fixed": "#221b00",
+              "background": "#111125",
+              "outline-variant": "#4d4353",
+              "primary-container": "#554600",
+              "secondary-fixed": "#f1daff",
+              "secondary-fixed-dim": "#dfb7ff",
+              "surface-dim": "#111125",
+              "outline": "#988d9e",
+              "on-tertiary-fixed": "#00210b",
+              "on-secondary-container": "#d5a4ff",
+              "on-background": "#e2e0fc",
+              "surface-variant": "#333348",
+              "inverse-on-surface": "#2f2e43",
+              "on-surface": "#e2e0fc",
+              "on-primary-container": "#d6b400",
+              "on-tertiary-container": "#00d167",
+              "on-error-container": "#ffdad6"
+            },
+            fontFamily: {
+              "headline": ["Lilita One", "cursive"],
+              "body": ["Be Vietnam Pro", "sans-serif"],
+              "label": ["Be Vietnam Pro", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .chunky-button {
+            transition: all 0.1s ease;
+        }
+        .chunky-button:active {
+            transform: translateY(2px);
+        }
+        .stage-overlay-text {
+            text-shadow: 0 4px 0 #554600, 0 8px 0 #554600, 0 0 20px rgba(233,196,0,0.3);
+        }
+    </style>
+<style>
+    body {
+      min-height: 100dvh;
+    }
+    @keyframes bounce-slow {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    .animate-bounce-slow {
+        animation: bounce-slow 2s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body select-none relative overflow-hidden">
+<!-- Background Content Wrapper (Blurred when overlay is active) -->
+<div class="blur-[2px] opacity-60">
+<!-- Top Area -->
+<header class="fixed top-0 w-full z-40 bg-[#111125] flex justify-between items-center px-6 py-4 shadow-[0_4px_0_0_#0c0c1f]">
+<div class="flex items-center gap-2">
+<button class="flex items-center justify-center w-12 h-12 bg-surface-container-highest rounded-xl text-[#e9c400] chunky-button active:translate-y-0.5 active:shadow-none border-b-4 border-primary-container hover:brightness-110 transition-all">
+<span class="material-symbols-outlined" data-icon="pause">pause</span>
+</button>
+</div>
+<div class="absolute left-1/2 -translate-x-1/2">
+<span class="text-[#e9c400] font-['Lilita_One'] text-3xl uppercase tracking-wider drop-shadow-[0_2px_0_rgba(233,196,0,0.3)]">
+                02:45
+            </span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-highest px-3 py-1.5 rounded-full border-b-2 border-surface-container-lowest">
+<span class="material-symbols-outlined text-[#e9c400] text-xl" style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+<span class="text-on-surface font-headline text-lg">5,000</span>
+</div>
+</header>
+<main class="min-h-screen pt-24 pb-8 flex flex-col items-center max-w-md mx-auto px-4">
+<!-- Word & Definition Area -->
+<section class="w-full flex flex-col justify-center items-center gap-6 mb-8">
+<div class="w-full bg-surface-container-low rounded-xl p-8 relative shadow-[0_8px_0_0_#0c0c1f] flex flex-col items-center">
+<div class="flex justify-center items-center gap-3 mb-6">
+<!-- Success State -->
+<div class="w-6 h-6 bg-tertiary rounded-full flex items-center justify-center border-b-2 border-tertiary-container shadow-sm">
+<span class="material-symbols-outlined text-[14px] font-bold text-on-tertiary">check</span>
+</div>
+<div class="w-6 h-6 bg-tertiary rounded-full flex items-center justify-center border-b-2 border-tertiary-container shadow-sm">
+<span class="material-symbols-outlined text-[14px] font-bold text-on-tertiary">check</span>
+</div>
+<!-- Active State -->
+<div class="w-7 h-7 bg-surface-container-lowest rounded-full flex items-center justify-center border-2 border-primary shadow-[0_0_8px_rgba(233,196,0,0.4)] animate-pulse">
+<div class="w-2 h-2 bg-primary rounded-full"></div>
+</div>
+<!-- Incomplete State -->
+<div class="w-6 h-6 bg-secondary-container opacity-40 rounded-full border-b-2 border-surface-container-lowest"></div>
+<div class="w-6 h-6 bg-secondary-container opacity-40 rounded-full border-b-2 border-surface-container-lowest"></div>
+</div>
+<!-- Word Slots -->
+<div class="flex gap-2 mb-6">
+<div class="w-12 h-16 bg-surface-container-lowest border-b-4 border-surface-container-highest rounded-lg flex items-center justify-center">
+<span class="text-3xl font-headline text-primary opacity-20">_</span>
+</div>
+<div class="w-12 h-16 bg-surface-container-lowest border-b-4 border-surface-container-highest rounded-lg flex items-center justify-center">
+<span class="text-3xl font-headline text-primary opacity-20">_</span>
+</div>
+<div class="w-12 h-16 bg-surface-container-lowest border-b-4 border-surface-container-highest rounded-lg flex items-center justify-center">
+<span class="text-3xl font-headline text-primary opacity-20">_</span>
+</div>
+<div class="w-12 h-16 bg-surface-container-lowest border-b-4 border-surface-container-highest rounded-lg flex items-center justify-center">
+<span class="text-3xl font-headline text-primary opacity-20">_</span>
+</div>
+<div class="w-12 h-16 bg-surface-container-lowest border-b-4 border-surface-container-highest rounded-lg flex items-center justify-center">
+<span class="text-3xl font-headline text-primary opacity-20">_</span>
+</div>
+<div class="w-12 h-16 bg-surface-container-lowest border-b-4 border-surface-container-highest rounded-lg flex items-center justify-center">
+<span class="text-3xl font-headline text-primary opacity-20">_</span>
+</div>
+</div>
+<!-- Definition Card -->
+<div class="text-center mb-8">
+<p class="text-secondary font-label text-xs uppercase tracking-[0.2em] mb-2 font-bold">Definition</p>
+<h2 class="text-on-surface font-headline text-2xl leading-tight">
+                        A celestial body that revolves around a star.
+                    </h2>
+</div>
+<!-- Navigation Buttons -->
+<div class="flex gap-4 w-full">
+<button class="flex-1 py-3 bg-surface-container-highest rounded-xl text-secondary font-headline uppercase tracking-wide border-b-4 border-surface-container-lowest chunky-button active:translate-y-0.5 active:shadow-none hover:brightness-110">
+                        PREVIOUS
+                    </button>
+<button class="flex-1 py-3 bg-primary rounded-xl text-on-primary font-headline uppercase tracking-wide border-b-4 border-primary-container chunky-button active:translate-y-0.5 active:shadow-none hover:brightness-110">
+                        NEXT
+                    </button>
+</div>
+</div>
+</section>
+<!-- Grid Section -->
+<section class="w-full">
+<div class="bg-surface-container rounded-2xl p-4 shadow-[inset_0_4px_12px_rgba(0,0,0,0.5)]">
+<!-- 4x4 Grid -->
+<div class="grid grid-cols-4 gap-3 mb-6">
+<!-- Tile Row 1 -->
+<button class="aspect-square bg-surface-container-highest rounded-xl flex items-center justify-center border-b-4 border-surface-container-lowest chunky-button active:translate-y-1 active:border-b-0">
+<span class="text-2xl font-headline text-on-surface">P</span>
+</button>
+<button class="aspect-square bg-surface-container-highest rounded-xl flex items-center justify-center border-b-4 border-surface-container-lowest chunky-button active:translate-y-1 active:border-b-0">
+<span class="text-2xl font-headline text-on-surface">L</span>
+</button>
+<button class="aspect-square bg-surface-container-highest rounded-xl flex items-center justify-center border-b-4 border-surface-container-lowest chunky-button active:translate-y-1 active:border-b-0">
+<span class="text-2xl font-headline text-on-surface">A</span>
+</button>
+<button class="aspect-square bg-surface-container-highest rounded-xl flex items-center justify-center border-b-4 border-surface-container-lowest chunky-button active:translate-y-1 active:border-b-0">
+<span class="text-2xl font-headline text-on-surface">N</span>
+</button>
+<!-- Tile Row 2 -->
+<button class="aspect-square bg-surface-container-highest rounded-xl flex items-center justify-center border-b-4 border-surface-container-lowest chunky-button active:translate-y-1 active:border-b-0">
+<span class="text-2xl font-headline text-on-surface">E</span>
+</button>
+<button class="aspect-square bg-surface-container-highest rounded-xl flex items-center justify-center border-b-4 border-surface-container-lowest chunky-button active:translate-y-1 active:border-b-0">
+<span class="text-2xl font-headline text-on-surface">T</span>
+</button>
+<button class="aspect-square bg-surface-container-highest rounded-xl flex items-center justify-center border-b-4 border-surface-container-lowest chunky-button active:translate-y-1 active:border-b-0">
+<span class="text-2xl font-headline text-on-surface">S</span>
+</button>
+<button class="aspect-square bg-surface-container-highest rounded-xl flex items-center justify-center border-b-4 border-surface-container-lowest chunky-button active:translate-y-1 active:border-b-0">
+<span class="text-2xl font-headline text-on-surface">M</span>
+</button>
+<!-- Tile Row 3 -->
+<button class="aspect-square bg-surface-container-highest rounded-xl flex items-center justify-center border-b-4 border-surface-container-lowest chunky-button active:translate-y-1 active:border-b-0">
+<span class="text-2xl font-headline text-on-surface">O</span>
+</button>
+<button class="aspect-square bg-surface-container-highest rounded-xl flex items-center justify-center border-b-4 border-surface-container-lowest chunky-button active:translate-y-1 active:border-b-0">
+<span class="text-2xl font-headline text-on-surface">R</span>
+</button>
+<button class="aspect-square bg-surface-container-highest rounded-xl flex items-center justify-center border-b-4 border-surface-container-lowest chunky-button active:translate-y-1 active:border-b-0">
+<span class="text-2xl font-headline text-on-surface">B</span>
+</button>
+<button class="aspect-square bg-surface-container-highest rounded-xl flex items-center justify-center border-b-4 border-surface-container-lowest chunky-button active:translate-y-1 active:border-b-0">
+<span class="text-2xl font-headline text-on-surface">I</span>
+</button>
+<!-- Tile Row 4 -->
+<button class="aspect-square bg-surface-container-highest rounded-xl flex items-center justify-center border-b-4 border-surface-container-lowest chunky-button active:translate-y-1 active:border-b-0">
+<span class="text-2xl font-headline text-on-surface">G</span>
+</button>
+<button class="aspect-square bg-surface-container-highest rounded-xl flex items-center justify-center border-b-4 border-surface-container-lowest chunky-button active:translate-y-1 active:border-b-0">
+<span class="text-2xl font-headline text-on-surface">U</span>
+</button>
+<button class="aspect-square bg-surface-container-highest rounded-xl flex items-center justify-center border-b-4 border-surface-container-lowest chunky-button active:translate-y-1 active:border-b-0">
+<span class="text-2xl font-headline text-on-surface">Y</span>
+</button>
+<button class="aspect-square bg-surface-container-highest rounded-xl flex items-center justify-center border-b-4 border-surface-container-lowest chunky-button active:translate-y-1 active:border-b-0">
+<span class="text-2xl font-headline text-on-surface">K</span>
+</button>
+</div>
+<!-- Power Up Action Buttons -->
+<div class="flex justify-center gap-6 mt-4 pb-2">
+<!-- Shuffle Power-up (Green) -->
+<button class="w-16 h-16 bg-tertiary rounded-full flex items-center justify-center text-on-tertiary border-b-4 border-tertiary-container shadow-lg chunky-button hover:brightness-110">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">shuffle</span>
+</button>
+<!-- Lightbulb Power-up (Purple) -->
+<button class="w-16 h-16 bg-secondary rounded-full flex items-center justify-center text-on-secondary border-b-4 border-secondary-container shadow-lg chunky-button hover:brightness-110">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+</button>
+<!-- Lightning Bolt Power-up (Yellow) -->
+<button class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-on-primary border-b-4 border-primary-container shadow-lg chunky-button hover:brightness-110">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+</div>
+<!-- Full-screen Overlay -->
+<div class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-surface/40 backdrop-blur-[4px]">
+<div class="animate-bounce-slow text-center">
+<!-- STAGE 12: Reduced from 84px to ~68px (approx 20% smaller) -->
+<h1 class="font-headline text-[68px] text-primary stage-overlay-text leading-none mb-4 uppercase italic">
+            Stage 12
+        </h1>
+<p class="font-body text-xl text-on-surface/90 font-bold tracking-widest uppercase animate-pulse">
+            Get Ready!
+        </p>
+<!-- TAP TO START: Redesigned for prominence -->
+<div class="mt-10 px-8 py-3 bg-white/10 backdrop-blur-md rounded-full border border-white/20 shadow-[0_0_20px_rgba(255,255,255,0.1)] inline-block cursor-pointer active:scale-95 transition-transform">
+<p class="font-body text-base text-white uppercase font-extrabold tracking-[0.3em]">
+                Tap to start
+            </p>
+</div>
+</div>
+</div>
+</body></html>

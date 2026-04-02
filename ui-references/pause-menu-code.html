@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;800&amp;family=Be+Vietnam+Pro:wght@400;500;700&amp;family=Lilita+One&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "error": "#ffb4ab",
+              "surface-bright": "#37374d",
+              "on-surface": "#e2e0fc",
+              "surface-container": "#1e1e32",
+              "tertiary-fixed-dim": "#00e471",
+              "secondary-fixed-dim": "#dfb7ff",
+              "primary-container": "#554600",
+              "on-surface-variant": "#cfc2d5",
+              "on-primary-fixed": "#221b00",
+              "inverse-on-surface": "#2f2e43",
+              "primary-fixed-dim": "#e9c400",
+              "primary-fixed": "#ffe16d",
+              "surface": "#111125",
+              "inverse-surface": "#e2e0fc",
+              "surface-variant": "#333348",
+              "on-primary": "#3a3000",
+              "background": "#111125",
+              "secondary": "#dfb7ff",
+              "on-secondary-container": "#d5a4ff",
+              "on-primary-container": "#d6b400",
+              "on-error-container": "#ffdad6",
+              "surface-container-low": "#1a1a2e",
+              "error-container": "#93000a",
+              "on-background": "#e2e0fc",
+              "secondary-fixed": "#f1daff",
+              "outline-variant": "#4d4353",
+              "secondary-container": "#6c11af",
+              "inverse-primary": "#705d00",
+              "on-tertiary-fixed-variant": "#005224",
+              "tertiary-container": "#005325",
+              "tertiary-fixed": "#63ff93",
+              "outline": "#988d9e",
+              "surface-tint": "#e9c400",
+              "surface-container-high": "#28283d",
+              "on-tertiary": "#003917",
+              "tertiary": "#00e471",
+              "surface-container-highest": "#333348",
+              "on-tertiary-fixed": "#00210b",
+              "on-tertiary-container": "#00d167",
+              "surface-dim": "#111125",
+              "on-primary-fixed-variant": "#544600",
+              "on-secondary-fixed-variant": "#690bac",
+              "on-error": "#690005",
+              "surface-container-lowest": "#0c0c1f",
+              "on-secondary-fixed": "#2d004f",
+              "on-secondary": "#4b007e",
+              "primary": "#e9c400"
+            },
+            fontFamily: {
+              "headline": ["Lilita One", "sans-serif"],
+              "body": ["Be Vietnam Pro", "sans-serif"],
+              "label": ["Lilita One", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .chunky-shadow-primary {
+            box-shadow: 0 4px 0 0 #554600;
+        }
+        .chunky-shadow-secondary {
+            box-shadow: 0 4px 0 0 #0c0c1f;
+        }
+        .glass-panel {
+            backdrop-filter: blur(20px);
+            background: rgba(26, 26, 46, 0.4);
+        }
+    </style>
+<style>
+    body {
+      min-height: 100dvh;
+    }
+  </style>
+</head>
+<body class="bg-surface font-body text-on-surface overflow-hidden h-screen w-screen relative">
+<!-- Blurred Game Board Background Layer -->
+<div class="absolute inset-0 z-0 opacity-40 blur-md grayscale-[0.2]" data-alt="Blurred and darkened gameplay screen of a word puzzle game with neon purple letter tiles and golden accents" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAc8yR8vDdxPECyUc8pOw3V8b6AkCI6SQ3EoItoxBq0GB3sN8_VoHcd2QEHGQz363mxEvJsPdeoYaLaEwSARwQRXqp15nyehCoCnEeWQx6oCYtYWAhNRYOq_emGRbBBn9F4YIB7itASiGZdwCPnkPsg1YV-r5G3xE5r6T4_ulR-GiHv3xYbz-9Pk8yhimwkMwaVKhFocOiyu4r6j9We5zdo1v4UE24noEs2oLjxnVAG_fjCVNaMdF_f4UWwO7eZx8tRyXK1sr6wJg'); background-size: cover; background-position: center;">
+</div>
+<!-- Top Bar Component -->
+<header class="fixed top-0 w-full z-50 flex justify-end items-center px-6 h-16 bg-slate-950/40 backdrop-blur-xl shadow-[0px_4px_0px_0px_rgba(233,196,0,0.3)]">
+<!-- Coin Count Display -->
+<div class="flex items-center gap-2 bg-surface-container-lowest/80 px-4 py-1.5 rounded-full border border-primary/20">
+<span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+<span class="font-['Lilita_One'] text-primary text-lg leading-none">1,240</span>
+</div>
+</header>
+<!-- Center Pause Menu -->
+<main class="relative z-10 h-full w-full flex flex-col items-center justify-center p-6">
+<div class="max-w-md w-full space-y-12">
+<!-- Headline Cluster -->
+<div class="text-center space-y-2">
+<h2 class="font-['Lilita_One'] text-8xl text-primary tracking-tighter drop-shadow-[0_8px_0_rgba(85,70,0,0.4)]">
+                    PAUSED
+                </h2>
+<p class="font-['Be_Vietnam_Pro'] text-secondary text-sm uppercase tracking-[0.2em] opacity-80">
+                    Catch your breath, genius
+                </p>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col gap-6">
+<!-- Resume Button -->
+<button class="group relative w-full transform active:scale-95 transition-all duration-150">
+<div class="absolute inset-0 bg-primary-container rounded-2xl translate-y-2"></div>
+<div class="relative bg-primary text-on-primary py-5 rounded-2xl flex items-center justify-center gap-3 chunky-shadow-primary border-t-2 border-primary-fixed/30">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+<span class="font-['Lilita_One'] text-3xl uppercase tracking-wide">RESUME</span>
+</div>
+</button>
+<!-- Quit Button -->
+<button class="group relative w-full transform active:scale-95 transition-all duration-150">
+<div class="absolute inset-0 bg-surface-container-lowest rounded-2xl translate-y-2"></div>
+<div class="relative bg-surface-container-high text-on-surface-variant py-5 rounded-2xl flex items-center justify-center gap-3 chunky-shadow-secondary border border-outline-variant/30">
+<span class="material-symbols-outlined text-2xl">exit_to_app</span>
+<span class="font-['Lilita_One'] text-2xl uppercase tracking-wide">QUIT GAME</span>
+</div>
+</button>
+</div>
+</div>
+</main>
+<!-- Floating Decor Elements -->
+<div class="absolute top-1/4 left-10 opacity-20 pointer-events-none">
+<div class="w-16 h-16 bg-primary rounded-xl rotate-12 flex items-center justify-center font-['Lilita_One'] text-4xl text-on-primary">A</div>
+</div>
+<div class="absolute bottom-1/4 right-10 opacity-20 pointer-events-none">
+<div class="w-20 h-20 bg-secondary-container rounded-2xl -rotate-6 flex items-center justify-center font-['Lilita_One'] text-5xl text-secondary">Z</div>
+</div>
+</body></html>

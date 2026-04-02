@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>YAWG - Yet Another Word Game</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&amp;family=Be+Vietnam+Pro:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-fixed-variant": "#005224",
+              "on-tertiary-container": "#00d167",
+              "on-primary-fixed-variant": "#544600",
+              "error-container": "#93000a",
+              "outline": "#988d9e",
+              "on-secondary": "#4b007e",
+              "tertiary": "#00e471",
+              "primary-fixed": "#ffe16d",
+              "inverse-primary": "#705d00",
+              "background": "#111125",
+              "on-secondary-fixed": "#2d004f",
+              "on-tertiary": "#003917",
+              "surface-container": "#1e1e32",
+              "surface-container-low": "#1a1a2e",
+              "on-surface": "#e2e0fc",
+              "primary-fixed-dim": "#e9c400",
+              "surface-tint": "#e9c400",
+              "on-background": "#e2e0fc",
+              "tertiary-fixed-dim": "#00e471",
+              "secondary-fixed-dim": "#dfb7ff",
+              "tertiary-fixed": "#63ff93",
+              "surface-variant": "#333348",
+              "on-primary": "#3a3000",
+              "surface": "#111125",
+              "tertiary-container": "#005325",
+              "on-tertiary-fixed": "#00210b",
+              "primary": "#e9c400",
+              "outline-variant": "#4d4353",
+              "on-secondary-fixed-variant": "#690bac",
+              "on-error-container": "#ffdad6",
+              "surface-container-lowest": "#0c0c1f",
+              "inverse-surface": "#e2e0fc",
+              "surface-container-highest": "#333348",
+              "error": "#ffb4ab",
+              "surface-container-high": "#28283d",
+              "on-surface-variant": "#cfc2d5",
+              "on-primary-container": "#d6b400",
+              "on-error": "#690005",
+              "secondary-fixed": "#f1daff",
+              "surface-dim": "#111125",
+              "surface-bright": "#37374d",
+              "on-primary-fixed": "#221b00",
+              "secondary-container": "#6c11af",
+              "secondary": "#dfb7ff",
+              "on-secondary-container": "#d5a4ff",
+              "primary-container": "#554600",
+              "inverse-on-surface": "#2f2e43"
+            },
+            fontFamily: {
+              "headline": ["Lilita One", "cursive"],
+              "body": ["Be Vietnam Pro", "sans-serif"],
+              "label": ["Be Vietnam Pro", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .chunky-button-primary {
+            box-shadow: 0 4px 0 0 #554600;
+        }
+        .chunky-button-primary:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 0 #554600;
+        }
+        .chunky-button-secondary {
+            box-shadow: 0 4px 0 0 #6c11af;
+        }
+        .chunky-button-secondary:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 0 #6c11af;
+        }
+        .tile-floating {
+            transform: rotate(-10deg);
+            box-shadow: 4px 8px 12px rgba(12, 12, 31, 0.6);
+        }
+        .tile-floating-alt {
+            transform: rotate(15deg);
+            box-shadow: 4px 8px 12px rgba(12, 12, 31, 0.6);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body min-h-screen max-h-screen flex flex-col overflow-hidden select-none">
+<!-- TopAppBar -->
+<header class="bg-transparent flex justify-end items-center w-full px-6 py-4 absolute top-0 z-50">
+<div class="flex items-center gap-2 bg-surface-container/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-primary/20">
+<span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+<span class="font-headline text-lg text-primary">1,240</span>
+</div>
+</header>
+<main class="flex-1 flex flex-col items-center justify-center relative px-6 py-8">
+<!-- Decorative Floating Tiles -->
+<div class="absolute inset-0 overflow-hidden pointer-events-none opacity-10">
+<div class="absolute top-[20%] left-[10%] w-12 h-12 bg-surface-container-highest rounded-xl flex items-center justify-center tile-floating border-t border-surface-bright/20">
+<span class="font-headline text-2xl text-secondary">A</span>
+</div>
+<div class="absolute top-[15%] right-[15%] w-10 h-10 bg-surface-container-highest rounded-xl flex items-center justify-center tile-floating-alt border-t border-surface-bright/20">
+<span class="font-headline text-xl text-primary">W</span>
+</div>
+<div class="absolute bottom-[30%] left-[5%] w-14 h-14 bg-surface-container-highest rounded-xl flex items-center justify-center tile-floating-alt border-t border-surface-bright/20">
+<span class="font-headline text-3xl text-tertiary">G</span>
+</div>
+<div class="absolute bottom-[20%] right-[10%] w-12 h-12 bg-surface-container-highest rounded-xl flex items-center justify-center tile-floating border-t border-surface-bright/20">
+<span class="font-headline text-2xl text-secondary">Y</span>
+</div>
+</div>
+<!-- Hero Section -->
+<div class="text-center mb-6 z-10">
+<h2 class="text-7xl font-headline text-primary tracking-tighter mb-1 drop-shadow-[0_6px_0_rgba(85,70,0,0.8)]">YAWG</h2>
+<p class="text-secondary font-body font-bold text-xs tracking-[0.2em] uppercase">Yet Another Word Game</p>
+</div>
+<!-- Game Modes Grid -->
+<div class="flex flex-col gap-6 w-full max-w-sm z-10">
+<!-- Arcade Mode -->
+<div class="flex flex-col items-center">
+<button class="chunky-button-primary w-full py-6 bg-primary rounded-3xl flex flex-col items-center justify-center transition-all duration-100 hover:brightness-110 active:scale-95">
+<span class="material-symbols-outlined text-on-primary text-4xl mb-1" data-icon="sports_esports" style="font-variation-settings: 'opsz' 40;">sports_esports</span>
+<span class="font-headline text-3xl text-on-primary">Arcade</span>
+</button>
+<div class="mt-3 bg-gradient-to-b from-[#E8E8E8] to-[#B0B0B0] px-4 py-1.5 rounded-full border border-[#690bac]/50 flex items-center gap-1.5 shadow-[0_0_15px_rgba(105,11,172,0.4)]">
+<span class="material-symbols-outlined text-[#690bac] text-base" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+<span class="text-on-secondary-fixed-variant font-body font-bold text-xs tracking-tight">Highscore: Stage 12</span>
+</div>
+</div>
+<!-- WOTD Mode -->
+<div class="flex flex-col items-center">
+<button class="chunky-button-secondary w-full py-6 bg-secondary-container rounded-3xl flex flex-col items-center justify-center transition-all duration-100 hover:brightness-110 active:scale-95 border-t border-white/5">
+<span class="material-symbols-outlined text-secondary text-4xl mb-1" data-icon="today" style="font-variation-settings: 'opsz' 40;">today</span>
+<span class="font-headline text-3xl text-secondary uppercase tracking-tight">WOTD</span>
+<span class="text-secondary/70 font-bold text-[10px] uppercase tracking-widest mt-0.5">Words of the Day</span>
+</button>
+<div class="mt-3 bg-gradient-to-b from-[#E8E8E8] to-[#B0B0B0] px-4 py-1.5 rounded-full border border-[#690bac]/50 flex items-center gap-1.5 shadow-[0_0_15px_rgba(105,11,172,0.4)]">
+<span class="material-symbols-outlined text-[#690bac] text-base" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="text-on-secondary-fixed-variant font-body font-bold text-xs tracking-tight">7 Day Streak</span>
+</div>
+</div>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,145 @@
+{
+  "stages": {
+    "1": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 60,
+      "words": [
+        {
+          "wordLength": 4,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 3
+        }
+      ]
+    },
+    "2": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 55,
+      "words": [
+        {
+          "wordLength": 5,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 3
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 3
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        }
+      ]
+    },
+    "3": {
+      "grid": {
+        "rows": 3,
+        "cols": 3
+      },
+      "timer": 45,
+      "words": [
+        {
+          "wordLength": 4,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 1,
+          "difficulty": 1
+        }
+      ]
+    },
+    "4": {
+      "grid": {
+        "rows": 5,
+        "cols": 5
+      },
+      "timer": 90,
+      "words": [
+        {
+          "wordLength": 5,
+          "difficulty": 3
+        },
+        {
+          "wordLength": 5,
+          "difficulty": 4
+        },
+        {
+          "wordLength": 6,
+          "difficulty": 4
+        },
+        {
+          "wordLength": 6,
+          "difficulty": 6
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 1
+        }
+      ]
+    },
+    "5": {
+      "grid": {
+        "rows": 6,
+        "cols": 6
+      },
+      "timer": 120,
+      "words": [
+        {
+          "wordLength": 7,
+          "difficulty": 1
+        },
+        {
+          "wordLength": 6,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 5,
+          "difficulty": 3
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 4
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 6
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 5,
+          "difficulty": 5
+        },
+        {
+          "wordLength": 2,
+          "difficulty": 1
+        }
+      ]
+    }
+  }
+}
