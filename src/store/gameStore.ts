@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
 import { generateStage } from '../utils/gridGeneration';
 
 export interface WordBankItem {
@@ -81,63 +82,64 @@ interface GameState {
   advanceToNextStage: () => void;
 }
 
-export const useGameStore = create<GameState>((set) => ({
-  coins: 0,
-  activeStage: 1,
-  wordBank: null,
-  levelDesign: null,
-  economy: null,
-  gameState: 'menu',
-  stageWords: [],
-  gridLetters: [],
-  selectedIndices: [], 
-  activeWordIndex: 0,
-  completedWords: [],
-  highlightedIndices: [],
-
-  incrementCoins: (amount) => 
-    set((state) => ({ coins: state.coins + amount })),
-
-  changeStage: (stage) => 
-    set({ activeStage: stage }),
-
-  setWordBank: (data) => 
-    set({ wordBank: data }),
-
-  setLevelDesign: (data) => 
-    set({ levelDesign: data }),
-
-  setEconomy: (data) =>
-    set({ economy: data }),
-
-  resetGame: () => 
-    set({ 
-      coins: 0, 
-      activeStage: 1, 
-      gameState: 'menu', 
-      stageWords: [], 
-      gridLetters: [], 
+export const useGameStore = create<GameState>()(
+  persist(
+    (set) => ({
+      coins: 0,
+      activeStage: 1,
+      wordBank: null,
+      levelDesign: null,
+      economy: null,
+      gameState: 'menu',
+      stageWords: [],
+      gridLetters: [],
       selectedIndices: [], 
-      activeWordIndex: 0, 
+      activeWordIndex: 0,
       completedWords: [],
-      highlightedIndices: []
-    }),
+      highlightedIndices: [],
 
-  setGameState: (stateName) =>
-    set({ gameState: stateName }),
+      incrementCoins: (amount) => 
+        set((state) => ({ coins: state.coins + amount })),
 
-  initStage: (words, grid) => {
-    set({ 
-      stageWords: words, 
-      gridLetters: grid, 
-      selectedIndices: words.map(w => new Array(w.word.length).fill(null)), 
-      activeWordIndex: 0, 
-      completedWords: [], 
-      highlightedIndices: words.map(() => []) 
-    });
-  },
+      changeStage: (stage) => 
+        set({ activeStage: stage }),
 
-  selectTile: (index) =>
+      setWordBank: (data) => 
+        set({ wordBank: data }),
+
+      setLevelDesign: (data) => 
+        set({ levelDesign: data }),
+
+      setEconomy: (data) =>
+        set({ economy: data }),
+
+      resetGame: () => 
+        set({ 
+          activeStage: 1, 
+          gameState: 'menu', 
+          stageWords: [], 
+          gridLetters: [], 
+          selectedIndices: [], 
+          activeWordIndex: 0, 
+          completedWords: [],
+          highlightedIndices: []
+        }),
+
+      setGameState: (stateName) =>
+        set({ gameState: stateName }),
+
+      initStage: (words, grid) => {
+        set({ 
+          stageWords: words, 
+          gridLetters: grid, 
+          selectedIndices: words.map(w => new Array(w.word.length).fill(null)), 
+          activeWordIndex: 0, 
+          completedWords: [], 
+          highlightedIndices: words.map(() => []) 
+        });
+      },
+
+      selectTile: (index) =>
     set((state) => {
       if (state.completedWords.includes(state.activeWordIndex)) return {};
       
@@ -210,9 +212,12 @@ export const useGameStore = create<GameState>((set) => ({
     set((state) => {
       if (!state.economy || state.coins < state.economy.powerups.shuffle.cost) return {};
       
-      // All selected indices across all words should be held static
+      // All selected and highlighted indices across all words should be held static
       const allSelected = state.selectedIndices.flatMap(row => row.filter((idx): idx is number => idx !== null));
-      const unselectedIndices = state.gridLetters.map((_, i) => i).filter(i => !allSelected.includes(i));
+      const allHighlighted = state.highlightedIndices.flat();
+      const heldStatic = [...new Set([...allSelected, ...allHighlighted])];
+      
+      const unselectedIndices = state.gridLetters.map((_, i) => i).filter(i => !heldStatic.includes(i));
       
       const charsToShuffle = unselectedIndices.map(i => state.gridLetters[i]);
       for (let i = charsToShuffle.length - 1; i > 0; i--) {
@@ -399,4 +404,13 @@ export const useGameStore = create<GameState>((set) => ({
         return { gameState: 'menu' };
       }
     })
-}));
+  }),
+  {
+    name: 'yawg-game-storage',
+    storage: createJSONStorage(() => localStorage),
+    partialize: (state) => ({ 
+      coins: state.coins, 
+      activeStage: state.activeStage 
+    }),
+  }
+));
