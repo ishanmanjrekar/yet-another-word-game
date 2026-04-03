@@ -243,29 +243,26 @@ export const GameBoard: React.FC = () => {
     >
       <div className="flex flex-col h-full w-full max-w-full max-h-full relative px-2 sm:px-4 py-2 sm:py-4 overflow-hidden">
         {/* HEADER SECTION (Bolted Top) */}
-        <div className="flex-none h-14 sm:h-20 px-4 sm:px-6 flex justify-between items-center z-10 border-b border-[#1f1f33] mb-2">
+        <div className="flex-none h-16 px-4 flex justify-between items-center z-10 border-b border-[#1f1f33] mb-2">
         {/* Pause Button */}
-        <button onClick={() => setGameState('paused')} className="w-10 h-10 sm:w-[3.25rem] sm:h-[3.25rem] bg-[#2a2a4b] rounded-xl sm:rounded-2xl flex items-center justify-center border-b-[5px] border-[#18182b] active:border-b-0 active:translate-y-[5px] transition-all">
-          <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-6 sm:h-6 text-primary fill-current"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+          <button onClick={() => setGameState('paused')} className="w-11 h-11 bg-[#2a2a4b] rounded-xl flex items-center justify-center border-b-[5px] border-[#18182b] active:border-b-0 active:translate-y-[5px] transition-all">
+            <svg viewBox="0 0 24 24" className="w-5 h-5 text-primary fill-current"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
         </button>
-        {/* Timer */}
-        <div className={`font-headline text-4xl sm:text-[2.75rem] ${timeLeft <= 10 ? 'text-red-500 animate-pulse' : 'text-primary'}`} style={{ textShadow: timeLeft <= 10 ? '0 3px 0 #ffffff' : '0 3px 0 #8c7600' }}>
+          <div className={`font-headline text-4xl ${timeLeft <= 10 ? 'text-red-500 animate-pulse' : 'text-primary'}`} style={{ textShadow: timeLeft <= 10 ? '0 3px 0 #ffffff' : '0 3px 0 #8c7600' }}>
           {Math.floor(timeLeft / 60).toString().padStart(2, '0')}:{(timeLeft % 60).toString().padStart(2, '0')}
         </div>
-        {/* Coins Pill */}
-        <div className="h-10 sm:h-[3.25rem] bg-[#2a2a4b] px-3 sm:px-4 rounded-full flex items-center justify-center gap-2 border-b-[5px] border-[#18182b]">
-          <div className="w-5 h-5 sm:w-6 sm:h-6 bg-primary rounded-full text-black flex items-center justify-center font-headline text-sm sm:text-lg"><span className="-mt-0.5">$</span></div>
-          <span className="font-headline text-lg sm:text-xl text-white mt-1">{coins.toLocaleString()}</span>
+          <div className="h-11 bg-[#2a2a4b] px-3 rounded-full flex items-center justify-center gap-2 border-b-[5px] border-[#18182b]">
+            <div className="w-5 h-5 bg-primary rounded-full text-black flex items-center justify-center font-headline text-sm"><span className="-mt-0.5">$</span></div>
+            <span className="font-headline text-lg text-white mt-1">{coins.toLocaleString()}</span>
         </div>
       </div>
 
       {/* BODY SECTION (Elastic Content) */}
-      <div className="flex-1 min-h-0 flex flex-col gap-2 sm:gap-4 overflow-hidden text-base">
+      <div className="flex-1 min-h-0 flex flex-col gap-3 overflow-hidden text-base">
         
         {/* Upper Card: Definition & Progress */}
-        <div className="bg-[#1d1d3d] rounded-2xl sm:rounded-[2rem] flex flex-col p-3 sm:p-4 shadow-xl flex-none min-h-[140px] sm:min-h-[180px] relative">
-          {/* Progress Dots */}
-          <div className="flex justify-center items-center gap-1.5 sm:gap-3 mb-1 sm:mb-2 mt-0.5 h-3 sm:h-5">
+        <div className="bg-[#1d1d3d] rounded-2xl flex flex-col p-3 shadow-xl flex-none min-h-[150px] relative">
+          <div className="flex justify-center items-center gap-1.5 mb-1 mt-0.5 h-4">
             {stageWords.map((_: any, i: number) => {
               const isActive = i === activeWordIndex;
               const isComp = completedWords.includes(i);
@@ -284,8 +281,8 @@ export const GameBoard: React.FC = () => {
           </div>
 
           {/* Active Word Slots */}
-          <div className="flex justify-center items-center gap-2 mb-1.5 sm:mb-3 h-8 sm:h-12 relative">
-            <div className="flex justify-center gap-1 sm:gap-2">
+          <div className="flex justify-center items-center gap-2 mb-2 h-10 relative">
+            <div className="flex justify-center gap-1.5">
               {currentSelected.map((tileIndex: number | null, i: number) => {
                 const isCompleted = completedWords.includes(activeWordIndex);
                 const targetChar = activeWordObj.word[i].toUpperCase();
@@ -301,7 +298,7 @@ export const GameBoard: React.FC = () => {
                   <div 
                     key={i} 
                     onClick={() => !isCompleted && tileIndex !== null && deselectSlot(i)}
-                    className={`w-6 sm:w-10 h-7 sm:h-12 bg-[#111125] rounded-lg flex items-center justify-center font-headline text-lg sm:text-2xl shadow-inner relative overflow-hidden transition-all ${showSuccess ? 'border-2 border-tertiary shadow-[0_0_8px_rgba(0,228,113,0.4)]' : 'border border-white/5'} ${!isCompleted && tileIndex !== null ? 'cursor-pointer hover:bg-[#1a1a35] active:scale-95' : ''}`}
+                    className={`w-9 h-10 bg-[#111125] rounded-lg flex items-center justify-center font-headline text-xl shadow-inner relative overflow-hidden transition-all ${showSuccess ? 'border-2 border-tertiary shadow-[0_0_8px_rgba(0,228,113,0.4)]' : 'border border-white/5'} ${!isCompleted && tileIndex !== null ? 'cursor-pointer hover:bg-[#1a1a35] active:scale-95' : ''}`}
                   >
                     <span className={`text-[#77778b] absolute font-black tracking-tighter ${displayedLetter ? 'hidden' : 'block'}`}>_</span>
                     <span className={`${showSuccess ? 'text-tertiary' : 'text-primary'} uppercase ${displayedLetter ? 'block' : 'hidden'}`}>{displayedLetter}</span>
@@ -350,14 +347,14 @@ export const GameBoard: React.FC = () => {
             <button 
               onClick={prevWord} 
               disabled={activeWordIndex === 0}
-              className={`flex-1 bg-[#2a2a4b] text-[#dfb7ff] border-b-[3px] sm:border-b-[6px] border-[#18182b] active:border-b-0 active:translate-y-[3px] sm:active:translate-y-[6px] font-headline tracking-widest uppercase py-1 sm:py-3.5 rounded-lg sm:rounded-[1.25rem] transition-all text-[0.6rem] sm:text-sm ${activeWordIndex === 0 ? 'opacity-40 grayscale pointer-events-none' : ''}`}
+              className={`flex-1 bg-[#2a2a4b] text-[#dfb7ff] border-b-[4px] border-[#18182b] active:border-b-0 active:translate-y-[4px] font-headline tracking-widest uppercase py-2 rounded-xl transition-all text-xs ${activeWordIndex === 0 ? 'opacity-40 grayscale pointer-events-none' : ''}`}
             >
               PREVIOUS
             </button>
             <button 
               onClick={nextWord} 
               disabled={activeWordIndex === stageWords.length - 1}
-              className={`flex-1 bg-primary text-[#554600] border-b-[3px] sm:border-b-[6px] border-[#b09400] active:border-b-0 active:translate-y-[3px] sm:active:translate-y-[6px] font-headline tracking-widest uppercase py-1 sm:py-3.5 rounded-lg sm:rounded-[1.25rem] transition-all text-[0.6rem] sm:text-sm ${activeWordIndex === stageWords.length - 1 ? 'opacity-40 grayscale pointer-events-none' : ''}`}
+              className={`flex-1 bg-primary text-[#554600] border-b-[4px] border-[#b09400] active:border-b-0 active:translate-y-[4px] font-headline tracking-widest uppercase py-2 rounded-xl transition-all text-xs ${activeWordIndex === stageWords.length - 1 ? 'opacity-40 grayscale pointer-events-none' : ''}`}
             >
               NEXT
             </button>
@@ -365,7 +362,7 @@ export const GameBoard: React.FC = () => {
         </div>
 
         {/* Lower Card: Grid Area */}
-        <div className="flex-1 min-h-0 flex flex-col items-center justify-center bg-[#1d1d3d] rounded-2xl sm:rounded-[2rem] p-3 shadow-xl overflow-hidden relative">
+        <div className="flex-1 min-h-0 flex flex-col items-center justify-center bg-[#1d1d3d] rounded-2xl p-3 shadow-xl overflow-hidden relative">
           {/*
             CSS Container Query approach:
             - container-type:size lets children use cqw/cqh relative to THIS div
@@ -375,7 +372,7 @@ export const GameBoard: React.FC = () => {
           */}
           <div className="w-full h-full flex items-center justify-center" style={{ containerType: 'size' }}>
             <div 
-              className="grid gap-2 sm:gap-3"
+              className="grid gap-3"
               style={{ 
                 gridTemplateColumns: `repeat(${gridCols}, minmax(0, 1fr))`,
                 width: `min(100cqw, calc(100cqh * ${gridCols} / ${numRows}))`,
@@ -434,9 +431,8 @@ export const GameBoard: React.FC = () => {
       </div>
 
       {/* FOOTER SECTION (Bolted Bottom) */}
-      <div className="flex-none pt-2 pb-1 sm:pb-3">
-          {/* Power up row */}
-          <div className="flex justify-center items-center gap-4 sm:gap-8 shrink-0 w-full">
+      <div className="flex-none pt-2 pb-3">
+          <div className="flex justify-center items-center gap-6 shrink-0 w-full">
             {/* Shuffle Tooltip & Button */}
             <div className="relative flex flex-col items-center">
               {activeTooltip === 'shuffle' && (
@@ -459,9 +455,9 @@ export const GameBoard: React.FC = () => {
               )}
               <button 
                 onClick={(e) => { e.stopPropagation(); setActiveTooltip(activeTooltip === 'shuffle' ? null : 'shuffle'); }}
-                className={`w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-tertiary border-b-[4px] sm:border-b-[8px] border-[#009b4c] flex items-center justify-center active:border-b-0 active:translate-y-[4px] sm:active:translate-y-[8px] transition-all ${activeTooltip === 'shuffle' ? 'ring-4 ring-tertiary/40 brightness-110 shadow-lg' : ''}`}
+                className={`w-16 h-16 rounded-full bg-tertiary border-b-[5px] border-[#009b4c] flex items-center justify-center active:border-b-0 active:translate-y-[5px] transition-all ${activeTooltip === 'shuffle' ? 'ring-4 ring-tertiary/40 brightness-110 shadow-lg' : ''}`}
               >
-                <svg viewBox="0 0 24 24" className="w-7 h-7 sm:w-10 sm:h-10 text-[#00602f]" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+                <svg viewBox="0 0 24 24" className="w-8 h-8 text-[#00602f]" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
               </button>
             </div>
 
@@ -487,9 +483,9 @@ export const GameBoard: React.FC = () => {
               )}
               <button 
                 onClick={(e) => { e.stopPropagation(); setActiveTooltip(activeTooltip === 'highlight' ? null : 'highlight'); }}
-                className={`w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-secondary border-b-[4px] sm:border-b-[8px] border-[#b580e0] flex items-center justify-center active:border-b-0 active:translate-y-[4px] sm:active:translate-y-[8px] transition-all ${activeTooltip === 'highlight' ? 'ring-4 ring-secondary/40 brightness-110 shadow-lg' : ''}`}
+                className={`w-16 h-16 rounded-full bg-secondary border-b-[5px] border-[#b580e0] flex items-center justify-center active:border-b-0 active:translate-y-[5px] transition-all ${activeTooltip === 'highlight' ? 'ring-4 ring-secondary/40 brightness-110 shadow-lg' : ''}`}
               >
-                <svg viewBox="0 0 24 24" className="w-8 h-8 sm:w-12 sm:h-12 text-[#6c11af] fill-current"><path d="M12 22a2.98 2.98 0 0 0 2.818-2H9.182A2.98 2.98 0 0 0 12 22zm7-7.41V11c0-3.866-3.134-7-7-7s-7 3.134-7 7v3.59l-2 2V18h18v-1.41l-2-2z"/></svg>
+                <svg viewBox="0 0 24 24" className="w-9 h-9 text-[#6c11af] fill-current"><path d="M12 22a2.98 2.98 0 0 0 2.818-2H9.182A2.98 2.98 0 0 0 12 22zm7-7.41V11c0-3.866-3.134-7-7-7s-7 3.134-7 7v3.59l-2 2V18h18v-1.41l-2-2z"/></svg>
               </button>
             </div>
 
@@ -515,9 +511,9 @@ export const GameBoard: React.FC = () => {
               )}
               <button 
                 onClick={(e) => { e.stopPropagation(); setActiveTooltip(activeTooltip === 'lightning' ? null : 'lightning'); }}
-                className={`w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-primary border-b-[4px] sm:border-b-[8px] border-[#ba9a00] flex items-center justify-center active:border-b-0 active:translate-y-[4px] sm:active:translate-y-[8px] transition-all ${activeTooltip === 'lightning' ? 'ring-4 ring-primary/40 brightness-110 shadow-lg' : ''}`}
+                className={`w-16 h-16 rounded-full bg-primary border-b-[5px] border-[#ba9a00] flex items-center justify-center active:border-b-0 active:translate-y-[5px] transition-all ${activeTooltip === 'lightning' ? 'ring-4 ring-primary/40 brightness-110 shadow-lg' : ''}`}
               >
-                <svg viewBox="0 0 24 24" className="w-7 h-7 sm:w-10 sm:h-10 text-[#665400] fill-current"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                <svg viewBox="0 0 24 24" className="w-8 h-8 text-[#665400] fill-current"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
               </button>
             </div>
           </div>
