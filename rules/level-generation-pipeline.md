@@ -5,18 +5,19 @@ To make designing and balancing hundreds of Arcade stages manageable, the `level
 ## 1. The Design Source (CSV Format)
 Game designers will maintain a simple `arcade-levels.csv` file. 
 
-| Stage | Rows | Cols | Timer | Words (Length-Difficulty) |
-|-------|------|------|-------|---------------------------|
-| 1     | 4    | 4    | 60    | 7-4\|5-3\|4-3             |
-| 2     | 4    | 4    | 55    | 8-5\|6-4                  |
-| 3     | 3    | 3    | 45    | 5-2\|4-2                  |
+| Stage | Rows | Columns | Timer | Word1 | Difficulty1 | Word2 | Difficulty2 | ... | Word5 | Difficulty5 |
+|-------|------|---------|-------|-------|-------------|-------|-------------|-----|-------|-------------|
+| 1     | 4    | 4       | 60    | 7     | 4           | 5     | 3           | ... |       |             |
+| 2     | 4    | 4       | 55    | 8     | 5           | 6     | 4           | ... |       |             |
 
 ### Data Definitions:
 - **Stage:** The integer number of the stage progression.
-- **Rows/Cols:** Specifies the grid bounds.
+- **Rows/Columns:** Specifies the grid bounds.
 - **Timer:** The starting seconds allowed for the stage.
-- **Words:** A pipe-separated (`|`) list of the word requirements. Formatted as `[WordLength]-[DifficultyRating]`.
-  - Example: `7-4` means a 7-letter word pulled from Difficulty Level 4 (B2 rating).
+- **Word1, Difficulty1, ..., Word5, Difficulty5:** Up to five words and their respective difficulty ratings.
+  - Formatted as separate columns for easier spreadsheet editing.
+  - **Example:** Word1 = `7`, Difficulty1 = `4` means a 7-letter word pulled from Difficulty Level 4.
+  - Empty cells are ignored during level generation.
 
 ## 2. Execution Flow (CSV to JSON Script)
 A secondary backend script (e.g., `npm run compile-levels`) handles the conversion:

@@ -26,18 +26,26 @@ async function main() {
   for (const row of rows) {
     const stageNumber = row.Stage;
     const r = parseInt(row.Rows);
-    const c = parseInt(row.Cols);
+    const c = parseInt(row.Columns);
     const timer = parseInt(row.Timer);
-    const wordsRaw = row.Words;
 
-    // Parse words: "4-2|4-2|4-2|4-3"
-    const wordList = wordsRaw.split('|').map(w => {
-      const parts = w.split('-');
-      return {
-        wordLength: parseInt(parts[0]),
-        difficulty: parseInt(parts[1])
-      };
-    });
+    // Parse words from columns Word1, Difficulty1, ..., Word5, Difficulty5
+    const wordList = [];
+    for (let i = 1; i <= 5; i++) {
+        const length = row[`Word${i}`];
+        const difficulty = row[`Difficulty${i}`];
+        
+        if (length && difficulty && length.trim() !== '' && difficulty.trim() !== '') {
+            wordList.push({
+                wordLength: parseInt(length),
+                difficulty: parseInt(difficulty)
+            });
+        }
+    }
+
+    if (wordList.length === 0) {
+        console.warn(`Warning: Stage ${stageNumber} has no words defined.`);
+    }
 
     // Validate capacity
     const totalLength = wordList.reduce((acc, w) => acc + w.wordLength, 0);

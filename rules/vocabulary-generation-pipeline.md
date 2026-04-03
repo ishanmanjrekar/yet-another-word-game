@@ -18,9 +18,10 @@ A backend utility script (`npm run generate-words`) executes the following flow 
 2. **Selection & Truncation:**
    - Iterate through candidates that have a corresponding entry in the Webster's JSON.
    - **Metadata Stripping:** Remove leading numbers (`1.`), part-of-speech markers (`n.`), and parenthetical references (`(a)`) from the start of the definition.
-   - **Segment Merging:** Extract the definition by splitting at semicolons (`;`) and periods (`.`). If the first segment is shorter than 10 characters, merge it with subsequent segments until the length is $\ge$ 10.
+   - **Quality Filtration:** Automatically discard segments containing author references (e.g., "Chaucer", "Shak."), meta-linguistic terms (e.g., "suffix", "termination"), or grammatical abbreviations (e.g., "3d pers. sing.").
+   - **Segment Merging:** Extract the definition by splitting at semicolons (`;`) and periods (`.`). If the first segment is shorter than 10 characters or is rejected by filters, merge with subsequent segments until the length is $\ge$ 10.
    - **Cleaning:** Trim whitespace and ensure the result ends in a single period (`.`).
-   - **Validation:** Only words with a resulting definition **between 10 and 59 characters** are accepted.
+   - **Validation:** Only words with a resulting definition **between 10 and 59 characters** are accepted. Any definition still containing square brackets `[]` after processing is rejected.
 3. **Distribution Management:**
    - Targets a total of 1,000 words.
    - Distribution per length: 3 (200), 4 (200), 5 (200), 6 (200), 7 (100), 8 (100).

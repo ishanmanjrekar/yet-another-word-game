@@ -5,6 +5,7 @@ This document outlines the procedural generation logic, stage setups, economy, a
 > **Developer Reference Links:**
 > - [JSON Data Schemas](./json-schemas.md): Interfaces for level, reward, and word bank configurations.
 > - [Grid Generation Algorithm](./grid-generation-algorithm.md): The math and loop logic for procedurally creating the 16-tile board.
+> - [Vocabulary Offline Pipeline](./vocabulary-generation-pipeline.md): Detailed rules for word selection and definition truncation.
 
 ---
 
@@ -12,7 +13,7 @@ This document outlines the procedural generation logic, stage setups, economy, a
 To conserve API tokens and guarantee lightning-fast load times, the game does not use AI to generate definitions or parse difficulty at runtime. 
 Instead, a local script compiles a database file (`word-bank.json`) using free, open-source resources:
 - Parses open-source CEFR (Common European Framework of Reference) English vocabulary lists.
-- Fetches definitions via a free dictionary API.
+- Pulls high-quality definitions from a static version of **Webster's Unabridged Dictionary**.
 - Structures the data into a static JSON shipped directly with the game bundle.
 
 **Difficulty Categorization System:**
