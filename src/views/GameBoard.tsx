@@ -237,8 +237,9 @@ export const GameBoard: React.FC = () => {
   return (
     <div 
       onClick={() => setActiveTooltip(null)}
-      className="flex flex-col h-full w-full bg-[#161625] overflow-hidden text-white font-body selection:bg-transparent tracking-wide absolute inset-0"
+      className="flex items-center justify-center h-screen w-full bg-[#161625] overflow-hidden text-white font-body selection:bg-transparent tracking-wide"
     >
+      <div className="flex flex-col h-full w-full max-w-[480px] max-h-[900px] relative p-2 sm:p-4">
       {/* Top Bar */}
       <div className="flex-none h-16 sm:h-20 px-4 sm:px-6 flex justify-between items-center z-10 border-b border-[#1f1f33]">
         {/* Pause Button */}
@@ -257,7 +258,7 @@ export const GameBoard: React.FC = () => {
       </div>
 
       {/* Main Containers */}
-      <div className="flex-1 flex flex-col p-2 sm:p-5 gap-2 sm:gap-4 min-h-0 overflow-hidden text-base">
+      <div className="flex-1 flex flex-col pt-2 sm:pt-4 gap-3 sm:gap-4 min-h-0 overflow-hidden text-base">
         
         {/* Upper Card: Definition & Progress */}
         <div className="bg-[#1d1d3d] rounded-2xl sm:rounded-[2rem] flex flex-col p-2 sm:p-4 shadow-xl shrink-0 relative">
@@ -362,7 +363,7 @@ export const GameBoard: React.FC = () => {
         </div>
 
         {/* Lower Card: Grid & Powerups */}
-        <div className="flex-1 min-h-0 flex flex-col justify-between bg-[#1d1d3d] rounded-2xl sm:rounded-[2rem] p-2.5 sm:p-5 shadow-xl overflow-hidden">
+        <div className="flex-1 min-h-0 flex flex-col justify-center gap-4 bg-[#1d1d3d] rounded-2xl sm:rounded-[2rem] p-3 sm:p-6 shadow-xl overflow-hidden">
           {/* Grid Area */}
           <div className="flex-1 flex justify-center items-center min-h-0 w-full overflow-hidden relative">
             <div 
@@ -510,6 +511,7 @@ export const GameBoard: React.FC = () => {
         </div>
 
       </div>
+    </div>
 
       {/* Overlay Screens */}
       {gameState === 'stageStart' && (
