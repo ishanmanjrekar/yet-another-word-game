@@ -18,7 +18,7 @@
 
 ## 2. Core Gameplay Mechanics
 - **Grid Layout:** Variable grid layouts (e.g., 3x3, 4x4) configured dynamically per stage within `level-design.json`. Maximum size is 4x4 (16 tiles).
-- **Word Constraints:** Words range from a minimum of 4 letters to a maximum of 8 letters. The sum of all word lengths in a single stage must physically fit within the active grid.
+- **Word Constraints:** Words range from a minimum of 3 letters to a maximum of 8 letters. The sum of all word lengths in a single stage must physically fit within the active grid.
 - **Tile Selection:** Players can select any tile from the 16-tile grid in any order (tiles do not need to be adjacent). A single tile can only be used once per active word.
 - **Word Presentation:** A stage usually features multiple words to guess within the same 16-tile set (e.g., one 4-letter word, two 5-letter words, and one 8-letter word).
   - Only one blank word and its corresponding definition are presented on screen at a given time.

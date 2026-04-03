@@ -16,13 +16,11 @@ Instead, a local script compiles a database file (`word-bank.json`) using free, 
 - Structures the data into a static JSON shipped directly with the game bundle.
 
 **Difficulty Categorization System:**
-The internal system scales difficulty from 1 to 6, mapped natively to CEFR tiers:
+The internal system scales difficulty from 1 to 4, mapped natively to CEFR tiers:
 * `1` = A1
 * `2` = A2
 * `3` = B1
 * `4` = B2
-* `5` = C1
-* `6` = C2
 
 ---
 

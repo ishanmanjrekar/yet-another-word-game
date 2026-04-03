@@ -7,17 +7,23 @@ YAWG does **NOT** query AI (ChatGPT, Gemini, etc.) or web dictionary APIs during
 
 ## The Core Data Sources
 1. **The Word Source (CEFR CSV):**
-   - Development must utilize a free, open-source English Vocabulary Profile CSV dataset (mapping words like "Apple" to levels like "A1").
-2. **The Definition Source (Free API):**
-   - Use a free authentication-less dictionary API (such as the [Free Dictionary API](https://dictionaryapi.dev/)).
+   - Development utilizes a free, open-source English Vocabulary Profile CSV dataset (mapping words like "Apple" to levels like "A1").
+2. **The Definition Source (Webster's Dictionary):**
+   - High-quality definitions are pulled from a static JSON version of the [Webster's Unabridged Dictionary](https://github.com/matthewreagan/WebstersEnglishDictionary).
 
-## Execution Flow (Developer Node/Python Script)
-A backend utility script (e.g., `npm run generate-words`) executes the following flow to populate the database:
+## Execution Flow (Developer Node Script)
+A backend utility script (`npm run generate-words`) executes the following flow to populate the database:
 
-1. **Read/Filter:** Parse the raw CEFR static CSV file. Filter it based on acceptable length limits (4 to 8 letters) and remove invalid strings (hyphenated arrays, special characters, spaces).
-2. **Batch Selection:** Extract `X` number of random words for every required difficulty and length bucket (e.g., fifty 4-letter A1 words).
-3. **Definition Ping Loop:** Iterate through the selected words, making a GET request to the selected Dictionary API.
-   - `GET https://api.dictionaryapi.dev/api/v2/entries/en/{word}`
-   - *Error Handling:* If a 404 is returned (meaning the obscure word is not found in the free dictionary), discard the word and automatically draw a replacement from the CEFR pool.
-4. **Data Structuring:** Map the successful JSON responses strictly to the object format defined in `json-schemas.md`. Discard excessive API payload bloat (e.g., removing phonetic spelling arrays, MP3 audio links, and secondary/tertiary definitions) to keep the file size minimal.
-5. **Write File:** Append or overwrite the final grouped payload to `word-bank.json` inside the game's static data directory before pushing to version control or deploying.
+1. **Read/Filter:** Parse the raw CEFR static CSV file. Filter it based on acceptable length limits (3 to 8 letters) and remove invalid strings (special characters, spaces).
+2. **Selection & Truncation:**
+   - Iterate through candidates that have a corresponding entry in the Webster's JSON.
+   - **Metadata Stripping:** Remove leading numbers (`1.`), part-of-speech markers (`n.`), and parenthetical references (`(a)`) from the start of the definition.
+   - **Segment Merging:** Extract the definition by splitting at semicolons (`;`) and periods (`.`). If the first segment is shorter than 10 characters, merge it with subsequent segments until the length is $\ge$ 10.
+   - **Cleaning:** Trim whitespace and ensure the result ends in a single period (`.`).
+   - **Validation:** Only words with a resulting definition **between 10 and 59 characters** are accepted.
+3. **Distribution Management:**
+   - Targets a total of 1,000 words.
+   - Distribution per length: 3 (200), 4 (200), 5 (200), 6 (200), 7 (100), 8 (100).
+   - Difficulty Mix: 70% Level A (A1/A2) and 30% Level B (B1/B2).
+4. **Data Structuring:** Map the successful words strictly to the flattened JSON format: `{ "length": [ { word, definition, difficulty } ] }`.
+5. **Write File:** Overwrite the final payload to `word-bank.json` inside the game's static data directory.

@@ -3,20 +3,18 @@
 This document defines the exact data interfaces required for the procedural generation and gameplay mechanics.
 
 ## 1. `word-bank.json`
-Generated directly by the offline vocabulary script. It acts as a static local database. It is keyed by word length, then by difficulty rating.
+Generated directly by the offline vocabulary script. It acts as a static local database. It is keyed by word length.
 
 ```typescript
 interface WordBankItem {
   word: string;
   definition: string;
+  difficulty: number; // 1 = A1, 2 = A2, 3 = B1, 4 = B2
 }
 
 interface WordBank {
-  // Key is wordLength (e.g., "4", "5", "8")
-  [length: string]: {
-    // Key is Difficulty Rating (1 to 6)
-    [difficulty: string]: WordBankItem[];
-  }
+  // Key is wordLength (e.g., "3", "4", "8")
+  [length: string]: WordBankItem[];
 }
 ```
 
@@ -26,7 +24,7 @@ Controls the flow and configuration of the Arcade stages.
 ```typescript
 interface StageWordRequirement {
   wordLength: number;
-  difficulty: number; // 1 = A1, 6 = C2
+  difficulty: number; // 1 = A1, 4 = B2
 }
 
 interface StageConfig {
