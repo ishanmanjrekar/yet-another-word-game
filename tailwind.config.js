@@ -32,7 +32,7 @@ export default {
           'fixed-variant': '#690bac',
         },
         'on-surface': '#ffffff',
-        'on-primary': '#3a3000',
+        'on-primary': '#000000',
       },
       fontFamily: {
         headline: ['Lilita One', 'sans-serif'],
