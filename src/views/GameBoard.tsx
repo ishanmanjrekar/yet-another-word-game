@@ -25,13 +25,13 @@ export const GameBoard: React.FC = () => {
     gameState,
     economy,
     executeShuffle,
-    executeHint,
+    executeHighlight,
     executeLightning,
     completeStage,
     advanceToNextStage
   } = useGameStore((state) => state);
 
-  const [activeTooltip, setActiveTooltip] = useState<'shuffle' | 'hint' | 'lightning' | null>(null);
+  const [activeTooltip, setActiveTooltip] = useState<'shuffle' | 'highlight' | 'lightning' | null>(null);
   const [isShuffling, setIsShuffling] = useState(false);
 
   const handleShuffleAction = () => {
@@ -101,8 +101,15 @@ export const GameBoard: React.FC = () => {
     return def;
   };
 
-  // Check if more hints can be provided for the current word
-  const isHintAvailable = (() => {
+  const handleContinue = () => {
+    advanceToNextStage();
+  };
+
+  const currentSelected = selectedIndices[activeWordIndex] || [];
+  const currentHighlighted = highlightedIndices[activeWordIndex] || [];
+
+  // Check if more highlights can be provided for the current word
+  const isHighlightAvailable = (() => {
     if (!activeWordObj) return false;
     const activeWord = activeWordObj.word.toUpperCase();
     
@@ -111,7 +118,7 @@ export const GameBoard: React.FC = () => {
       charCounts[char] = (charCounts[char] || 0) + 1;
     }
     
-    const addressedIndices = [...selectedIndices, ...highlightedIndices].filter((idx): idx is number => idx !== null);
+    const addressedIndices = [...currentSelected, ...currentHighlighted].filter((idx): idx is number => idx !== null);
     for (const idx of addressedIndices) {
       const char = gridLetters[idx]?.toUpperCase();
       if (char && charCounts[char] !== undefined && charCounts[char] > 0) {
@@ -132,15 +139,11 @@ export const GameBoard: React.FC = () => {
   const isLightningAvailable = (() => {
     if (!activeWordObj) return false;
     const activeWord = activeWordObj.word.toUpperCase();
-    return selectedIndices.some((tileIdx: number | null, i: number) => {
+    return currentSelected.some((tileIdx: number | null, i: number) => {
       if (tileIdx === null) return true;
       return gridLetters[tileIdx]?.toUpperCase() !== activeWord[i];
     });
   })();
-
-  const handleContinue = () => {
-    advanceToNextStage();
-  };
 
   return (
     <div className="flex flex-col h-full w-full bg-[#161625] overflow-hidden text-white font-body selection:bg-transparent tracking-wide absolute inset-0">
@@ -187,7 +190,7 @@ export const GameBoard: React.FC = () => {
 
           {/* Active Word Slots */}
           <div className="flex justify-center gap-1 sm:gap-2 mb-1.5 sm:mb-3 h-8 sm:h-12">
-            {selectedIndices.map((tileIndex: number | null, i: number) => {
+            {currentSelected.map((tileIndex: number | null, i: number) => {
               const isCompleted = completedWords.includes(activeWordIndex);
               const targetChar = activeWordObj.word[i].toUpperCase();
               const currentChar = tileIndex !== null ? gridLetters[tileIndex].toUpperCase() : null;
@@ -249,8 +252,8 @@ export const GameBoard: React.FC = () => {
               style={{ gridTemplateColumns: `repeat(${gridCols}, minmax(0, 1fr))` }}
             >
               {gridLetters.map((char: string, index: number) => {
-                const isSelected = selectedIndices.includes(index);
-                const isHighlighted = highlightedIndices.includes(index);
+                const isSelected = currentSelected.includes(index);
+                const isHighlighted = currentHighlighted.includes(index);
                 
                 const row = Math.floor(index / gridCols);
                 const col = index % gridCols;
@@ -309,7 +312,8 @@ export const GameBoard: React.FC = () => {
                     <span className="text-[#2f2e43] font-body text-[11px] font-medium leading-tight text-center px-1">Rearrange the tiles</span>
                     <button 
                       onClick={() => { handleShuffleAction(); setActiveTooltip(null); }}
-                      className="mt-1 flex items-center gap-1 bg-primary text-[#3a3000] px-3 py-1 rounded-full text-[10px] font-bold shadow-sm border-b-2 border-[#554600] active:translate-y.5 active:border-b-0 transition-all uppercase tracking-tight"
+                      disabled={coins < (economy?.powerups.shuffle.cost ?? 0)}
+                      className={`mt-1 flex items-center gap-1 bg-primary text-[#3a3000] px-3 py-1 rounded-full text-[10px] font-bold shadow-sm border-b-2 border-[#554600] active:translate-y-0.5 active:border-b-0 transition-all uppercase tracking-tight ${coins < (economy?.powerups.shuffle.cost ?? 0) ? 'opacity-50 grayscale pointer-events-none' : ''}`}
                     >
                       <span>USE {economy?.powerups.shuffle.cost ?? 0}</span>
                       <span className="w-3 h-3 bg-[#3a3000] rounded-full flex items-center justify-center text-[8px] text-primary">$</span>
@@ -325,26 +329,26 @@ export const GameBoard: React.FC = () => {
               </button>
             </div>
 
-            {/* Hint Tooltip & Button */}
+            {/* Highlight Tooltip & Button */}
             <div className="relative flex flex-col items-center">
-              {activeTooltip === 'hint' && (
+              {activeTooltip === 'highlight' && (
                 <div className="absolute bottom-[calc(100%+12px)] z-50 flex flex-col items-center bg-[#e2e0fc] rounded-xl p-2 shadow-2xl tooltip-arrow animate-bounce-short px-3 w-32 border border-white/20">
                   <div className="flex flex-col items-center gap-1">
                     <span className="text-[#2f2e43] font-body text-[11px] font-medium leading-tight text-center px-1">Highlight a correct letter</span>
                     <button 
-                      onClick={() => { executeHint(); setActiveTooltip(null); }}
-                      disabled={!isHintAvailable}
-                      className={`mt-1 flex items-center gap-1 bg-primary text-[#3a3000] px-3 py-1 rounded-full text-[10px] font-bold shadow-sm border-b-2 border-[#554600] active:translate-y-0.5 active:border-b-0 transition-all uppercase tracking-tight ${!isHintAvailable ? 'opacity-50 grayscale pointer-events-none' : ''}`}
+                      onClick={() => { executeHighlight(); setActiveTooltip(null); }}
+                      disabled={!isHighlightAvailable || coins < (economy?.powerups.highlight.cost ?? 0)}
+                      className={`mt-1 flex items-center gap-1 bg-primary text-[#3a3000] px-3 py-1 rounded-full text-[10px] font-bold shadow-sm border-b-2 border-[#554600] active:translate-y-0.5 active:border-b-0 transition-all uppercase tracking-tight ${(!isHighlightAvailable || coins < (economy?.powerups.highlight.cost ?? 0)) ? 'opacity-40 grayscale pointer-events-none' : ''}`}
                     >
-                      <span>{isHintAvailable ? `USE ${economy?.powerups.hint.cost ?? 0}` : 'NO HINTS LEFT'}</span>
-                      {isHintAvailable && <span className="w-3 h-3 bg-[#3a3000] rounded-full flex items-center justify-center text-[8px] text-primary">$</span>}
+                      <span>{isHighlightAvailable ? `USE ${economy?.powerups.highlight.cost ?? 0}` : 'NO HIGHLIGHTS LEFT'}</span>
+                      {isHighlightAvailable && <span className="w-3 h-3 bg-[#3a3000] rounded-full flex items-center justify-center text-[8px] text-primary">$</span>}
                     </button>
                   </div>
                 </div>
               )}
               <button 
-                onClick={() => setActiveTooltip(activeTooltip === 'hint' ? null : 'hint')}
-                className={`w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-secondary border-b-[4px] sm:border-b-[8px] border-[#b580e0] flex items-center justify-center active:border-b-0 active:translate-y-[4px] sm:active:translate-y-[8px] transition-all ${activeTooltip === 'hint' ? 'ring-4 ring-secondary/40 brightness-110 shadow-lg' : ''}`}
+                onClick={() => setActiveTooltip(activeTooltip === 'highlight' ? null : 'highlight')}
+                className={`w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-secondary border-b-[4px] sm:border-b-[8px] border-[#b580e0] flex items-center justify-center active:border-b-0 active:translate-y-[4px] sm:active:translate-y-[8px] transition-all ${activeTooltip === 'highlight' ? 'ring-4 ring-secondary/40 brightness-110 shadow-lg' : ''}`}
               >
                 <svg viewBox="0 0 24 24" className="w-8 h-8 sm:w-12 sm:h-12 text-[#6c11af] fill-current"><path d="M12 22a2.98 2.98 0 0 0 2.818-2H9.182A2.98 2.98 0 0 0 12 22zm7-7.41V11c0-3.866-3.134-7-7-7s-7 3.134-7 7v3.59l-2 2V18h18v-1.41l-2-2z"/></svg>
               </button>
@@ -358,8 +362,8 @@ export const GameBoard: React.FC = () => {
                     <span className="text-[#2f2e43] font-body text-[11px] font-medium leading-tight text-center px-1">Place a correct letter</span>
                     <button 
                       onClick={() => { executeLightning(); setActiveTooltip(null); }}
-                      disabled={!isLightningAvailable}
-                      className={`mt-1 flex items-center gap-1 bg-primary text-[#3a3000] px-3 py-1 rounded-full text-[10px] font-bold shadow-sm border-b-2 border-[#554600] active:translate-y-0.5 active:border-b-0 transition-all uppercase tracking-tight ${!isLightningAvailable ? 'opacity-50 grayscale pointer-events-none' : ''}`}
+                      disabled={!isLightningAvailable || coins < (economy?.powerups.lightning.cost ?? 0)}
+                      className={`mt-1 flex items-center gap-1 bg-primary text-[#3a3000] px-3 py-1 rounded-full text-[10px] font-bold shadow-sm border-b-2 border-[#554600] active:translate-y-0.5 active:border-b-0 transition-all uppercase tracking-tight ${(!isLightningAvailable || coins < (economy?.powerups.lightning.cost ?? 0)) ? 'opacity-40 grayscale pointer-events-none' : ''}`}
                     >
                       <span>{isLightningAvailable ? `USE ${economy?.powerups.lightning.cost ?? 0}` : 'NO SLOTS LEFT'}</span>
                       {isLightningAvailable && <span className="w-3 h-3 bg-[#3a3000] rounded-full flex items-center justify-center text-[8px] text-primary">$</span>}
@@ -389,7 +393,15 @@ export const GameBoard: React.FC = () => {
       {gameState === 'stageClear' && (
         <StageSuccessOverlay 
           stageNumber={activeStage} 
-          coinsAwarded={economy?.rewards.baseCoinPayout || 50} 
+          coinsAwarded={(() => {
+            const base = economy?.rewards.baseCoinPayout || 10;
+            const growth = (economy?.rewards.compoundGrowthPercent || 10) / 100;
+            let reward = base;
+            for (let i = 1; i < activeStage; i++) {
+              reward = Math.floor(reward * (1 + growth));
+            }
+            return reward;
+          })()} 
           onContinue={handleContinue} 
         />
       )}

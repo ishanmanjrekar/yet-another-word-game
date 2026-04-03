@@ -34,7 +34,7 @@ export interface LevelDesign {
 export interface EconomyConfig {
   powerups: {
     shuffle: { cost: number; unlocked: boolean };
-    hint: { cost: number; unlocked: boolean };
+    highlight: { cost: number; unlocked: boolean };
     lightning: { cost: number; unlocked: boolean };
   };
   rewards: {
@@ -55,10 +55,10 @@ interface GameState {
   gameState: GameModeState;
   stageWords: WordBankItem[];
   gridLetters: string[];
-  selectedIndices: (number | null)[];
+  selectedIndices: (number | null)[][];
   activeWordIndex: number;
   completedWords: number[];
-  highlightedIndices: number[];
+  highlightedIndices: number[][];
   
   incrementCoins: (amount: number) => void;
   changeStage: (stage: number) => void;
@@ -75,7 +75,7 @@ interface GameState {
   nextWord: () => void;
   prevWord: () => void;
   executeShuffle: () => void;
-  executeHint: () => void;
+  executeHighlight: () => void;
   executeLightning: () => void;
   completeStage: () => void;
   advanceToNextStage: () => void;
@@ -90,7 +90,7 @@ export const useGameStore = create<GameState>((set) => ({
   gameState: 'menu',
   stageWords: [],
   gridLetters: [],
-  selectedIndices: [], // Initial state, will be set on stage init
+  selectedIndices: [], 
   activeWordIndex: 0,
   completedWords: [],
   highlightedIndices: [],
@@ -127,14 +127,13 @@ export const useGameStore = create<GameState>((set) => ({
     set({ gameState: stateName }),
 
   initStage: (words, grid) => {
-    const firstWordLen = words[0].word.length;
     set({ 
       stageWords: words, 
       gridLetters: grid, 
-      selectedIndices: new Array(firstWordLen).fill(null), 
+      selectedIndices: words.map(w => new Array(w.word.length).fill(null)), 
       activeWordIndex: 0, 
       completedWords: [], 
-      highlightedIndices: [] 
+      highlightedIndices: words.map(() => []) 
     });
   },
 
@@ -143,110 +142,98 @@ export const useGameStore = create<GameState>((set) => ({
       if (state.completedWords.includes(state.activeWordIndex)) return {};
       
       const activeWord = state.stageWords[state.activeWordIndex].word;
-      const newIndices = [...state.selectedIndices];
+      const currentSelected = [...state.selectedIndices[state.activeWordIndex]];
       
-      const existingPos = newIndices.indexOf(index);
+      const existingPos = currentSelected.indexOf(index);
       if (existingPos !== -1) {
         // Toggle Off: remove from slot
-        newIndices[existingPos] = null;
+        currentSelected[existingPos] = null;
       } else {
         // Find first empty slot
-        const firstEmpty = newIndices.indexOf(null);
+        const firstEmpty = currentSelected.indexOf(null);
         if (firstEmpty === -1) return {}; // All slots filled
-        newIndices[firstEmpty] = index;
+        currentSelected[firstEmpty] = index;
       }
 
       let newlyCompleted = [...state.completedWords];
-      let newCoins = state.coins;
-      let newGameState = state.gameState;
-      let finalIndices = newIndices;
+      let finalCurrentSelected = currentSelected;
 
       // Check if word is complete (all slots filled)
-      if (newIndices.every(idx => idx !== null)) {
-         const spelledWord = newIndices.map(idx => state.gridLetters[idx!]).join('');
+      if (currentSelected.every(idx => idx !== null)) {
+         const spelledWord = currentSelected.map(idx => state.gridLetters[idx!]).join('');
          if (spelledWord.toUpperCase() === activeWord.toUpperCase()) {
             newlyCompleted.push(state.activeWordIndex);
-            
             // Clear current selection for the finished word
-            finalIndices = finalIndices.map(() => null);
-            
-            if (newlyCompleted.length === state.stageWords.length) {
-                // We'll let the GameBoard handle the delay before setting state to 'stageClear'
-                // and awarding coins via a new action
-            }
+            finalCurrentSelected = finalCurrentSelected.map(() => null);
          }
       }
 
+      const newSelectedIndices = [...state.selectedIndices];
+      newSelectedIndices[state.activeWordIndex] = finalCurrentSelected;
+
       return {
-          selectedIndices: finalIndices,
-          completedWords: newlyCompleted,
-          coins: newCoins,
-          gameState: newGameState,
-          highlightedIndices: state.highlightedIndices
+          selectedIndices: newSelectedIndices,
+          completedWords: newlyCompleted
       };
     }),
 
   deselectSlot: (pos) =>
     set((state) => {
       if (state.completedWords.includes(state.activeWordIndex)) return {};
-      const newIndices = [...state.selectedIndices];
-      newIndices[pos] = null;
-      return { selectedIndices: newIndices };
+      const newSelectedIndices = [...state.selectedIndices];
+      const currentWordSelected = [...newSelectedIndices[state.activeWordIndex]];
+      currentWordSelected[pos] = null;
+      newSelectedIndices[state.activeWordIndex] = currentWordSelected;
+      return { selectedIndices: newSelectedIndices };
     }),
 
   clearSelection: () =>
-    set((state) => ({ 
-      selectedIndices: state.selectedIndices.map(() => null) 
-    })),
+    set((state) => {
+      const newSelectedIndices = [...state.selectedIndices];
+      newSelectedIndices[state.activeWordIndex] = newSelectedIndices[state.activeWordIndex].map(() => null);
+      return { 
+        selectedIndices: newSelectedIndices 
+      };
+    }),
 
   nextWord: () =>
-    set((state) => {
-      const nextIdx = Math.min(state.activeWordIndex + 1, state.stageWords.length - 1);
-      const nextWordLen = state.stageWords[nextIdx].word.length;
-      return { 
-        activeWordIndex: nextIdx, 
-        selectedIndices: new Array(nextWordLen).fill(null), 
-        highlightedIndices: [] 
-      };
-    }),
+    set((state) => ({ 
+      activeWordIndex: Math.min(state.activeWordIndex + 1, state.stageWords.length - 1)
+    })),
 
   prevWord: () =>
-    set((state) => {
-      const prevIdx = Math.max(state.activeWordIndex - 1, 0);
-      const prevWordLen = state.stageWords[prevIdx].word.length;
-      return { 
-        activeWordIndex: prevIdx, 
-        selectedIndices: new Array(prevWordLen).fill(null), 
-        highlightedIndices: [] 
-      };
-    }),
+    set((state) => ({ 
+      activeWordIndex: Math.max(state.activeWordIndex - 1, 0)
+    })),
 
   executeShuffle: () =>
     set((state) => {
       if (!state.economy || state.coins < state.economy.powerups.shuffle.cost) return {};
-      // Filter out nulls from selectedIndices for shuffle safety
-      const filteredSelected = state.selectedIndices.filter((idx): idx is number => idx !== null);
-      const unselected = state.gridLetters.map((_, i) => i).filter(i => !filteredSelected.includes(i));
-      const chars = unselected.map(i => state.gridLetters[i]);
       
-      for (let i = chars.length - 1; i > 0; i--) {
+      // All selected indices across all words should be held static
+      const allSelected = state.selectedIndices.flatMap(row => row.filter((idx): idx is number => idx !== null));
+      const unselectedIndices = state.gridLetters.map((_, i) => i).filter(i => !allSelected.includes(i));
+      
+      const charsToShuffle = unselectedIndices.map(i => state.gridLetters[i]);
+      for (let i = charsToShuffle.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [chars[i], chars[j]] = [chars[j], chars[i]];
+        [charsToShuffle[i], charsToShuffle[j]] = [charsToShuffle[j], charsToShuffle[i]];
       }
       
       const newGrid = [...state.gridLetters];
-      unselected.forEach((index, count) => {
-        newGrid[index] = chars[count];
+      unselectedIndices.forEach((index, count) => {
+        newGrid[index] = charsToShuffle[count];
       });
+
       return { 
         coins: state.coins - state.economy.powerups.shuffle.cost, 
         gridLetters: newGrid 
       };
     }),
 
-  executeHint: () =>
+  executeHighlight: () =>
     set((state) => {
-      if (!state.economy || state.coins < state.economy.powerups.hint.cost) return {};
+      if (!state.economy || state.coins < state.economy.powerups.highlight.cost) return {};
       
       const activeWord = state.stageWords[state.activeWordIndex].word.toUpperCase();
       
@@ -257,8 +244,9 @@ export const useGameStore = create<GameState>((set) => ({
       }
       
       // Chars already addressed (filter out nulls from selectedIndices)
-      const filteredSelected = state.selectedIndices.filter((idx): idx is number => idx !== null);
-      const addressedIndices = [...filteredSelected, ...state.highlightedIndices];
+      const currentWordSelected = state.selectedIndices[state.activeWordIndex].filter((idx): idx is number => idx !== null);
+      const currentWordHighlighted = state.highlightedIndices[state.activeWordIndex];
+      const addressedIndices = [...currentWordSelected, ...currentWordHighlighted];
       
       for (const idx of addressedIndices) {
         const char = state.gridLetters[idx].toUpperCase();
@@ -281,11 +269,14 @@ export const useGameStore = create<GameState>((set) => ({
       }, []);
       
       if (candidates.length === 0) return {};
- 
+  
       const randomTarget = candidates[Math.floor(Math.random() * candidates.length)];
+      const newHighlightedIndices = [...state.highlightedIndices];
+      newHighlightedIndices[state.activeWordIndex] = [...currentWordHighlighted, randomTarget];
+
       return {
-        coins: state.coins - state.economy.powerups.hint.cost,
-        highlightedIndices: [...state.highlightedIndices, randomTarget]
+        coins: state.coins - state.economy.powerups.highlight.cost,
+        highlightedIndices: newHighlightedIndices
       };
     }),
 
@@ -294,14 +285,14 @@ export const useGameStore = create<GameState>((set) => ({
       if (!state.economy || state.coins < state.economy.powerups.lightning.cost) return {};
       
       const activeWord = state.stageWords[state.activeWordIndex].word.toUpperCase();
-      const currentIndices = [...state.selectedIndices];
+      const currentWordSelected = [...state.selectedIndices[state.activeWordIndex]];
       
       // 1. Identify eligible slots (missing or incorrect) and already correct tiles
       const eligibleSlots: number[] = [];
       const correctlyPlacedIndices: number[] = [];
       
       for (let i = 0; i < activeWord.length; i++) {
-        const tileIdx = currentIndices[i];
+        const tileIdx = currentWordSelected[i];
         if (tileIdx === null) {
           eligibleSlots.push(i);
         } else {
@@ -333,43 +324,47 @@ export const useGameStore = create<GameState>((set) => ({
       const targetGridIndex = gridCandidates[Math.floor(Math.random() * gridCandidates.length)];
       
       // 4. Update the board
-      // If this specific tile was already in another (incorrect) slot, vacate that slot first
-      const existingOtherPos = currentIndices.indexOf(targetGridIndex);
+      const existingOtherPos = currentWordSelected.indexOf(targetGridIndex);
       if (existingOtherPos !== -1) {
-        currentIndices[existingOtherPos] = null;
+        currentWordSelected[existingOtherPos] = null;
       }
       
-      currentIndices[targetSlotPos] = targetGridIndex;
+      currentWordSelected[targetSlotPos] = targetGridIndex;
  
       // 5. Completion Check
       let newlyCompleted = [...state.completedWords];
-      let newCoins = state.coins - state.economy.powerups.lightning.cost;
-      let newGameState = state.gameState;
-      let finalIndices = currentIndices;
+      let finalWordSelected = currentWordSelected;
  
-      if (currentIndices.every(idx => idx !== null)) {
-         const spelledWord = currentIndices.map(idx => state.gridLetters[idx!]).join('');
+      if (currentWordSelected.every(idx => idx !== null)) {
+         const spelledWord = currentWordSelected.map(idx => state.gridLetters[idx!]).join('');
          if (spelledWord.toUpperCase() === activeWord.toUpperCase()) {
             newlyCompleted.push(state.activeWordIndex);
-            finalIndices = finalIndices.map(() => null);
-            if (newlyCompleted.length === state.stageWords.length) {
-                // We'll let the GameBoard handle the delay
-            }
+            finalWordSelected = finalWordSelected.map(() => null);
          }
       }
  
+      const newSelectedIndices = [...state.selectedIndices];
+      newSelectedIndices[state.activeWordIndex] = finalWordSelected;
+
       return {
-        selectedIndices: finalIndices,
+        selectedIndices: newSelectedIndices,
         completedWords: newlyCompleted,
-        coins: newCoins,
-        gameState: newGameState
+        coins: state.coins - state.economy.powerups.lightning.cost
       };
     }),
  
   completeStage: () =>
     set((state) => {
       if (state.gameState === 'stageClear') return {};
-      const reward = state.economy?.rewards.baseCoinPayout || 50;
+      
+      const base = state.economy?.rewards.baseCoinPayout || 10;
+      const growth = (state.economy?.rewards.compoundGrowthPercent || 10) / 100;
+      
+      let reward = base;
+      for (let i = 1; i < state.activeStage; i++) {
+        reward = Math.floor(reward * (1 + growth));
+      }
+
       return {
         coins: state.coins + reward,
         gameState: 'stageClear'
@@ -389,17 +384,15 @@ export const useGameStore = create<GameState>((set) => ({
 
       try {
         const { selectedWords, grid } = generateStage(stageConfig, state.wordBank, new Set());
-        const firstWordLen = selectedWords[0].word.length;
-        
         return {
           activeStage: nextStageNum,
           gameState: 'stageStart',
           stageWords: selectedWords,
           gridLetters: grid,
-          selectedIndices: new Array(firstWordLen).fill(null),
+          selectedIndices: selectedWords.map(w => new Array(w.word.length).fill(null)),
           activeWordIndex: 0,
           completedWords: [],
-          highlightedIndices: []
+          highlightedIndices: selectedWords.map(() => [])
         };
       } catch (e) {
         console.error('Failed to generate next stage:', e);

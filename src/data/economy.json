@@ -1,20 +1,20 @@
 {
   "powerups": {
     "shuffle": {
-      "cost": 0,
+      "cost": 1,
       "unlocked": true
     },
-    "hint": {
-      "cost": 0,
+    "highlight": {
+      "cost": 2,
       "unlocked": true
     },
     "lightning": {
-      "cost": 0,
+      "cost": 4,
       "unlocked": true
     }
   },
   "rewards": {
-    "baseCoinPayout": 50,
-    "compoundGrowthPercent": 5
+    "baseCoinPayout": 10,
+    "compoundGrowthPercent": 10
   }
 }
