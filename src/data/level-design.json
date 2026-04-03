@@ -2,47 +2,35 @@
   "stages": {
     "1": {
       "grid": {
-        "rows": 4,
-        "cols": 4
+        "rows": 3,
+        "cols": 3
       },
       "timer": 60,
       "words": [
         {
-          "wordLength": 4,
-          "difficulty": 2
+          "wordLength": 3,
+          "difficulty": 1
         },
         {
-          "wordLength": 4,
-          "difficulty": 2
-        },
-        {
-          "wordLength": 4,
-          "difficulty": 2
-        },
-        {
-          "wordLength": 4,
-          "difficulty": 3
+          "wordLength": 3,
+          "difficulty": 1
         }
       ]
     },
     "2": {
       "grid": {
-        "rows": 4,
-        "cols": 4
+        "rows": 3,
+        "cols": 3
       },
-      "timer": 55,
+      "timer": 60,
       "words": [
         {
-          "wordLength": 5,
-          "difficulty": 2
+          "wordLength": 3,
+          "difficulty": 1
         },
         {
-          "wordLength": 4,
-          "difficulty": 3
-        },
-        {
-          "wordLength": 4,
-          "difficulty": 3
+          "wordLength": 3,
+          "difficulty": 1
         },
         {
           "wordLength": 3,
@@ -55,6 +43,785 @@
         "rows": 3,
         "cols": 3
       },
+      "timer": 60,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 1
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 3
+        }
+      ]
+    },
+    "4": {
+      "grid": {
+        "rows": 3,
+        "cols": 3
+      },
+      "timer": 60,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 1
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        }
+      ]
+    },
+    "5": {
+      "grid": {
+        "rows": 3,
+        "cols": 3
+      },
+      "timer": 60,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 1
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 1
+        }
+      ]
+    },
+    "6": {
+      "grid": {
+        "rows": 3,
+        "cols": 4
+      },
+      "timer": 60,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 1
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 1
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 1
+        }
+      ]
+    },
+    "7": {
+      "grid": {
+        "rows": 3,
+        "cols": 4
+      },
+      "timer": 60,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 1
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        }
+      ]
+    },
+    "8": {
+      "grid": {
+        "rows": 3,
+        "cols": 4
+      },
+      "timer": 60,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 1
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 1
+        }
+      ]
+    },
+    "9": {
+      "grid": {
+        "rows": 3,
+        "cols": 4
+      },
+      "timer": 60,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 1
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 1
+        }
+      ]
+    },
+    "10": {
+      "grid": {
+        "rows": 3,
+        "cols": 4
+      },
+      "timer": 60,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 3
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 1
+        }
+      ]
+    },
+    "11": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 60,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 3
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 1
+        }
+      ]
+    },
+    "12": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 60,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 3
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 2
+        }
+      ]
+    },
+    "13": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 60,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 3
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 2
+        }
+      ]
+    },
+    "14": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 60,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 3
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 2
+        }
+      ]
+    },
+    "15": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 60,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 3
+        },
+        {
+          "wordLength": 5,
+          "difficulty": 2
+        }
+      ]
+    },
+    "16": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 60,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 3
+        },
+        {
+          "wordLength": 6,
+          "difficulty": 2
+        }
+      ]
+    },
+    "17": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 60,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 3
+        },
+        {
+          "wordLength": 7,
+          "difficulty": 2
+        }
+      ]
+    },
+    "18": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 60,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 3
+        },
+        {
+          "wordLength": 8,
+          "difficulty": 2
+        }
+      ]
+    },
+    "19": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 60,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 3
+        },
+        {
+          "wordLength": 5,
+          "difficulty": 2
+        }
+      ]
+    },
+    "20": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 60,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 5,
+          "difficulty": 3
+        },
+        {
+          "wordLength": 7,
+          "difficulty": 2
+        }
+      ]
+    },
+    "21": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 60,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 3
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 2
+        }
+      ]
+    },
+    "22": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 60,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 3
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 2
+        }
+      ]
+    },
+    "23": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 60,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 3
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 2
+        }
+      ]
+    },
+    "24": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 60,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 3
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 2
+        }
+      ]
+    },
+    "25": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 60,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 3
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 2
+        }
+      ]
+    },
+    "26": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 60,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 1
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 4
+        }
+      ]
+    },
+    "27": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 60,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 1
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 4
+        }
+      ]
+    },
+    "28": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 60,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 1
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 4
+        }
+      ]
+    },
+    "29": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 60,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 1
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 4
+        }
+      ]
+    },
+    "30": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 60,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 1
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 4
+        }
+      ]
+    },
+    "31": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 45,
+      "words": [
+        {
+          "wordLength": 4,
+          "difficulty": 1
+        },
+        {
+          "wordLength": 5,
+          "difficulty": 1
+        },
+        {
+          "wordLength": 6,
+          "difficulty": 1
+        }
+      ]
+    },
+    "32": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 45,
+      "words": [
+        {
+          "wordLength": 4,
+          "difficulty": 1
+        },
+        {
+          "wordLength": 5,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 6,
+          "difficulty": 2
+        }
+      ]
+    },
+    "33": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 45,
+      "words": [
+        {
+          "wordLength": 4,
+          "difficulty": 1
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 3
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 4
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 4
+        }
+      ]
+    },
+    "34": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 45,
+      "words": [
+        {
+          "wordLength": 4,
+          "difficulty": 1
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 4
+        }
+      ]
+    },
+    "35": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 45,
+      "words": [
+        {
+          "wordLength": 4,
+          "difficulty": 1
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 3
+        },
+        {
+          "wordLength": 6,
+          "difficulty": 1
+        }
+      ]
+    },
+    "36": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 45,
+      "words": [
+        {
+          "wordLength": 4,
+          "difficulty": 1
+        },
+        {
+          "wordLength": 5,
+          "difficulty": 1
+        },
+        {
+          "wordLength": 6,
+          "difficulty": 1
+        }
+      ]
+    },
+    "37": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 45,
+      "words": [
+        {
+          "wordLength": 4,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        }
+      ]
+    },
+    "38": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
       "timer": 45,
       "words": [
         {
@@ -66,33 +833,25 @@
           "difficulty": 2
         },
         {
-          "wordLength": 1,
+          "wordLength": 5,
           "difficulty": 1
         }
       ]
     },
-    "4": {
+    "39": {
       "grid": {
-        "rows": 5,
-        "cols": 5
+        "rows": 4,
+        "cols": 4
       },
-      "timer": 90,
+      "timer": 45,
       "words": [
         {
-          "wordLength": 5,
-          "difficulty": 3
+          "wordLength": 4,
+          "difficulty": 2
         },
         {
-          "wordLength": 5,
-          "difficulty": 4
-        },
-        {
-          "wordLength": 6,
-          "difficulty": 4
-        },
-        {
-          "wordLength": 6,
-          "difficulty": 6
+          "wordLength": 4,
+          "difficulty": 2
         },
         {
           "wordLength": 3,
@@ -100,24 +859,62 @@
         }
       ]
     },
-    "5": {
+    "40": {
       "grid": {
-        "rows": 6,
-        "cols": 6
+        "rows": 4,
+        "cols": 4
       },
-      "timer": 120,
+      "timer": 45,
       "words": [
         {
-          "wordLength": 7,
-          "difficulty": 1
+          "wordLength": 3,
+          "difficulty": 3
         },
         {
-          "wordLength": 6,
+          "wordLength": 3,
+          "difficulty": 4
+        },
+        {
+          "wordLength": 8,
+          "difficulty": 1
+        }
+      ]
+    },
+    "41": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 30,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 4
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 4
+        },
+        {
+          "wordLength": 5,
           "difficulty": 2
         },
         {
           "wordLength": 5,
-          "difficulty": 3
+          "difficulty": 2
+        }
+      ]
+    },
+    "42": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 30,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 4
         },
         {
           "wordLength": 4,
@@ -125,7 +922,171 @@
         },
         {
           "wordLength": 4,
-          "difficulty": 6
+          "difficulty": 4
+        },
+        {
+          "wordLength": 5,
+          "difficulty": 2
+        }
+      ]
+    },
+    "43": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 30,
+      "words": [
+        {
+          "wordLength": 5,
+          "difficulty": 1
+        },
+        {
+          "wordLength": 5,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 5,
+          "difficulty": 3
+        }
+      ]
+    },
+    "44": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 30,
+      "words": [
+        {
+          "wordLength": 4,
+          "difficulty": 1
+        },
+        {
+          "wordLength": 5,
+          "difficulty": 1
+        },
+        {
+          "wordLength": 6,
+          "difficulty": 1
+        }
+      ]
+    },
+    "45": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 30,
+      "words": [
+        {
+          "wordLength": 3,
+          "difficulty": 1
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 4,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 5,
+          "difficulty": 4
+        }
+      ]
+    },
+    "46": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 30,
+      "words": [
+        {
+          "wordLength": 5,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 5,
+          "difficulty": 4
+        },
+        {
+          "wordLength": 6,
+          "difficulty": 4
+        }
+      ]
+    },
+    "47": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 30,
+      "words": [
+        {
+          "wordLength": 6,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 7,
+          "difficulty": 3
+        },
+        {
+          "wordLength": 3,
+          "difficulty": 2
+        }
+      ]
+    },
+    "48": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 30,
+      "words": [
+        {
+          "wordLength": 7,
+          "difficulty": 2
+        },
+        {
+          "wordLength": 8,
+          "difficulty": 2
+        }
+      ]
+    },
+    "49": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 30,
+      "words": [
+        {
+          "wordLength": 7,
+          "difficulty": 3
+        },
+        {
+          "wordLength": 8,
+          "difficulty": 3
+        }
+      ]
+    },
+    "50": {
+      "grid": {
+        "rows": 4,
+        "cols": 4
+      },
+      "timer": 30,
+      "words": [
+        {
+          "wordLength": 7,
+          "difficulty": 4
+        },
+        {
+          "wordLength": 8,
+          "difficulty": 4
         }
       ]
     }

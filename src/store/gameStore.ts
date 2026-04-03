@@ -60,6 +60,8 @@ interface GameState {
   activeWordIndex: number;
   completedWords: number[];
   highlightedIndices: number[][];
+  highScore: number;
+  usedWords: string[];
   
   incrementCoins: (amount: number) => void;
   changeStage: (stage: number) => void;
@@ -97,12 +99,17 @@ export const useGameStore = create<GameState>()(
       activeWordIndex: 0,
       completedWords: [],
       highlightedIndices: [],
+      highScore: 1,
+      usedWords: [],
 
       incrementCoins: (amount) => 
         set((state) => ({ coins: state.coins + amount })),
 
       changeStage: (stage) => 
-        set({ activeStage: stage }),
+        set((state) => ({ 
+          activeStage: stage,
+          usedWords: stage === 1 ? [] : state.usedWords 
+        })),
 
       setWordBank: (data) => 
         set({ wordBank: data }),
@@ -122,21 +129,23 @@ export const useGameStore = create<GameState>()(
           selectedIndices: [], 
           activeWordIndex: 0, 
           completedWords: [],
-          highlightedIndices: []
+          highlightedIndices: [],
+          usedWords: []
         }),
 
       setGameState: (stateName) =>
         set({ gameState: stateName }),
 
       initStage: (words, grid) => {
-        set({ 
+        set((state) => ({ 
           stageWords: words, 
           gridLetters: grid, 
           selectedIndices: words.map(w => new Array(w.word.length).fill(null)), 
           activeWordIndex: 0, 
           completedWords: [], 
-          highlightedIndices: words.map(() => []) 
-        });
+          highlightedIndices: words.map(() => []),
+          usedWords: [...state.usedWords, ...words.map(w => w.word)]
+        }));
       },
 
       selectTile: (index) =>
@@ -372,7 +381,8 @@ export const useGameStore = create<GameState>()(
 
       return {
         coins: state.coins + reward,
-        gameState: 'stageClear'
+        gameState: 'stageClear',
+        highScore: Math.max(state.highScore, state.activeStage + 1)
       };
     }),
 
@@ -388,7 +398,8 @@ export const useGameStore = create<GameState>()(
       }
 
       try {
-        const { selectedWords, grid } = generateStage(stageConfig, state.wordBank, new Set());
+        const history = new Set(state.usedWords);
+        const { selectedWords, grid } = generateStage(stageConfig, state.wordBank, history);
         return {
           activeStage: nextStageNum,
           gameState: 'stageStart',
@@ -397,7 +408,8 @@ export const useGameStore = create<GameState>()(
           selectedIndices: selectedWords.map(w => new Array(w.word.length).fill(null)),
           activeWordIndex: 0,
           completedWords: [],
-          highlightedIndices: selectedWords.map(() => [])
+          highlightedIndices: selectedWords.map(() => []),
+          usedWords: Array.from(history)
         };
       } catch (e) {
         console.error('Failed to generate next stage:', e);
@@ -410,7 +422,9 @@ export const useGameStore = create<GameState>()(
     storage: createJSONStorage(() => localStorage),
     partialize: (state) => ({ 
       coins: state.coins, 
-      activeStage: state.activeStage 
+      activeStage: state.activeStage,
+      highScore: state.highScore,
+      usedWords: state.usedWords
     }),
   }
 ));

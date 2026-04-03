@@ -48,19 +48,36 @@ export function generateStage(
   
   // Select words based on requirements
   for (const req of stageConfig.words) {
-    const availableWords = (wordBank[req.wordLength.toString()] || [])
-        .filter(w => w.difficulty === req.difficulty);
-    let validWords = availableWords.filter(w => !history.has(w.word));
+    const allWordsForLength = wordBank[req.wordLength.toString()] || [];
+    let picked: WordBankItem | null = null;
     
-    // If we exhausted all valid words, just pick from available without history constraint
-    if (validWords.length === 0) {
-      if (availableWords.length === 0) {
-          throw new Error(`No words found for length ${req.wordLength} and difficulty ${req.difficulty}`);
-      }
-      validWords = availableWords;
+    // 1. Try target difficulty down to 1, avoiding history
+    for (let d = req.difficulty; d >= 1; d--) {
+        const candidates = allWordsForLength.filter(w => w.difficulty === d && !history.has(w.word));
+        if (candidates.length > 0) {
+            picked = candidates[Math.floor(Math.random() * candidates.length)];
+            break;
+        }
     }
     
-    const picked = validWords[Math.floor(Math.random() * validWords.length)];
+    // 2. If no word found, try ANY difficulty, avoiding history
+    if (!picked) {
+        const candidates = allWordsForLength.filter(w => !history.has(w.word));
+        if (candidates.length > 0) {
+            picked = candidates[Math.floor(Math.random() * candidates.length)];
+        }
+    }
+    
+    // 3. Last resort fallback (allow history if no unused words left for this length)
+    if (!picked) {
+        if (allWordsForLength.length === 0) {
+            throw new Error(`No words found at all for length ${req.wordLength}`);
+        }
+        const sameDiffFallback = allWordsForLength.filter(w => w.difficulty === req.difficulty);
+        const finalPool = sameDiffFallback.length > 0 ? sameDiffFallback : allWordsForLength;
+        picked = finalPool[Math.floor(Math.random() * finalPool.length)];
+    }
+    
     selectedWords.push(picked);
     history.add(picked.word);
   }

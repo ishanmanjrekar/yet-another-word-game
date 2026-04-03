@@ -3,13 +3,14 @@ import { useGameStore } from '../store/gameStore';
 import { generateStage } from '../utils/gridGeneration';
 
 export const MainMenu: React.FC = () => {
-  const { coins, activeStage, levelDesign, wordBank, initStage, setGameState } = useGameStore((state) => state);
+  const { coins, highScore, levelDesign, wordBank, initStage, setGameState, changeStage } = useGameStore((state) => state);
 
   const handleArcadeClick = () => {
     if (!levelDesign || !wordBank) return;
-    const stageConfig = levelDesign.stages[activeStage.toString()];
+    const stageConfig = levelDesign.stages["1"];
     if (!stageConfig) return;
     try {
+      changeStage(1);
       const { selectedWords, grid } = generateStage(stageConfig, wordBank, new Set());
       initStage(selectedWords, grid);
       setGameState('stageStart');
@@ -82,7 +83,7 @@ export const MainMenu: React.FC = () => {
             </button>
             <div className="mt-4 bg-gradient-to-b from-[#E8E8E8] to-[#B0B0B0] px-5 py-1.5 rounded-full border border-[#690bac]/50 flex items-center gap-2 shadow-[0_4px_15px_rgba(105,11,172,0.3)]">
               <span className="material-symbols-outlined text-[#690bac] text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>emoji_events</span>
-              <span className="text-[#690bac] font-body font-bold text-sm tracking-tight">Highscore: Stage {activeStage}</span>
+              <span className="text-[#690bac] font-body font-bold text-sm tracking-tight">Highscore: Stage {highScore}</span>
             </div>
           </div>
 
@@ -104,14 +105,7 @@ export const MainMenu: React.FC = () => {
         </div>
       </main>
 
-      {/* Footer Info */}
-      <footer className="w-full py-6 flex justify-center items-center z-10">
-        <div className="opacity-40 text-[10px] font-body font-bold uppercase tracking-[0.3em] flex items-center gap-4">
-          <span>v1.0.42</span>
-          <span className="w-1 h-1 bg-on-surface rounded-full"></span>
-          <span>Hyper-Glossy Irony</span>
-        </div>
-      </footer>
+
     </div>
   );
 };

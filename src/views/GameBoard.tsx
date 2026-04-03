@@ -205,7 +205,7 @@ export const GameBoard: React.FC = () => {
                 <div 
                   key={i} 
                   onClick={() => !isCompleted && tileIndex !== null && deselectSlot(i)}
-                  className={`w-7 sm:w-10 h-8 sm:h-12 bg-[#111125] rounded-lg flex items-center justify-center font-headline text-sm sm:text-2xl shadow-inner relative overflow-hidden transition-all ${showSuccess ? 'border-2 border-tertiary shadow-[0_0_8px_rgba(0,228,113,0.4)]' : 'border border-white/5'} ${!isCompleted && tileIndex !== null ? 'cursor-pointer hover:bg-[#1a1a35] active:scale-95' : ''}`}
+                  className={`w-7 sm:w-10 h-8 sm:h-12 bg-[#111125] rounded-lg flex items-center justify-center font-headline text-lg sm:text-2xl shadow-inner relative overflow-hidden transition-all ${showSuccess ? 'border-2 border-tertiary shadow-[0_0_8px_rgba(0,228,113,0.4)]' : 'border border-white/5'} ${!isCompleted && tileIndex !== null ? 'cursor-pointer hover:bg-[#1a1a35] active:scale-95' : ''}`}
                 >
                   <span className={`text-[#77778b] absolute font-black tracking-tighter ${displayedLetter ? 'hidden' : 'block'}`}>_</span>
                   <span className={`${showSuccess ? 'text-tertiary' : 'text-primary'} uppercase ${displayedLetter ? 'block' : 'hidden'}`}>{displayedLetter}</span>
@@ -216,10 +216,10 @@ export const GameBoard: React.FC = () => {
           
           {/* Definition Area */}
           <div className="flex flex-col justify-center mb-1.5 sm:mb-3">
-             <h3 className="tracking-[0.1em] text-[#dfb7ff] text-[0.45rem] sm:text-[0.6rem] uppercase font-headline mb-0.5 text-center opacity-70">
+             <h3 className="tracking-[0.1em] text-[#dfb7ff] text-[0.65rem] sm:text-[0.75rem] uppercase font-headline mb-0.5 text-center opacity-70">
                DEFINITION
              </h3>
-             <p className="font-body tracking-wide text-center text-[0.6rem] sm:text-base lg:text-lg leading-tight text-white px-2 break-words italic line-clamp-3">
+             <p className="font-body tracking-wide text-center text-xs sm:text-base lg:text-lg leading-tight text-white px-2 break-words italic line-clamp-3">
                {formatDefinition(activeWordObj.definition)}
              </p>
           </div>
@@ -246,10 +246,11 @@ export const GameBoard: React.FC = () => {
         {/* Lower Card: Grid & Powerups */}
         <div className="flex-1 min-h-0 flex flex-col justify-between bg-[#1d1d3d] rounded-2xl sm:rounded-[2rem] p-2.5 sm:p-5 shadow-xl overflow-hidden">
           {/* Grid Area */}
-          <div className="flex-1 flex justify-center items-center min-h-0 w-full">
+          <div className="flex-1 flex justify-center items-center min-h-0 w-full overflow-hidden">
             <div 
-              className="grid gap-1.5 sm:gap-3.5 w-full max-h-[220px] sm:max-h-[320px] max-w-[220px] sm:max-w-[320px] aspect-square"
+              className="grid gap-2 sm:gap-4 w-full max-w-[min(88vw,42vh)] aspect-square"
               style={{ gridTemplateColumns: `repeat(${gridCols}, minmax(0, 1fr))` }}
+
             >
               {gridLetters.map((char: string, index: number) => {
                 const isSelected = currentSelected.includes(index);
@@ -291,7 +292,7 @@ export const GameBoard: React.FC = () => {
                     <Tile 
                       key={`${index}-${char}`}
                       letter={char} 
-                      className="w-full h-full !text-base sm:!text-[2.25rem] pb-0 sm:pb-1"
+                      className="w-full h-full !text-[clamp(1.5rem,10vw,2.25rem)] pb-0 sm:pb-1"
                       isActive={isSelected} 
                       isHighlighted={isHighlighted}
                       onClick={() => !isShuffling && selectTile(index)} 
