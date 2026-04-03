@@ -43,9 +43,13 @@ export interface EconomyConfig {
     compoundGrowthPercent: number;
     timerBonusPerWord: number;
   };
+  extraTime: {
+    cost: number;
+    duration: number;
+  };
 }
 
-type GameModeState = 'menu' | 'stageStart' | 'playing' | 'paused' | 'gameover' | 'stageClear';
+type GameModeState = 'menu' | 'stageStart' | 'playing' | 'paused' | 'gameover' | 'stageClear' | 'timeUp';
 
 interface GameState {
   coins: number;
@@ -84,6 +88,7 @@ interface GameState {
   completeStage: () => void;
   advanceToNextStage: () => void;
   goToNextUnsolved: () => void;
+  addExtraTime: () => void;
 }
 
 export const useGameStore = create<GameState>()(
@@ -439,8 +444,17 @@ export const useGameStore = create<GameState>()(
           return { activeWordIndex: nextIdx };
         }
         return {};
-      })
-  }),
+      }),
+
+      addExtraTime: () => 
+        set((state) => {
+          if (!state.economy || state.coins < state.economy.extraTime.cost) return {};
+          return { 
+            coins: state.coins - state.economy.extraTime.cost,
+            gameState: 'playing'
+          };
+        })
+    }),
   {
     name: 'yawg-game-storage',
     storage: createJSONStorage(() => localStorage),

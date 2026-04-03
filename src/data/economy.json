@@ -5,13 +5,17 @@
       "unlocked": true
     },
     "highlight": {
-      "cost": 2,
+      "cost": 3,
       "unlocked": true
     },
     "lightning": {
-      "cost": 4,
+      "cost": 5,
       "unlocked": true
     }
+  },
+  "extraTime": {
+    "cost": 10,
+    "duration": 30
   },
   "rewards": {
     "baseCoinPayout": 10,

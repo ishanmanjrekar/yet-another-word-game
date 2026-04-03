@@ -4,6 +4,7 @@ import { useInterval } from '../hooks/useInterval';
 import { Tile } from '../components/ui/Tile';
 import { StageStartOverlay } from '../components/ui/StageStartOverlay';
 import { StageSuccessOverlay } from '../components/ui/StageSuccessOverlay';
+import { TimeUpOverlay } from '../components/ui/TimeUpOverlay';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export const GameBoard: React.FC = () => {
@@ -30,7 +31,9 @@ export const GameBoard: React.FC = () => {
     executeHighlight,
     executeLightning,
     completeStage,
-    advanceToNextStage
+    advanceToNextStage,
+    addExtraTime,
+    resetGame
   } = useGameStore((state) => state);
 
   const [activeTooltip, setActiveTooltip] = useState<'shuffle' | 'highlight' | 'lightning' | null>(null);
@@ -65,7 +68,7 @@ export const GameBoard: React.FC = () => {
   useInterval(() => {
     setTimeLeft(t => {
       if (t <= 1) {
-        setGameState('gameover');
+        setGameState('timeUp');
         return 0;
       }
       return t - 1;
@@ -181,6 +184,16 @@ export const GameBoard: React.FC = () => {
     advanceToNextStage();
   };
 
+  const handleExtraTime = () => {
+    if (!economy) return;
+    addExtraTime();
+    setTimeLeft(t => t + economy.extraTime.duration);
+  };
+
+  const handleHome = () => {
+    resetGame();
+  };
+
   const currentSelected = selectedIndices[activeWordIndex] || [];
   const currentHighlighted = highlightedIndices[activeWordIndex] || [];
 
@@ -233,7 +246,7 @@ export const GameBoard: React.FC = () => {
           <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-6 sm:h-6 text-primary fill-current"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
         </button>
         {/* Timer */}
-        <div className={`font-headline text-4xl sm:text-[2.75rem] ${timeLeft <= 10 ? 'text-red-500 animate-pulse' : 'text-primary'}`} style={{ textShadow: '0 3px 0 #8c7600' }}>
+        <div className={`font-headline text-4xl sm:text-[2.75rem] ${timeLeft <= 10 ? 'text-red-500 animate-pulse' : 'text-primary'}`} style={{ textShadow: timeLeft <= 10 ? '0 3px 0 #ffffff' : '0 3px 0 #8c7600' }}>
           {Math.floor(timeLeft / 60).toString().padStart(2, '0')}:{(timeLeft % 60).toString().padStart(2, '0')}
         </div>
         {/* Coins Pill */}
@@ -518,6 +531,19 @@ export const GameBoard: React.FC = () => {
             return reward;
           })()} 
           onContinue={handleContinue} 
+        />
+      )}
+      {gameState === 'timeUp' && (
+        <TimeUpOverlay 
+          coins={coins}
+          stageNumber={activeStage}
+          cost={economy?.extraTime.cost ?? 10}
+          duration={economy?.extraTime.duration ?? 30}
+          activeWordIndex={activeWordIndex}
+          completedWords={completedWords}
+          totalWords={stageWords.length}
+          onExtraTime={handleExtraTime}
+          onHome={handleHome}
         />
       )}
     </div>
