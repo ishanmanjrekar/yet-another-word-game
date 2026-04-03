@@ -15,6 +15,7 @@
   },
   "rewards": {
     "baseCoinPayout": 10,
-    "compoundGrowthPercent": 10
+    "compoundGrowthPercent": 10,
+    "timerBonusPerWord": 10
   }
 }

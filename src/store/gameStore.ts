@@ -41,6 +41,7 @@ export interface EconomyConfig {
   rewards: {
     baseCoinPayout: number;
     compoundGrowthPercent: number;
+    timerBonusPerWord: number;
   };
 }
 

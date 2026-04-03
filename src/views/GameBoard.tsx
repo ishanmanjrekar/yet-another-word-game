@@ -4,7 +4,7 @@ import { useInterval } from '../hooks/useInterval';
 import { Tile } from '../components/ui/Tile';
 import { StageStartOverlay } from '../components/ui/StageStartOverlay';
 import { StageSuccessOverlay } from '../components/ui/StageSuccessOverlay';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export const GameBoard: React.FC = () => {
   const {
@@ -32,6 +32,8 @@ export const GameBoard: React.FC = () => {
   } = useGameStore((state) => state);
 
   const [activeTooltip, setActiveTooltip] = useState<'shuffle' | 'highlight' | 'lightning' | null>(null);
+  const [feedback, setFeedback] = useState<{ message: string; id: number } | null>(null);
+  const [prevCompletedCount, setPrevCompletedCount] = useState(0);
   const [isShuffling, setIsShuffling] = useState(false);
 
   const handleShuffleAction = () => {
@@ -88,6 +90,22 @@ export const GameBoard: React.FC = () => {
   }, [completedWords, activeWordIndex, stageWords.length, nextWord, gameState, completeStage]);
 
   const activeWordObj = stageWords[activeWordIndex];
+
+  // Feedback check
+  useEffect(() => {
+    if (completedWords.length > prevCompletedCount) {
+      const messages = ["Great", "Good", "Nice", "Wow", "Perfect", "Cool"];
+      const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+      const bonus = economy?.rewards.timerBonusPerWord || 10;
+      
+      setFeedback({ message: randomMsg, id: Date.now() });
+      setTimeLeft(t => t + bonus);
+      setPrevCompletedCount(completedWords.length);
+    } else if (completedWords.length < prevCompletedCount) {
+      setPrevCompletedCount(completedWords.length);
+    }
+  }, [completedWords.length, prevCompletedCount, economy]);
+
   const stageConfig = levelDesign?.stages[activeStage.toString()];
   const gridCols = stageConfig?.grid.cols || 4;
 
@@ -178,7 +196,7 @@ export const GameBoard: React.FC = () => {
       <div className="flex-1 flex flex-col p-2 sm:p-5 gap-2 sm:gap-4 min-h-0 overflow-hidden text-base">
         
         {/* Upper Card: Definition & Progress */}
-        <div className="bg-[#1d1d3d] rounded-2xl sm:rounded-[2rem] flex flex-col p-2 sm:p-4 shadow-xl shrink-0">
+        <div className="bg-[#1d1d3d] rounded-2xl sm:rounded-[2rem] flex flex-col p-2 sm:p-4 shadow-xl shrink-0 relative">
           {/* Progress Dots */}
           <div className="flex justify-center items-center gap-1.5 sm:gap-3 mb-1 sm:mb-2 mt-0.5 h-3 sm:h-5">
             {stageWords.map((_: any, i: number) => {
@@ -199,29 +217,55 @@ export const GameBoard: React.FC = () => {
           </div>
 
           {/* Active Word Slots */}
-          <div className="flex justify-center gap-1 sm:gap-2 mb-1.5 sm:mb-3 h-8 sm:h-12">
-            {currentSelected.map((tileIndex: number | null, i: number) => {
-              const isCompleted = completedWords.includes(activeWordIndex);
-              const targetChar = activeWordObj.word[i].toUpperCase();
-              const currentChar = tileIndex !== null ? gridLetters[tileIndex].toUpperCase() : null;
-              const isCorrect = currentChar === targetChar;
-              const showSuccess = isCompleted || isCorrect;
-              
-              const displayedLetter = isCompleted 
-                ? activeWordObj.word[i] 
-                : (tileIndex !== null ? gridLetters[tileIndex] : '');
-              
-              return (
-                <div 
-                  key={i} 
-                  onClick={() => !isCompleted && tileIndex !== null && deselectSlot(i)}
-                  className={`w-7 sm:w-10 h-8 sm:h-12 bg-[#111125] rounded-lg flex items-center justify-center font-headline text-lg sm:text-2xl shadow-inner relative overflow-hidden transition-all ${showSuccess ? 'border-2 border-tertiary shadow-[0_0_8px_rgba(0,228,113,0.4)]' : 'border border-white/5'} ${!isCompleted && tileIndex !== null ? 'cursor-pointer hover:bg-[#1a1a35] active:scale-95' : ''}`}
+          <div className="flex justify-center items-center gap-2 mb-1.5 sm:mb-3 h-8 sm:h-12 relative">
+            <div className="flex justify-center gap-1 sm:gap-2">
+              {currentSelected.map((tileIndex: number | null, i: number) => {
+                const isCompleted = completedWords.includes(activeWordIndex);
+                const targetChar = activeWordObj.word[i].toUpperCase();
+                const currentChar = tileIndex !== null ? gridLetters[tileIndex].toUpperCase() : null;
+                const isCorrect = currentChar === targetChar;
+                const showSuccess = isCompleted || isCorrect;
+                
+                const displayedLetter = isCompleted 
+                  ? activeWordObj.word[i] 
+                  : (tileIndex !== null ? gridLetters[tileIndex] : '');
+                
+                return (
+                  <div 
+                    key={i} 
+                    onClick={() => !isCompleted && tileIndex !== null && deselectSlot(i)}
+                    className={`w-7 sm:w-10 h-8 sm:h-12 bg-[#111125] rounded-lg flex items-center justify-center font-headline text-lg sm:text-2xl shadow-inner relative overflow-hidden transition-all ${showSuccess ? 'border-2 border-tertiary shadow-[0_0_8px_rgba(0,228,113,0.4)]' : 'border border-white/5'} ${!isCompleted && tileIndex !== null ? 'cursor-pointer hover:bg-[#1a1a35] active:scale-95' : ''}`}
+                  >
+                    <span className={`text-[#77778b] absolute font-black tracking-tighter ${displayedLetter ? 'hidden' : 'block'}`}>_</span>
+                    <span className={`${showSuccess ? 'text-tertiary' : 'text-primary'} uppercase ${displayedLetter ? 'block' : 'hidden'}`}>{displayedLetter}</span>
+                  </div>
+                );
+              })}
+            </div>
+            
+            <AnimatePresence>
+              {feedback && (
+                <motion.div
+                  key={feedback.id}
+                  initial={{ opacity: 0, scale: 0.8, y: 10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 1.1, y: -20 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  onAnimationComplete={() => {
+                    const timer = setTimeout(() => setFeedback(null), 600);
+                    return () => clearTimeout(timer);
+                  }}
+                  className="absolute -top-8 right-0 z-[60] flex flex-col items-end pointer-events-none select-none whitespace-nowrap"
                 >
-                  <span className={`text-[#77778b] absolute font-black tracking-tighter ${displayedLetter ? 'hidden' : 'block'}`}>_</span>
-                  <span className={`${showSuccess ? 'text-tertiary' : 'text-primary'} uppercase ${displayedLetter ? 'block' : 'hidden'}`}>{displayedLetter}</span>
-                </div>
-              );
-            })}
+                  <span className="text-primary font-headline text-lg sm:text-2xl drop-shadow-[0_2px_0_rgba(0,0,0,0.4)] uppercase leading-none">
+                    {feedback.message}
+                  </span>
+                  <span className="text-tertiary font-headline text-base sm:text-xl drop-shadow-[0_2px_0_rgba(0,0,0,0.4)] leading-none">
+                    +{economy?.rewards.timerBonusPerWord || 10}s
+                  </span>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
           
           {/* Definition Area */}
@@ -256,7 +300,7 @@ export const GameBoard: React.FC = () => {
         {/* Lower Card: Grid & Powerups */}
         <div className="flex-1 min-h-0 flex flex-col justify-between bg-[#1d1d3d] rounded-2xl sm:rounded-[2rem] p-2.5 sm:p-5 shadow-xl overflow-hidden">
           {/* Grid Area */}
-          <div className="flex-1 flex justify-center items-center min-h-0 w-full overflow-hidden">
+          <div className="flex-1 flex justify-center items-center min-h-0 w-full overflow-hidden relative">
             <div 
               className="grid gap-2 sm:gap-4 w-full max-w-[min(88vw,42vh)] aspect-square"
               style={{ gridTemplateColumns: `repeat(${gridCols}, minmax(0, 1fr))` }}
