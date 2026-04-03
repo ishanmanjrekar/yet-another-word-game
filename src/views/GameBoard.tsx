@@ -164,6 +164,7 @@ export const GameBoard: React.FC = () => {
   const gridCols = stageConfig?.grid.cols || 4;
   const numRows = stageConfig?.grid.rows || 4;
 
+
   if (!activeWordObj) return <div className="flex bg-[#161625] h-full w-full text-white items-center justify-center font-headline text-2xl">Loading...</div>;
   
   const formatDefinition = (def: string) => {
@@ -240,9 +241,9 @@ export const GameBoard: React.FC = () => {
       onClick={() => setActiveTooltip(null)}
       className="flex items-center justify-center h-full w-full bg-[#161625] overflow-hidden text-white font-body selection:bg-transparent tracking-wide"
     >
-      <div className="flex flex-col h-full w-full max-w-[480px] max-h-full relative p-2 sm:p-4">
-      {/* Top Bar */}
-      <div className="flex-none h-16 sm:h-20 px-4 sm:px-6 flex justify-between items-center z-10 border-b border-[#1f1f33]">
+      <div className="flex flex-col h-full w-full max-w-full max-h-full relative px-2 sm:px-4 py-2 sm:py-4 overflow-hidden">
+        {/* HEADER SECTION (Bolted Top) */}
+        <div className="flex-none h-14 sm:h-20 px-4 sm:px-6 flex justify-between items-center z-10 border-b border-[#1f1f33] mb-2">
         {/* Pause Button */}
         <button onClick={() => setGameState('paused')} className="w-10 h-10 sm:w-[3.25rem] sm:h-[3.25rem] bg-[#2a2a4b] rounded-xl sm:rounded-2xl flex items-center justify-center border-b-[5px] border-[#18182b] active:border-b-0 active:translate-y-[5px] transition-all">
           <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-6 sm:h-6 text-primary fill-current"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
@@ -258,11 +259,11 @@ export const GameBoard: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Containers */}
-      <div className="flex-1 flex flex-col pt-2 sm:pt-4 gap-1.5 sm:gap-4 min-h-0 overflow-y-auto text-base">
+      {/* BODY SECTION (Elastic Content) */}
+      <div className="flex-1 min-h-0 flex flex-col gap-2 sm:gap-4 overflow-hidden text-base">
         
         {/* Upper Card: Definition & Progress */}
-        <div className="bg-[#1d1d3d] rounded-2xl sm:rounded-[2rem] flex flex-col p-2 sm:p-4 shadow-xl shrink min-h-0 relative">
+        <div className="bg-[#1d1d3d] rounded-2xl sm:rounded-[2rem] flex flex-col p-3 sm:p-4 shadow-xl flex-none min-h-[140px] sm:min-h-[180px] relative">
           {/* Progress Dots */}
           <div className="flex justify-center items-center gap-1.5 sm:gap-3 mb-1 sm:mb-2 mt-0.5 h-3 sm:h-5">
             {stageWords.map((_: any, i: number) => {
@@ -300,7 +301,7 @@ export const GameBoard: React.FC = () => {
                   <div 
                     key={i} 
                     onClick={() => !isCompleted && tileIndex !== null && deselectSlot(i)}
-                    className={`w-7 sm:w-10 h-8 sm:h-12 bg-[#111125] rounded-lg flex items-center justify-center font-headline text-lg sm:text-2xl shadow-inner relative overflow-hidden transition-all ${showSuccess ? 'border-2 border-tertiary shadow-[0_0_8px_rgba(0,228,113,0.4)]' : 'border border-white/5'} ${!isCompleted && tileIndex !== null ? 'cursor-pointer hover:bg-[#1a1a35] active:scale-95' : ''}`}
+                    className={`w-6 sm:w-10 h-7 sm:h-12 bg-[#111125] rounded-lg flex items-center justify-center font-headline text-lg sm:text-2xl shadow-inner relative overflow-hidden transition-all ${showSuccess ? 'border-2 border-tertiary shadow-[0_0_8px_rgba(0,228,113,0.4)]' : 'border border-white/5'} ${!isCompleted && tileIndex !== null ? 'cursor-pointer hover:bg-[#1a1a35] active:scale-95' : ''}`}
                   >
                     <span className={`text-[#77778b] absolute font-black tracking-tighter ${displayedLetter ? 'hidden' : 'block'}`}>_</span>
                     <span className={`${showSuccess ? 'text-tertiary' : 'text-primary'} uppercase ${displayedLetter ? 'block' : 'hidden'}`}>{displayedLetter}</span>
@@ -334,14 +335,14 @@ export const GameBoard: React.FC = () => {
             </AnimatePresence>
           </div>
           
-          {/* Definition Area */}
-          <div className="flex flex-col justify-center mb-1.5 sm:mb-3 h-[3.25rem] sm:h-[4.5rem] overflow-hidden">
+          {/* Definition Area (Max 2 lines) */}
+          <div className="flex flex-col justify-center mb-1.5 sm:mb-2 min-h-0">
              <h3 className="tracking-[0.1em] text-[#dfb7ff] text-[0.65rem] sm:text-[0.75rem] uppercase font-headline mb-0.5 text-center opacity-70">
                DEFINITION
              </h3>
-             <p className={`font-body tracking-wide text-center text-white px-2 break-words italic line-clamp-2 ${getDefinitionFontSize(formatDefinition(activeWordObj.definition))}`}>
-               {formatDefinition(activeWordObj.definition)}
-             </p>
+              <p className={`font-body tracking-wide text-center text-white px-2 break-words italic line-clamp-2 ${getDefinitionFontSize(formatDefinition(activeWordObj.definition))}`}>
+                {formatDefinition(activeWordObj.definition)}
+              </p>
           </div>
 
           {/* Navigation Buttons */}
@@ -363,17 +364,23 @@ export const GameBoard: React.FC = () => {
           </div>
         </div>
 
-        {/* Lower Card: Grid & Powerups */}
-        <div className="flex-1 min-h-0 flex flex-col justify-center gap-4 bg-[#1d1d3d] rounded-2xl sm:rounded-[2rem] p-3 sm:p-6 shadow-xl overflow-hidden">
-          {/* Grid Area */}
-          <div className="flex-1 flex justify-center items-center min-h-0 w-full relative">
+        {/* Lower Card: Grid Area */}
+        <div className="flex-1 min-h-0 flex flex-col items-center justify-center bg-[#1d1d3d] rounded-2xl sm:rounded-[2rem] p-3 shadow-xl overflow-hidden relative">
+          {/*
+            CSS Container Query approach:
+            - container-type:size lets children use cqw/cqh relative to THIS div
+            - The grid then uses min() to pick the binding axis (width or height)
+            - This is the CSS-native equivalent of 'object-fit: contain'
+            - Works correctly for 3x3, 3x4, 4x4 grids without any JavaScript
+          */}
+          <div className="w-full h-full flex items-center justify-center" style={{ containerType: 'size' }}>
             <div 
-              className="grid gap-2 sm:gap-4 w-full p-4 max-h-full max-w-full"
+              className="grid gap-2 sm:gap-3"
               style={{ 
                 gridTemplateColumns: `repeat(${gridCols}, minmax(0, 1fr))`,
-                aspectRatio: `${gridCols} / ${numRows}`
+                width: `min(100cqw, calc(100cqh * ${gridCols} / ${numRows}))`,
+                height: `min(100cqh, calc(100cqw * ${numRows} / ${gridCols}))`,
               }}
-
             >
               {gridLetters.map((char: string, index: number) => {
                 const isSelected = currentSelected.includes(index);
@@ -383,8 +390,6 @@ export const GameBoard: React.FC = () => {
                 const col = index % gridCols;
                 const numRows = Math.ceil(gridLetters.length / gridCols);
                 
-                // Calculate directional offset to the center of the grid area
-                // We use percentage-based estimation for responsiveness
                 const xOffset = ((gridCols - 1) / 2 - col) * 100;
                 const yOffset = ((numRows - 1) / 2 - row) * 100;
 
@@ -425,9 +430,13 @@ export const GameBoard: React.FC = () => {
               })}
             </div>
           </div>
+        </div>
+      </div>
 
+      {/* FOOTER SECTION (Bolted Bottom) */}
+      <div className="flex-none pt-2 pb-1 sm:pb-3">
           {/* Power up row */}
-          <div className="flex justify-center items-center gap-4 sm:gap-8 mt-2 shrink-0 pb-1">
+          <div className="flex justify-center items-center gap-4 sm:gap-8 shrink-0 w-full">
             {/* Shuffle Tooltip & Button */}
             <div className="relative flex flex-col items-center">
               {activeTooltip === 'shuffle' && (
@@ -512,10 +521,7 @@ export const GameBoard: React.FC = () => {
               </button>
             </div>
           </div>
-        </div>
-
       </div>
-    </div>
 
       {/* Overlay Screens */}
       {gameState === 'stageStart' && (
@@ -553,5 +559,7 @@ export const GameBoard: React.FC = () => {
         />
       )}
     </div>
+  </div>
   );
 };
+

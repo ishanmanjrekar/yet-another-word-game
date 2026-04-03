@@ -58,7 +58,7 @@ function App() {
 
   return (
     <div className="flex h-[100dvh] w-screen bg-surface-lowest overflow-hidden">
-      <BoundingBox width={390} height={844}>
+      <BoundingBox width={480} height={880}>
         {gameState === 'menu' && <MainMenu />}
         
         {gameState !== 'menu' && (
