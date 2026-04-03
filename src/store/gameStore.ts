@@ -99,7 +99,7 @@ export const useGameStore = create<GameState>()(
       activeWordIndex: 0,
       completedWords: [],
       highlightedIndices: [],
-      highScore: 1,
+      highScore: 0,
       usedWords: [],
 
       incrementCoins: (amount) => 
@@ -144,7 +144,8 @@ export const useGameStore = create<GameState>()(
           activeWordIndex: 0, 
           completedWords: [], 
           highlightedIndices: words.map(() => []),
-          usedWords: [...state.usedWords, ...words.map(w => w.word)]
+          usedWords: [...state.usedWords, ...words.map(w => w.word)],
+          highScore: Math.max(state.highScore, 1)
         }));
       },
 
@@ -391,7 +392,19 @@ export const useGameStore = create<GameState>()(
       if (!state.levelDesign || !state.wordBank) return {};
       
       const nextStageNum = state.activeStage + 1;
-      const stageConfig = state.levelDesign.stages[nextStageNum.toString()];
+      const stages = state.levelDesign.stages;
+      const definedStageNums = Object.keys(stages).map(Number).sort((a, b) => a - b);
+      const maxStages = definedStageNums[definedStageNums.length - 1] || 0;
+      
+      let lookupId = nextStageNum.toString();
+      if (nextStageNum > maxStages && maxStages > 0) {
+        const loopSize = Math.min(10, maxStages);
+        const loopStart = maxStages - loopSize + 1;
+        const offset = (nextStageNum - loopStart) % loopSize;
+        lookupId = (loopStart + offset).toString();
+      }
+
+      const stageConfig = stages[lookupId];
       
       if (!stageConfig) {
         return { gameState: 'menu' };

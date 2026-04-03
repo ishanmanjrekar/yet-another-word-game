@@ -101,6 +101,13 @@ export const GameBoard: React.FC = () => {
     return def;
   };
 
+  const getDefinitionFontSize = (text: string) => {
+    const len = text.length;
+    if (len > 80) return 'text-[10px] sm:text-sm lg:text-base leading-[1.1] sm:leading-tight';
+    if (len > 60) return 'text-[11px] sm:text-base lg:text-lg leading-tight';
+    return 'text-xs sm:text-base lg:text-lg leading-tight';
+  };
+
   const handleContinue = () => {
     advanceToNextStage();
   };
@@ -146,7 +153,10 @@ export const GameBoard: React.FC = () => {
   })();
 
   return (
-    <div className="flex flex-col h-full w-full bg-[#161625] overflow-hidden text-white font-body selection:bg-transparent tracking-wide absolute inset-0">
+    <div 
+      onClick={() => setActiveTooltip(null)}
+      className="flex flex-col h-full w-full bg-[#161625] overflow-hidden text-white font-body selection:bg-transparent tracking-wide absolute inset-0"
+    >
       {/* Top Bar */}
       <div className="flex-none h-16 sm:h-20 px-4 sm:px-6 flex justify-between items-center z-10 border-b border-[#1f1f33]">
         {/* Pause Button */}
@@ -215,11 +225,11 @@ export const GameBoard: React.FC = () => {
           </div>
           
           {/* Definition Area */}
-          <div className="flex flex-col justify-center mb-1.5 sm:mb-3">
+          <div className="flex flex-col justify-center mb-1.5 sm:mb-3 h-[3.25rem] sm:h-[4.5rem] overflow-hidden">
              <h3 className="tracking-[0.1em] text-[#dfb7ff] text-[0.65rem] sm:text-[0.75rem] uppercase font-headline mb-0.5 text-center opacity-70">
                DEFINITION
              </h3>
-             <p className="font-body tracking-wide text-center text-xs sm:text-base lg:text-lg leading-tight text-white px-2 break-words italic line-clamp-3">
+             <p className={`font-body tracking-wide text-center text-white px-2 break-words italic line-clamp-2 ${getDefinitionFontSize(formatDefinition(activeWordObj.definition))}`}>
                {formatDefinition(activeWordObj.definition)}
              </p>
           </div>
@@ -308,7 +318,10 @@ export const GameBoard: React.FC = () => {
             {/* Shuffle Tooltip & Button */}
             <div className="relative flex flex-col items-center">
               {activeTooltip === 'shuffle' && (
-                <div className="absolute bottom-[calc(100%+12px)] z-50 flex flex-col items-center bg-[#e2e0fc] rounded-xl p-2 shadow-2xl tooltip-arrow animate-bounce-short px-3 w-32 border border-white/20">
+                <div 
+                  onClick={(e) => e.stopPropagation()}
+                  className="absolute bottom-[calc(100%+12px)] z-50 flex flex-col items-center bg-[#e2e0fc] rounded-xl p-2 shadow-2xl tooltip-arrow animate-bounce-short px-3 w-32 border border-white/20"
+                >
                   <div className="flex flex-col items-center gap-1">
                     <span className="text-[#2f2e43] font-body text-[11px] font-medium leading-tight text-center px-1">Rearrange the tiles</span>
                     <button 
@@ -323,7 +336,7 @@ export const GameBoard: React.FC = () => {
                 </div>
               )}
               <button 
-                onClick={() => setActiveTooltip(activeTooltip === 'shuffle' ? null : 'shuffle')}
+                onClick={(e) => { e.stopPropagation(); setActiveTooltip(activeTooltip === 'shuffle' ? null : 'shuffle'); }}
                 className={`w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-tertiary border-b-[4px] sm:border-b-[8px] border-[#009b4c] flex items-center justify-center active:border-b-0 active:translate-y-[4px] sm:active:translate-y-[8px] transition-all ${activeTooltip === 'shuffle' ? 'ring-4 ring-tertiary/40 brightness-110 shadow-lg' : ''}`}
               >
                 <svg viewBox="0 0 24 24" className="w-7 h-7 sm:w-10 sm:h-10 text-[#00602f]" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
@@ -333,7 +346,10 @@ export const GameBoard: React.FC = () => {
             {/* Highlight Tooltip & Button */}
             <div className="relative flex flex-col items-center">
               {activeTooltip === 'highlight' && (
-                <div className="absolute bottom-[calc(100%+12px)] z-50 flex flex-col items-center bg-[#e2e0fc] rounded-xl p-2 shadow-2xl tooltip-arrow animate-bounce-short px-3 w-32 border border-white/20">
+                <div 
+                  onClick={(e) => e.stopPropagation()}
+                  className="absolute bottom-[calc(100%+12px)] z-50 flex flex-col items-center bg-[#e2e0fc] rounded-xl p-2 shadow-2xl tooltip-arrow animate-bounce-short px-3 w-32 border border-white/20"
+                >
                   <div className="flex flex-col items-center gap-1">
                     <span className="text-[#2f2e43] font-body text-[11px] font-medium leading-tight text-center px-1">Highlight a correct letter</span>
                     <button 
@@ -348,7 +364,7 @@ export const GameBoard: React.FC = () => {
                 </div>
               )}
               <button 
-                onClick={() => setActiveTooltip(activeTooltip === 'highlight' ? null : 'highlight')}
+                onClick={(e) => { e.stopPropagation(); setActiveTooltip(activeTooltip === 'highlight' ? null : 'highlight'); }}
                 className={`w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-secondary border-b-[4px] sm:border-b-[8px] border-[#b580e0] flex items-center justify-center active:border-b-0 active:translate-y-[4px] sm:active:translate-y-[8px] transition-all ${activeTooltip === 'highlight' ? 'ring-4 ring-secondary/40 brightness-110 shadow-lg' : ''}`}
               >
                 <svg viewBox="0 0 24 24" className="w-8 h-8 sm:w-12 sm:h-12 text-[#6c11af] fill-current"><path d="M12 22a2.98 2.98 0 0 0 2.818-2H9.182A2.98 2.98 0 0 0 12 22zm7-7.41V11c0-3.866-3.134-7-7-7s-7 3.134-7 7v3.59l-2 2V18h18v-1.41l-2-2z"/></svg>
@@ -358,7 +374,10 @@ export const GameBoard: React.FC = () => {
             {/* Lightning Tooltip & Button */}
             <div className="relative flex flex-col items-center">
               {activeTooltip === 'lightning' && (
-                <div className="absolute bottom-[calc(100%+12px)] z-50 flex flex-col items-center bg-[#e2e0fc] rounded-xl p-2 shadow-2xl tooltip-arrow animate-bounce-short px-3 w-32 border border-white/20">
+                <div 
+                  onClick={(e) => e.stopPropagation()}
+                  className="absolute bottom-[calc(100%+12px)] z-50 flex flex-col items-center bg-[#e2e0fc] rounded-xl p-2 shadow-2xl tooltip-arrow animate-bounce-short px-3 w-32 border border-white/20"
+                >
                   <div className="flex flex-col items-center gap-1">
                     <span className="text-[#2f2e43] font-body text-[11px] font-medium leading-tight text-center px-1">Place a correct letter</span>
                     <button 
@@ -373,7 +392,7 @@ export const GameBoard: React.FC = () => {
                 </div>
               )}
               <button 
-                onClick={() => setActiveTooltip(activeTooltip === 'lightning' ? null : 'lightning')}
+                onClick={(e) => { e.stopPropagation(); setActiveTooltip(activeTooltip === 'lightning' ? null : 'lightning'); }}
                 className={`w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-primary border-b-[4px] sm:border-b-[8px] border-[#ba9a00] flex items-center justify-center active:border-b-0 active:translate-y-[4px] sm:active:translate-y-[8px] transition-all ${activeTooltip === 'lightning' ? 'ring-4 ring-primary/40 brightness-110 shadow-lg' : ''}`}
               >
                 <svg viewBox="0 0 24 24" className="w-7 h-7 sm:w-10 sm:h-10 text-[#665400] fill-current"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>

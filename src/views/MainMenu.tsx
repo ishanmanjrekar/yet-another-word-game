@@ -81,10 +81,12 @@ export const MainMenu: React.FC = () => {
               <span className="material-symbols-outlined text-on-primary text-5xl mb-1 group-hover:scale-110 transition-transform" style={{ fontVariationSettings: "'opsz' 48" }}>sports_esports</span>
               <span className="font-headline text-3xl text-on-primary uppercase tracking-tight">Arcade</span>
             </button>
-            <div className="mt-4 bg-gradient-to-b from-[#E8E8E8] to-[#B0B0B0] px-5 py-1.5 rounded-full border border-[#690bac]/50 flex items-center gap-2 shadow-[0_4px_15px_rgba(105,11,172,0.3)]">
-              <span className="material-symbols-outlined text-[#690bac] text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>emoji_events</span>
-              <span className="text-[#690bac] font-body font-bold text-sm tracking-tight">Highscore: Stage {highScore}</span>
-            </div>
+            {highScore > 0 && (
+              <div className="mt-4 bg-gradient-to-b from-[#E8E8E8] to-[#B0B0B0] px-5 py-1.5 rounded-full border border-[#690bac]/50 flex items-center gap-2 shadow-[0_4px_15px_rgba(105,11,172,0.3)]">
+                <span className="material-symbols-outlined text-[#690bac] text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>emoji_events</span>
+                <span className="text-[#690bac] font-body font-bold text-sm tracking-tight">Highscore: Stage {highScore}</span>
+              </div>
+            )}
           </div>
 
           {/* WOTD Mode */}
