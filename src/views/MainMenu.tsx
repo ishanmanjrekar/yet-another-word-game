@@ -28,7 +28,7 @@ export const MainMenu: React.FC = () => {
         </div>
       </header>
 
-      <main className="flex-1 flex flex-col items-center justify-center relative px-6 py-8">
+      <main className="flex-1 flex flex-col items-center justify-center relative px-6 pt-12 pb-8">
         {/* Decorative Floating Tiles */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
           <div 
@@ -64,7 +64,7 @@ export const MainMenu: React.FC = () => {
         </div>
 
         {/* Hero Section */}
-        <div className="text-center mb-10 z-10">
+        <div className="text-center mb-10 z-10 -mt-16">
           <h2 className="text-8xl font-headline text-primary tracking-tighter mb-2 drop-shadow-[0_6px_0_rgba(85,70,0,0.8)]">YAWG</h2>
           <p className="text-secondary font-body font-bold text-xs tracking-[0.2em] uppercase opacity-80">Yet Another Word Game</p>
         </div>
@@ -87,15 +87,18 @@ export const MainMenu: React.FC = () => {
           </div>
 
           {/* WOTD Mode */}
-          <div className="flex flex-col items-center">
-            <button className="chunky-button-secondary w-full py-7 bg-secondary-container rounded-[32px] flex flex-col items-center justify-center transition-all duration-100 hover:brightness-110 active:scale-95 border-t border-white/10 group">
-              <span className="material-symbols-outlined text-secondary text-5xl mb-1 group-hover:scale-110 transition-transform" style={{ fontVariationSettings: "'opsz' 48" }}>today</span>
+          <div className="flex flex-col items-center relative">
+            <button className="chunky-button-secondary w-full py-7 bg-secondary-container rounded-[32px] flex flex-col items-center justify-center transition-all duration-100 border-t border-white/10 opacity-[0.85] cursor-not-allowed">
+              <span className="material-symbols-outlined text-secondary text-5xl mb-1" style={{ fontVariationSettings: "'opsz' 48" }}>today</span>
               <span className="font-headline text-3xl text-secondary uppercase tracking-tight">WOTD</span>
-              <span className="text-secondary/60 font-body font-bold text-[10px] uppercase tracking-[0.2em] mt-1 group-hover:text-secondary transition-colors">Words of the Day</span>
+              <span className="text-secondary/60 font-body font-bold text-[10px] uppercase tracking-[0.2em] mt-1">Words of the Day</span>
             </button>
-            <div className="mt-4 bg-gradient-to-b from-[#E8E8E8] to-[#B0B0B0] px-5 py-1.5 rounded-full border border-[#690bac]/50 flex items-center gap-2 shadow-[0_4px_15px_rgba(105,11,172,0.3)]">
-              <span className="material-symbols-outlined text-[#690bac] text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>local_fire_department</span>
-              <span className="text-[#690bac] font-body font-bold text-sm tracking-tight">7 Day Streak</span>
+            
+            {/* Coming Soon Overlay */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="bg-[#cc0000] text-white font-headline text-xl px-6 py-2 rounded-lg rotate-[-5deg] shadow-[0_4px_0_0_#990000] border-2 border-white/20">
+                COMING SOON
+              </div>
             </div>
           </div>
         </div>
