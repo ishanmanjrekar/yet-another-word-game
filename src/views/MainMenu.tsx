@@ -20,7 +20,7 @@ export const MainMenu: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen w-full bg-surface text-on-surface font-body overflow-hidden select-none flex flex-col">
+    <div className="relative h-full w-full bg-surface text-on-surface font-body overflow-hidden select-none flex flex-col">
       {/* Top Header Bar */}
       <header className="bg-transparent flex justify-end items-center w-full px-6 py-4 absolute top-0 z-50">
         <div className="flex items-center gap-2 bg-surface-container/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-primary/20 pointer-events-auto">
@@ -99,8 +99,9 @@ export const MainMenu: React.FC = () => {
             
             {/* Coming Soon Overlay */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="bg-[#cc0000] text-white font-headline text-xl px-6 py-2 rounded-lg rotate-[-5deg] shadow-[0_4px_0_0_#990000] border-2 border-white/20">
-                COMING SOON
+              <div className="bg-[#cc0000] text-white font-headline text-xl px-6 py-2 rounded-lg rotate-[-5deg] shadow-[0_4px_0_0_#990000] border-2 border-white/20 flex flex-col items-center mt-[-10px]">
+                <span className="leading-tight">COMING SOON</span>
+                <span className="font-body text-[11px] lowercase opacity-80 -mt-2">maybe</span>
               </div>
             </div>
           </div>

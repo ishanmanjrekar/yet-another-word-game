@@ -162,8 +162,9 @@ export const GameBoard: React.FC = () => {
 
   const stageConfig = levelDesign?.stages[activeStage.toString()];
   const gridCols = stageConfig?.grid.cols || 4;
+  const numRows = stageConfig?.grid.rows || 4;
 
-  if (!activeWordObj) return <div className="flex bg-[#161625] h-screen w-full text-white items-center justify-center font-headline text-2xl">Loading...</div>;
+  if (!activeWordObj) return <div className="flex bg-[#161625] h-full w-full text-white items-center justify-center font-headline text-2xl">Loading...</div>;
   
   const formatDefinition = (def: string) => {
     const semiIndex = def.indexOf(';');
@@ -237,9 +238,9 @@ export const GameBoard: React.FC = () => {
   return (
     <div 
       onClick={() => setActiveTooltip(null)}
-      className="flex items-center justify-center h-screen w-full bg-[#161625] overflow-hidden text-white font-body selection:bg-transparent tracking-wide"
+      className="flex items-center justify-center h-full w-full bg-[#161625] overflow-hidden text-white font-body selection:bg-transparent tracking-wide"
     >
-      <div className="flex flex-col h-full w-full max-w-[480px] max-h-[900px] relative p-2 sm:p-4">
+      <div className="flex flex-col h-full w-full max-w-[480px] max-h-full relative p-2 sm:p-4">
       {/* Top Bar */}
       <div className="flex-none h-16 sm:h-20 px-4 sm:px-6 flex justify-between items-center z-10 border-b border-[#1f1f33]">
         {/* Pause Button */}
@@ -258,10 +259,10 @@ export const GameBoard: React.FC = () => {
       </div>
 
       {/* Main Containers */}
-      <div className="flex-1 flex flex-col pt-2 sm:pt-4 gap-3 sm:gap-4 min-h-0 overflow-hidden text-base">
+      <div className="flex-1 flex flex-col pt-2 sm:pt-4 gap-1.5 sm:gap-4 min-h-0 overflow-y-auto text-base">
         
         {/* Upper Card: Definition & Progress */}
-        <div className="bg-[#1d1d3d] rounded-2xl sm:rounded-[2rem] flex flex-col p-2 sm:p-4 shadow-xl shrink-0 relative">
+        <div className="bg-[#1d1d3d] rounded-2xl sm:rounded-[2rem] flex flex-col p-2 sm:p-4 shadow-xl shrink min-h-0 relative">
           {/* Progress Dots */}
           <div className="flex justify-center items-center gap-1.5 sm:gap-3 mb-1 sm:mb-2 mt-0.5 h-3 sm:h-5">
             {stageWords.map((_: any, i: number) => {
@@ -365,10 +366,13 @@ export const GameBoard: React.FC = () => {
         {/* Lower Card: Grid & Powerups */}
         <div className="flex-1 min-h-0 flex flex-col justify-center gap-4 bg-[#1d1d3d] rounded-2xl sm:rounded-[2rem] p-3 sm:p-6 shadow-xl overflow-hidden">
           {/* Grid Area */}
-          <div className="flex-1 flex justify-center items-center min-h-0 w-full overflow-hidden relative">
+          <div className="flex-1 flex justify-center items-center min-h-0 w-full relative">
             <div 
-              className="grid gap-2 sm:gap-4 w-full max-w-[min(88vw,42vh)] aspect-square"
-              style={{ gridTemplateColumns: `repeat(${gridCols}, minmax(0, 1fr))` }}
+              className="grid gap-2 sm:gap-4 w-full p-4 max-h-full max-w-full"
+              style={{ 
+                gridTemplateColumns: `repeat(${gridCols}, minmax(0, 1fr))`,
+                aspectRatio: `${gridCols} / ${numRows}`
+              }}
 
             >
               {gridLetters.map((char: string, index: number) => {
@@ -411,7 +415,7 @@ export const GameBoard: React.FC = () => {
                     <Tile 
                       key={`${index}-${char}`}
                       letter={char} 
-                      className="w-full h-full !text-[clamp(1.5rem,10vw,2.25rem)] pb-0 sm:pb-1"
+                      className="w-full h-full !text-[clamp(1rem,4rem,2rem)] pb-0 sm:pb-1"
                       isActive={isSelected} 
                       isHighlighted={isHighlighted}
                       onClick={() => !isShuffling && selectTile(index)} 

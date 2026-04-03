@@ -39,7 +39,8 @@ export const BoundingBox: React.FC<GameLayerProps> = ({ width, height, children 
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        overflow: 'hidden'
+        overflowY: 'auto',
+        overflowX: 'hidden'
       }}
     >
       <div
