@@ -175,12 +175,6 @@ export const GameBoard: React.FC = () => {
     return def;
   };
 
-  const getDefinitionFontSize = (text: string) => {
-    const len = text.length;
-    if (len > 80) return 'text-[10px] sm:text-sm lg:text-base leading-[1.1] sm:leading-tight';
-    if (len > 60) return 'text-[11px] sm:text-base lg:text-lg leading-tight';
-    return 'text-xs sm:text-base lg:text-lg leading-tight';
-  };
 
   const handleContinue = () => {
     advanceToNextStage();
@@ -261,100 +255,105 @@ export const GameBoard: React.FC = () => {
       <div className="flex-1 min-h-0 flex flex-col gap-3 overflow-hidden text-base">
         
         {/* Upper Card: Definition & Progress */}
-        <div className="bg-[#1d1d3d] rounded-2xl flex flex-col p-3 shadow-xl flex-none min-h-[150px] relative">
-          <div className="flex justify-center items-center gap-1.5 mb-1 mt-0.5 h-4">
-            {stageWords.map((_: any, i: number) => {
-              const isActive = i === activeWordIndex;
-              const isComp = completedWords.includes(i);
-              return isActive ? (
-                <div key={i} className="w-2.5 h-2.5 sm:w-4 sm:h-4 rounded-full border-[2px] border-[#8a8a25] flex items-center justify-center relative">
-                   <div className="absolute w-1 h-1 sm:w-2 sm:h-2 bg-primary rounded-full"></div>
-                </div>
-              ) : isComp ? (
-                <div key={i} className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 bg-tertiary rounded-full flex items-center justify-center">
-                  <svg className="w-2 h-2 text-black" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
-                </div>
-              ) : (
-                <div key={i} className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 bg-[#3b2b6b] rounded-full"></div>
-              );
-            })}
-          </div>
+        <div className="bg-[#1d1d3d] rounded-2xl flex flex-col p-3 shadow-xl flex-[2] min-h-0 relative">
+          <div className="flex-1 flex flex-col justify-center gap-3 min-h-0">
 
-          {/* Active Word Slots */}
-          <div className="flex justify-center items-center gap-2 mb-2 h-10 relative">
-            <div className="flex justify-center gap-1.5">
-              {currentSelected.map((tileIndex: number | null, i: number) => {
-                const isCompleted = completedWords.includes(activeWordIndex);
-                const targetChar = activeWordObj.word[i].toUpperCase();
-                const currentChar = tileIndex !== null ? gridLetters[tileIndex].toUpperCase() : null;
-                const isCorrect = currentChar === targetChar;
-                const showSuccess = isCompleted || isCorrect;
-                
-                const displayedLetter = isCompleted 
-                  ? activeWordObj.word[i] 
-                  : (tileIndex !== null ? gridLetters[tileIndex] : '');
-                
-                return (
-                  <div 
-                    key={i} 
-                    onClick={() => !isCompleted && tileIndex !== null && deselectSlot(i)}
-                    className={`w-9 h-10 bg-[#111125] rounded-lg flex items-center justify-center font-headline text-xl shadow-inner relative overflow-hidden transition-all ${showSuccess ? 'border-2 border-tertiary shadow-[0_0_8px_rgba(0,228,113,0.4)]' : 'border border-white/5'} ${!isCompleted && tileIndex !== null ? 'cursor-pointer hover:bg-[#1a1a35] active:scale-95' : ''}`}
-                  >
-                    <span className={`text-[#77778b] absolute font-black tracking-tighter ${displayedLetter ? 'hidden' : 'block'}`}>_</span>
-                    <span className={`${showSuccess ? 'text-tertiary' : 'text-primary'} uppercase ${displayedLetter ? 'block' : 'hidden'}`}>{displayedLetter}</span>
+            {/* Progress Dots */}
+            <div className="flex justify-center items-center gap-3 h-7">
+              {stageWords.map((_: any, i: number) => {
+                const isActive = i === activeWordIndex;
+                const isComp = completedWords.includes(i);
+                return isActive ? (
+                  <div key={i} className="w-5 h-5 rounded-full border-[2.5px] border-[#8a8a25] flex items-center justify-center relative">
+                     <div className="absolute w-2 h-2 bg-primary rounded-full"></div>
                   </div>
+                ) : isComp ? (
+                  <div key={i} className="w-5 h-5 bg-tertiary rounded-full flex items-center justify-center">
+                    <svg className="w-3 h-3 text-black" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                  </div>
+                ) : (
+                  <div key={i} className="w-5 h-5 bg-[#3b2b6b] rounded-full"></div>
                 );
               })}
             </div>
-            
-            <AnimatePresence>
-              {feedback && (
-                <motion.div
-                  key={feedback.id}
-                  initial={{ opacity: 0, scale: 0.8, y: 10 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 1.1, y: -20 }}
-                  transition={{ duration: 0.5, ease: "easeOut" }}
-                  onAnimationComplete={() => {
-                    const timer = setTimeout(() => setFeedback(null), 600);
-                    return () => clearTimeout(timer);
-                  }}
-                  className="absolute -top-8 right-0 z-[60] flex flex-col items-end pointer-events-none select-none whitespace-nowrap"
-                >
-                  <span className="text-primary font-headline text-lg sm:text-2xl drop-shadow-[0_2px_0_rgba(0,0,0,0.4)] uppercase leading-none">
-                    {feedback.message}
-                  </span>
-                  <span className="text-tertiary font-headline text-base sm:text-xl drop-shadow-[0_2px_0_rgba(0,0,0,0.4)] leading-none">
-                    +{economy?.rewards.timerBonusPerWord || 10}s
-                  </span>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-          
-          {/* Definition Area (Max 2 lines) */}
-          <div className="flex flex-col justify-center mb-1.5 sm:mb-2 min-h-0">
-             <h3 className="tracking-[0.1em] text-[#dfb7ff] text-[0.65rem] sm:text-[0.75rem] uppercase font-headline mb-0.5 text-center opacity-70">
-               DEFINITION
-             </h3>
-              <p className={`font-body tracking-wide text-center text-white px-2 break-words italic line-clamp-2 ${getDefinitionFontSize(formatDefinition(activeWordObj.definition))}`}>
+
+            {/* Active Word Slots */}
+            <div className="flex justify-center items-center gap-2 h-16 relative">
+              <div className="flex justify-center gap-2">
+                {currentSelected.map((tileIndex: number | null, i: number) => {
+                  const isCompleted = completedWords.includes(activeWordIndex);
+                  const targetChar = activeWordObj.word[i].toUpperCase();
+                  const currentChar = tileIndex !== null ? gridLetters[tileIndex].toUpperCase() : null;
+                  const isCorrect = currentChar === targetChar;
+                  const showSuccess = isCompleted || isCorrect;
+                  
+                  const displayedLetter = isCompleted 
+                    ? activeWordObj.word[i] 
+                    : (tileIndex !== null ? gridLetters[tileIndex] : '');
+                  
+                  return (
+                    <div 
+                      key={i} 
+                      onClick={() => !isCompleted && tileIndex !== null && deselectSlot(i)}
+                      className={`w-12 h-14 bg-[#111125] rounded-xl flex items-center justify-center font-headline text-2xl shadow-inner relative overflow-hidden transition-all ${showSuccess ? 'border-2 border-tertiary shadow-[0_0_8px_rgba(0,228,113,0.4)]' : 'border border-white/5'} ${!isCompleted && tileIndex !== null ? 'cursor-pointer hover:bg-[#1a1a35] active:scale-95' : ''}`}
+                    >
+                      <span className={`text-[#77778b] absolute font-black tracking-tighter ${displayedLetter ? 'hidden' : 'block'}`}>_</span>
+                      <span className={`${showSuccess ? 'text-tertiary' : 'text-primary'} uppercase ${displayedLetter ? 'block' : 'hidden'}`}>{displayedLetter}</span>
+                    </div>
+                  );
+                })}
+              </div>
+              
+              <AnimatePresence>
+                {feedback && (
+                  <motion.div
+                    key={feedback.id}
+                    initial={{ opacity: 0, scale: 0.8, y: 10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 1.1, y: -20 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    onAnimationComplete={() => {
+                      const timer = setTimeout(() => setFeedback(null), 600);
+                      return () => clearTimeout(timer);
+                    }}
+                    className="absolute -top-8 right-0 z-[60] flex flex-col items-end pointer-events-none select-none whitespace-nowrap"
+                  >
+                    <span className="text-primary font-headline text-lg drop-shadow-[0_2px_0_rgba(0,0,0,0.4)] uppercase leading-none">
+                      {feedback.message}
+                    </span>
+                    <span className="text-tertiary font-headline text-base drop-shadow-[0_2px_0_rgba(0,0,0,0.4)] leading-none">
+                      +{economy?.rewards.timerBonusPerWord || 10}s
+                    </span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* Definition Area (Max 2 lines) */}
+            <div className="flex flex-col items-center justify-center">
+              <h3 className="tracking-[0.1em] text-[#dfb7ff] text-xs uppercase font-headline mb-1.5 text-center opacity-70">
+                DEFINITION
+              </h3>
+              <p className="font-body tracking-wide text-center text-white px-2 break-words italic line-clamp-2 text-xl leading-snug">
                 {formatDefinition(activeWordObj.definition)}
               </p>
+            </div>
+
           </div>
 
-          {/* Navigation Buttons */}
-          <div className="flex justify-between gap-1.5 sm:gap-4 mt-auto">
+          {/* Navigation Buttons — always at the bottom of the card */}
+          <div className="flex justify-between gap-2 mt-3">
             <button 
               onClick={prevWord} 
               disabled={activeWordIndex === 0}
-              className={`flex-1 bg-[#2a2a4b] text-[#dfb7ff] border-b-[4px] border-[#18182b] active:border-b-0 active:translate-y-[4px] font-headline tracking-widest uppercase py-2 rounded-xl transition-all text-xs ${activeWordIndex === 0 ? 'opacity-40 grayscale pointer-events-none' : ''}`}
+              className={`flex-1 bg-[#2a2a4b] text-[#dfb7ff] border-b-[5px] border-[#18182b] active:border-b-0 active:translate-y-[5px] font-headline tracking-widest uppercase py-3.5 rounded-2xl transition-all text-sm ${activeWordIndex === 0 ? 'opacity-40 grayscale pointer-events-none' : ''}`}
             >
               PREVIOUS
             </button>
             <button 
               onClick={nextWord} 
               disabled={activeWordIndex === stageWords.length - 1}
-              className={`flex-1 bg-primary text-[#554600] border-b-[4px] border-[#b09400] active:border-b-0 active:translate-y-[4px] font-headline tracking-widest uppercase py-2 rounded-xl transition-all text-xs ${activeWordIndex === stageWords.length - 1 ? 'opacity-40 grayscale pointer-events-none' : ''}`}
+              className={`flex-1 bg-primary text-[#554600] border-b-[5px] border-[#b09400] active:border-b-0 active:translate-y-[5px] font-headline tracking-widest uppercase py-3.5 rounded-2xl transition-all text-sm ${activeWordIndex === stageWords.length - 1 ? 'opacity-40 grayscale pointer-events-none' : ''}`}
             >
               NEXT
             </button>
@@ -362,7 +361,7 @@ export const GameBoard: React.FC = () => {
         </div>
 
         {/* Lower Card: Grid Area */}
-        <div className="flex-1 min-h-0 flex flex-col items-center justify-center bg-[#1d1d3d] rounded-2xl p-3 shadow-xl overflow-hidden relative">
+        <div className="flex-[3] min-h-0 flex flex-col items-center justify-center bg-[#1d1d3d] rounded-2xl p-3 shadow-xl overflow-hidden relative">
           {/*
             CSS Container Query approach:
             - container-type:size lets children use cqw/cqh relative to THIS div
@@ -432,32 +431,32 @@ export const GameBoard: React.FC = () => {
 
       {/* FOOTER SECTION (Bolted Bottom) */}
       <div className="flex-none pt-2 pb-3">
-          <div className="flex justify-center items-center gap-6 shrink-0 w-full">
+          <div className="flex justify-around items-center w-full">
             {/* Shuffle Tooltip & Button */}
             <div className="relative flex flex-col items-center">
               {activeTooltip === 'shuffle' && (
                 <div 
                   onClick={(e) => e.stopPropagation()}
-                  className="absolute bottom-[calc(100%+12px)] z-50 flex flex-col items-center bg-[#e2e0fc] rounded-xl p-2 shadow-2xl tooltip-arrow animate-bounce-short px-3 w-32 border border-white/20"
+                  className="absolute bottom-[calc(100%+16px)] z-50 flex flex-col items-center bg-[#e2e0fc] rounded-2xl p-3 shadow-2xl tooltip-arrow animate-bounce-short px-4 w-44 border border-white/20"
                 >
                   <div className="flex flex-col items-center gap-1">
-                    <span className="text-[#2f2e43] font-body text-[11px] font-medium leading-tight text-center px-1">Rearrange the tiles</span>
+                    <span className="text-[#2f2e43] font-body text-sm font-medium leading-tight text-center px-1">Rearrange the tiles</span>
                     <button 
                       onClick={() => { handleShuffleAction(); setActiveTooltip(null); }}
                       disabled={coins < (economy?.powerups.shuffle.cost ?? 0)}
-                      className={`mt-1 flex items-center gap-1 bg-primary text-[#3a3000] px-3 py-1 rounded-full text-[10px] font-bold shadow-sm border-b-2 border-[#554600] active:translate-y-0.5 active:border-b-0 transition-all uppercase tracking-tight ${coins < (economy?.powerups.shuffle.cost ?? 0) ? 'opacity-50 grayscale pointer-events-none' : ''}`}
+                      className={`mt-1.5 flex items-center gap-1.5 bg-primary text-[#3a3000] px-4 py-1.5 rounded-full text-[13px] font-bold shadow-sm border-b-[3px] border-[#554600] active:translate-y-0.5 active:border-b-0 transition-all uppercase tracking-tight ${coins < (economy?.powerups.shuffle.cost ?? 0) ? 'opacity-50 grayscale pointer-events-none' : ''}`}
                     >
                       <span>USE {economy?.powerups.shuffle.cost ?? 0}</span>
-                      <span className="w-3 h-3 bg-[#3a3000] rounded-full flex items-center justify-center text-[8px] text-primary">$</span>
+                      <span className="w-4 h-4 bg-[#3a3000] rounded-full flex items-center justify-center text-[10px] text-primary">$</span>
                     </button>
                   </div>
                 </div>
               )}
               <button 
                 onClick={(e) => { e.stopPropagation(); setActiveTooltip(activeTooltip === 'shuffle' ? null : 'shuffle'); }}
-                className={`w-16 h-16 rounded-full bg-tertiary border-b-[5px] border-[#009b4c] flex items-center justify-center active:border-b-0 active:translate-y-[5px] transition-all ${activeTooltip === 'shuffle' ? 'ring-4 ring-tertiary/40 brightness-110 shadow-lg' : ''}`}
+                className={`w-20 h-20 rounded-full bg-tertiary border-b-[6px] border-[#009b4c] flex items-center justify-center active:border-b-0 active:translate-y-[6px] transition-all ${activeTooltip === 'shuffle' ? 'ring-4 ring-tertiary/40 brightness-110 shadow-lg' : ''}`}
               >
-                <svg viewBox="0 0 24 24" className="w-8 h-8 text-[#00602f]" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+                <svg viewBox="0 0 24 24" className="w-10 h-10 text-[#00602f]" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
               </button>
             </div>
 
@@ -466,14 +465,14 @@ export const GameBoard: React.FC = () => {
               {activeTooltip === 'highlight' && (
                 <div 
                   onClick={(e) => e.stopPropagation()}
-                  className="absolute bottom-[calc(100%+12px)] z-50 flex flex-col items-center bg-[#e2e0fc] rounded-xl p-2 shadow-2xl tooltip-arrow animate-bounce-short px-3 w-32 border border-white/20"
+                  className="absolute bottom-[calc(100%+16px)] z-50 flex flex-col items-center bg-[#e2e0fc] rounded-2xl p-3 shadow-2xl tooltip-arrow animate-bounce-short px-4 w-44 border border-white/20"
                 >
                   <div className="flex flex-col items-center gap-1">
-                    <span className="text-[#2f2e43] font-body text-[11px] font-medium leading-tight text-center px-1">Highlight a correct letter</span>
+                    <span className="text-[#2f2e43] font-body text-sm font-medium leading-tight text-center px-1">Highlight a correct letter</span>
                     <button 
                       onClick={() => { executeHighlight(); setActiveTooltip(null); }}
                       disabled={!isHighlightAvailable || coins < (economy?.powerups.highlight.cost ?? 0)}
-                      className={`mt-1 flex items-center gap-1 bg-primary text-[#3a3000] px-3 py-1 rounded-full text-[10px] font-bold shadow-sm border-b-2 border-[#554600] active:translate-y-0.5 active:border-b-0 transition-all uppercase tracking-tight ${(!isHighlightAvailable || coins < (economy?.powerups.highlight.cost ?? 0)) ? 'opacity-40 grayscale pointer-events-none' : ''}`}
+                      className={`mt-1.5 flex items-center gap-1.5 bg-primary text-[#3a3000] px-4 py-1.5 rounded-full text-[13px] font-bold shadow-sm border-b-[3px] border-[#554600] active:translate-y-0.5 active:border-b-0 transition-all uppercase tracking-tight ${(!isHighlightAvailable || coins < (economy?.powerups.highlight.cost ?? 0)) ? 'opacity-40 grayscale pointer-events-none' : ''}`}
                     >
                       <span>{isHighlightAvailable ? `USE ${economy?.powerups.highlight.cost ?? 0}` : 'NO HIGHLIGHTS LEFT'}</span>
                       {isHighlightAvailable && <span className="w-3 h-3 bg-[#3a3000] rounded-full flex items-center justify-center text-[8px] text-primary">$</span>}
@@ -483,9 +482,9 @@ export const GameBoard: React.FC = () => {
               )}
               <button 
                 onClick={(e) => { e.stopPropagation(); setActiveTooltip(activeTooltip === 'highlight' ? null : 'highlight'); }}
-                className={`w-16 h-16 rounded-full bg-secondary border-b-[5px] border-[#b580e0] flex items-center justify-center active:border-b-0 active:translate-y-[5px] transition-all ${activeTooltip === 'highlight' ? 'ring-4 ring-secondary/40 brightness-110 shadow-lg' : ''}`}
+                className={`w-20 h-20 rounded-full bg-secondary border-b-[6px] border-[#b580e0] flex items-center justify-center active:border-b-0 active:translate-y-[6px] transition-all ${activeTooltip === 'highlight' ? 'ring-4 ring-secondary/40 brightness-110 shadow-lg' : ''}`}
               >
-                <svg viewBox="0 0 24 24" className="w-9 h-9 text-[#6c11af] fill-current"><path d="M12 22a2.98 2.98 0 0 0 2.818-2H9.182A2.98 2.98 0 0 0 12 22zm7-7.41V11c0-3.866-3.134-7-7-7s-7 3.134-7 7v3.59l-2 2V18h18v-1.41l-2-2z"/></svg>
+                <svg viewBox="0 0 24 24" className="w-11 h-11 text-[#6c11af] fill-current"><path d="M12 22a2.98 2.98 0 0 0 2.818-2H9.182A2.98 2.98 0 0 0 12 22zm7-7.41V11c0-3.866-3.134-7-7-7s-7 3.134-7 7v3.59l-2 2V18h18v-1.41l-2-2z"/></svg>
               </button>
             </div>
 
@@ -494,14 +493,14 @@ export const GameBoard: React.FC = () => {
               {activeTooltip === 'lightning' && (
                 <div 
                   onClick={(e) => e.stopPropagation()}
-                  className="absolute bottom-[calc(100%+12px)] z-50 flex flex-col items-center bg-[#e2e0fc] rounded-xl p-2 shadow-2xl tooltip-arrow animate-bounce-short px-3 w-32 border border-white/20"
+                  className="absolute bottom-[calc(100%+16px)] z-50 flex flex-col items-center bg-[#e2e0fc] rounded-2xl p-3 shadow-2xl tooltip-arrow animate-bounce-short px-4 w-44 border border-white/20"
                 >
                   <div className="flex flex-col items-center gap-1">
-                    <span className="text-[#2f2e43] font-body text-[11px] font-medium leading-tight text-center px-1">Place a correct letter</span>
+                    <span className="text-[#2f2e43] font-body text-sm font-medium leading-tight text-center px-1">Place a correct letter</span>
                     <button 
                       onClick={() => { executeLightning(); setActiveTooltip(null); }}
                       disabled={!isLightningAvailable || coins < (economy?.powerups.lightning.cost ?? 0)}
-                      className={`mt-1 flex items-center gap-1 bg-primary text-[#3a3000] px-3 py-1 rounded-full text-[10px] font-bold shadow-sm border-b-2 border-[#554600] active:translate-y-0.5 active:border-b-0 transition-all uppercase tracking-tight ${(!isLightningAvailable || coins < (economy?.powerups.lightning.cost ?? 0)) ? 'opacity-40 grayscale pointer-events-none' : ''}`}
+                      className={`mt-1.5 flex items-center gap-1.5 bg-primary text-[#3a3000] px-4 py-1.5 rounded-full text-[13px] font-bold shadow-sm border-b-[3px] border-[#554600] active:translate-y-0.5 active:border-b-0 transition-all uppercase tracking-tight ${(!isLightningAvailable || coins < (economy?.powerups.lightning.cost ?? 0)) ? 'opacity-40 grayscale pointer-events-none' : ''}`}
                     >
                       <span>{isLightningAvailable ? `USE ${economy?.powerups.lightning.cost ?? 0}` : 'NO SLOTS LEFT'}</span>
                       {isLightningAvailable && <span className="w-3 h-3 bg-[#3a3000] rounded-full flex items-center justify-center text-[8px] text-primary">$</span>}
@@ -511,9 +510,9 @@ export const GameBoard: React.FC = () => {
               )}
               <button 
                 onClick={(e) => { e.stopPropagation(); setActiveTooltip(activeTooltip === 'lightning' ? null : 'lightning'); }}
-                className={`w-16 h-16 rounded-full bg-primary border-b-[5px] border-[#ba9a00] flex items-center justify-center active:border-b-0 active:translate-y-[5px] transition-all ${activeTooltip === 'lightning' ? 'ring-4 ring-primary/40 brightness-110 shadow-lg' : ''}`}
+                className={`w-20 h-20 rounded-full bg-primary border-b-[6px] border-[#ba9a00] flex items-center justify-center active:border-b-0 active:translate-y-[6px] transition-all ${activeTooltip === 'lightning' ? 'ring-4 ring-primary/40 brightness-110 shadow-lg' : ''}`}
               >
-                <svg viewBox="0 0 24 24" className="w-8 h-8 text-[#665400] fill-current"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                <svg viewBox="0 0 24 24" className="w-10 h-10 text-[#665400] fill-current"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
               </button>
             </div>
           </div>
