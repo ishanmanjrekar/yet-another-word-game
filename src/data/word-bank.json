@@ -357,7 +357,7 @@
     },
     {
       "word": "kit",
-      "definition": "To cut. A kitten.",
+      "definition": "A set or collection of tools, supplies, instructional matter, etc., for a specific purpose.",
       "difficulty": 2
     },
     {
@@ -367,7 +367,7 @@
     },
     {
       "word": "fat",
-      "definition": "A large tub, cistern, or vessel.",
+      "definition": "Plump; well-fed.",
       "difficulty": 1
     },
     {
@@ -382,22 +382,22 @@
     },
     {
       "word": "our",
-      "definition": "belonging to us.",
+      "definition": "Belonging to us.",
       "difficulty": 1
     },
     {
       "word": "are",
-      "definition": "The present indicative plural of the substantive verb to be.",
+      "definition": "The present indicative plural of the substantive verb 'to be.'",
       "difficulty": 1
     },
     {
       "word": "new",
-      "definition": "Having existed, or having been made, but a short time.",
+      "definition": "Of recent origin, production, purchase, etc.",
       "difficulty": 1
     },
     {
       "word": "cry",
-      "definition": "To make a loud call or cry.",
+      "definition": "To weep; shed tears, with or without sound.",
       "difficulty": 1
     },
     {
@@ -527,12 +527,12 @@
     },
     {
       "word": "bad",
-      "definition": "Bade. Dryden.",
+      "definition": "Not good.",
       "difficulty": 1
     },
     {
       "word": "sit",
-      "definition": "3d pers. sing.",
+      "definition": "To rest with the body upright on the buttocks.",
       "difficulty": 1
     },
     {
@@ -547,7 +547,7 @@
     },
     {
       "word": "kid",
-      "definition": "(Zoöl. )  A young goat.",
+      "definition": "A child or young person.",
       "difficulty": 1
     },
     {
@@ -562,17 +562,17 @@
     },
     {
       "word": "fry",
-      "definition": "To cook in a pan or on a griddle (esp.",
+      "definition": "To cook in a pan or on a griddle.",
       "difficulty": 2
     },
     {
       "word": "hey",
-      "definition": "An exclamation of joy, surprise, or encouragement.",
+      "definition": "An exclamation used to get attention.",
       "difficulty": 2
     },
     {
       "word": "tie",
-      "definition": "A knot. a fastening.",
+      "definition": "To fasten or secure with a tie.",
       "difficulty": 2
     },
     {
@@ -582,22 +582,22 @@
     },
     {
       "word": "fix",
-      "definition": "Fixed. solidified.",
+      "definition": "To fasten something firmly.",
       "difficulty": 2
     },
     {
       "word": "far",
-      "definition": "A young pig, or a litter of pigs.",
+      "definition": "At a great distance.",
       "difficulty": 2
     },
     {
       "word": "win",
-      "definition": "To gain by superiority in competition or contest.",
+      "definition": "To gain victory in a competition.",
       "difficulty": 1
     },
     {
       "word": "sad",
-      "definition": "Sated. satisfied.",
+      "definition": "Unhappy or sorrowful.",
       "difficulty": 1
     },
     {
@@ -607,77 +607,77 @@
     },
     {
       "word": "hop",
-      "definition": "To move by successive leaps, as toads do.",
+      "definition": "To jump or spring a short distance.",
       "difficulty": 3
     },
     {
       "word": "rid",
-      "definition": "& p. He rid to the end of the village, where he alighted.",
+      "definition": "To free from something unwanted.",
       "difficulty": 3
     },
     {
       "word": "per",
-      "definition": "perennial, that lasts throughout the year.",
+      "definition": "For each.",
       "difficulty": 3
     },
     {
       "word": "pin",
-      "definition": "To peen. To inclose.",
+      "definition": "To fasten something with a pin.",
       "difficulty": 3
     },
     {
       "word": "bid",
-      "definition": "To make an offer of.",
+      "definition": "To make an offer.",
       "difficulty": 4
     },
     {
       "word": "tug",
-      "definition": "To pull or draw with great effort.",
+      "definition": "To pull with effort.",
       "difficulty": 4
     },
     {
       "word": "bow",
-      "definition": "To cause to deviate from straightness.",
+      "definition": "To bend something.",
       "difficulty": 4
     },
     {
       "word": "ban",
-      "definition": "A public proclamation or edict.",
+      "definition": "To prohibit or forbid something.",
       "difficulty": 4
     },
     {
       "word": "sue",
-      "definition": "To follow up.",
+      "definition": "To take legal action against someone.",
       "difficulty": 4
     },
     {
       "word": "gee",
-      "definition": "To agree. to harmonize.",
+      "definition": "An exclamation of surprise or encouragement.",
       "difficulty": 3
     },
     {
       "word": "owe",
-      "definition": "To possess.",
+      "definition": "To have a debt.",
       "difficulty": 3
     },
     {
       "word": "log",
-      "definition": "A Hebrew measure of liquids, containing 2.",
+      "definition": "A piece of wood.",
       "difficulty": 3
     },
     {
       "word": "rag",
-      "definition": "To scold or rail at.",
+      "definition": "A piece of torn or old cloth.",
       "difficulty": 4
     },
     {
       "word": "tub",
-      "definition": "An open wooden vessel formed with staves, bottom, and hoops.",
+      "definition": "A large, open container, used for holding liquids.",
       "difficulty": 4
     },
     {
       "word": "dye",
-      "definition": "To stain. to color.",
+      "definition": "To color something with dye.",
       "difficulty": 4
     },
     {
@@ -687,12 +687,12 @@
     },
     {
       "word": "nod",
-      "definition": "To bend or incline the upper part, with a quick motion.",
+      "definition": "To lower your head quickly to show agreement or say hello.",
       "difficulty": 4
     },
     {
       "word": "hug",
-      "definition": "To cower. to crouch.",
+      "definition": "To embrace someone tightly with your arms.",
       "difficulty": 4
     },
     {
@@ -707,72 +707,72 @@
     },
     {
       "word": "lab",
-      "definition": "To prate. to gossip.",
-      "difficulty": 3
+      "definition": "A laboratory.",
+      "difficulty": 2
     },
     {
       "word": "lid",
-      "definition": "That which covers the opening of a vessel or box, etc.",
+      "definition": "A cover for a container.",
       "difficulty": 4
     },
     {
       "word": "gay",
-      "definition": "Excited with merriment.",
+      "definition": "Happy and cheerful.",
       "difficulty": 3
     },
     {
       "word": "rip",
-      "definition": "A wicker fish basket.",
+      "definition": "To tear or pull something apart quickly.",
       "difficulty": 4
     },
     {
       "word": "bum",
-      "definition": "The buttock.",
+      "definition": "The buttocks.",
       "difficulty": 4
     },
     {
       "word": "cod",
-      "definition": "A husk. a pod.",
+      "definition": "A type of fish.",
       "difficulty": 3
     },
     {
       "word": "wax",
-      "definition": "To increase in size.",
+      "definition": "A sticky, yellowish-brown substance made by bees.",
       "difficulty": 3
     },
     {
       "word": "dot",
-      "definition": "A marriage portion.",
+      "definition": "A small round mark or spot.",
       "difficulty": 3
     },
     {
       "word": "rug",
-      "definition": "A kind of coarse, heavy frieze, formerly used for garments.",
+      "definition": "A thick carpet or heavy fabric.",
       "difficulty": 4
     },
     {
       "word": "pad",
-      "definition": "A footpath.",
+      "definition": "A thick piece of soft material used for padding or protection.",
       "difficulty": 4
     },
     {
       "word": "jog",
-      "definition": "To push or shake with the elbow or hand.",
+      "definition": "To run at a steady, gentle pace.",
       "difficulty": 3
     },
     {
       "word": "ton",
-      "definition": "The common tunny, or house mackerel.",
+      "definition": "A unit of weight equal to 2,000 pounds.",
       "difficulty": 4
     },
     {
       "word": "wit",
-      "definition": "To know. to learn.",
+      "definition": "The ability to express oneself cleverly.",
       "difficulty": 4
     },
     {
       "word": "lay",
-      "definition": "as, a lay person.",
+      "definition": "To put or place.",
       "difficulty": 3
     },
     {
@@ -792,44 +792,44 @@
     },
     {
       "word": "via",
-      "definition": "A road way.",
+      "definition": "By way of.",
       "difficulty": 3
     },
     {
       "word": "ant",
-      "definition": "as, merchant, covenant, servant, pleasant, etc.",
+      "definition": "A small insect that lives in large colonies.",
       "difficulty": 3
     }
   ],
   "4": [
     {
       "word": "kick",
-      "definition": "To strike, thrust, or hit violently with the foot.",
+      "definition": "To strike with the foot.",
       "difficulty": 1
     },
     {
       "word": "chat",
-      "definition": "To talk in a light and familiar manner.",
+      "definition": "To talk in a light and informal way.",
       "difficulty": 2
     },
     {
       "word": "lost",
-      "definition": "Parted with unwillingly or unintentionally.",
+      "definition": "No longer in one's possession.",
       "difficulty": 2
     },
     {
       "word": "fish",
-      "definition": "A counter, used in various games.",
+      "definition": "A vertebrate animal with gills and fins.",
       "difficulty": 1
     },
     {
       "word": "face",
-      "definition": "The exterior form or appearance of anything.",
+      "definition": "The front part of the head.",
       "difficulty": 2
     },
     {
       "word": "fool",
-      "definition": "A compound of gooseberries scalded and crushed, with cream.",
+      "definition": "A person who acts unwisely.",
       "difficulty": 2
     },
     {
@@ -844,12 +844,12 @@
     },
     {
       "word": "find",
-      "definition": "To meet with, or light upon, accidentally.",
+      "definition": "To discover or perceive by chance.",
       "difficulty": 1
     },
     {
       "word": "lack",
-      "definition": "Blame. cause of blame.",
+      "definition": "To be without or not have enough of.",
       "difficulty": 2
     },
     {
@@ -864,12 +864,12 @@
     },
     {
       "word": "tape",
-      "definition": "A narrow fillet or band of cotton or linen.",
+      "definition": "A strip of material used to fasten or join things.",
       "difficulty": 2
     },
     {
       "word": "spot",
-      "definition": "A mark on a substance or body made by foreign matter.",
+      "definition": "A small round mark.",
       "difficulty": 1
     },
     {
@@ -879,17 +879,17 @@
     },
     {
       "word": "star",
-      "definition": "One of the innumerable luminous bodies seen in the heavens.",
+      "definition": "A luminous celestial body.",
       "difficulty": 1
     },
     {
       "word": "that",
-      "definition": "As a demonstrative pronoun (pl.",
+      "definition": "Used to identify a specific person or thing observed by the speaker.",
       "difficulty": 1
     },
     {
       "word": "girl",
-      "definition": "A young person of either sex.",
+      "definition": "A young female human being.",
       "difficulty": 1
     },
     {
@@ -899,77 +899,77 @@
     },
     {
       "word": "mind",
-      "definition": "The intellectual or rational faculty in man.",
+      "definition": "The faculty of consciousness and thought.",
       "difficulty": 2
     },
     {
       "word": "date",
-      "definition": "The fruit of the date palm.",
+      "definition": "A specific day of the month or year.",
       "difficulty": 1
     },
     {
       "word": "safe",
-      "definition": "Free from harm, injury, or risk.",
+      "definition": "Protected from danger or risk.",
       "difficulty": 2
     },
     {
       "word": "jump",
-      "definition": "A kind of loose jacket for men.",
+      "definition": "To push off the ground with the feet.",
       "difficulty": 1
     },
     {
       "word": "dark",
-      "definition": "Destitute, or partially destitute, of light.",
+      "definition": "Destitute of light.",
       "difficulty": 1
     },
     {
       "word": "soda",
-      "definition": "Sodium oxide or hydroxide.",
+      "definition": "A fizzy drink.",
       "difficulty": 2
     },
     {
       "word": "sure",
-      "definition": "Certainly knowing and believing.",
+      "definition": "Certain to happen.",
       "difficulty": 1
     },
     {
       "word": "such",
-      "definition": "like. resembling.",
+      "definition": "Of the kind or degree indicated.",
       "difficulty": 2
     },
     {
       "word": "rude",
-      "definition": "Characterized by roughness.",
+      "definition": "Lacking good manners.",
       "difficulty": 1
     },
     {
       "word": "shut",
-      "definition": "To close so as to hinder ingress or egress.",
+      "definition": "To move so as to close an opening.",
       "difficulty": 2
     },
     {
       "word": "plan",
-      "definition": "A draught or form.",
+      "definition": "A detailed proposal for doing or achieving something.",
       "difficulty": 1
     },
     {
       "word": "fire",
-      "definition": "The evolution of light and heat in the combustion of bodies.",
+      "definition": "To shoot a weapon.",
       "difficulty": 1
     },
     {
       "word": "stop",
-      "definition": "To close, as an aperture, by filling or by obstructing.",
+      "definition": "To cease moving or operating.",
       "difficulty": 1
     },
     {
       "word": "open",
-      "definition": "Free of access.",
+      "definition": "Not closed or blocked.",
       "difficulty": 1
     },
     {
       "word": "root",
-      "definition": "To turn up the earth with the snout, as swine.",
+      "definition": "The part of a plant that typically grows downwards into the soil.",
       "difficulty": 2
     },
     {
@@ -979,17 +979,17 @@
     },
     {
       "word": "cook",
-      "definition": "To make the noise of the cuckoo.",
+      "definition": "To prepare food for eating.",
       "difficulty": 1
     },
     {
       "word": "dear",
-      "definition": "Bearing a high price.",
+      "definition": "Beloved.",
       "difficulty": 1
     },
     {
       "word": "coin",
-      "definition": "A quoin. a corner or external angle.",
+      "definition": "A piece of metal used as money.",
       "difficulty": 2
     },
     {
@@ -999,12 +999,12 @@
     },
     {
       "word": "hour",
-      "definition": "The twenty-fourth part of a day.",
+      "definition": "A period of time equal to sixty minutes.",
       "difficulty": 1
     },
     {
       "word": "shot",
-      "definition": "& p. Shoot.",
+      "definition": "A projectile fired from a gun.",
       "difficulty": 2
     },
     {
@@ -1019,12 +1019,12 @@
     },
     {
       "word": "harm",
-      "definition": "Injury. hurt.",
+      "definition": "Injury.",
       "difficulty": 2
     },
     {
       "word": "drug",
-      "definition": "To drudge. to toil laboriously.",
+      "definition": "A substance which has an effect when introduced into the body.",
       "difficulty": 2
     },
     {
@@ -1039,7 +1039,7 @@
     },
     {
       "word": "cold",
-      "definition": "Deprived of heat, or having a low temperature.",
+      "definition": "Having a low temperature.",
       "difficulty": 1
     },
     {
@@ -1049,7 +1049,7 @@
     },
     {
       "word": "side",
-      "definition": "The margin, edge, verge, or border of a surface.",
+      "definition": "A position to the left or right of an object, person, or line.",
       "difficulty": 1
     },
     {
@@ -1059,7 +1059,7 @@
     },
     {
       "word": "duck",
-      "definition": "A pet. a darling.",
+      "definition": "An aquatic bird.",
       "difficulty": 2
     },
     {
@@ -1069,47 +1069,47 @@
     },
     {
       "word": "grow",
-      "definition": "To increase in size by a natural and organic process.",
+      "definition": "To increase in size.",
       "difficulty": 1
     },
     {
       "word": "work",
-      "definition": "Exertion of strength or faculties.",
+      "definition": "To perform labor or services for compensation.",
       "difficulty": 1
     },
     {
       "word": "rock",
-      "definition": "A distaff used in spinning.",
+      "definition": "A large stone.",
       "difficulty": 2
     },
     {
       "word": "tall",
-      "definition": "High in stature.",
+      "definition": "Having great or more than average height.",
       "difficulty": 1
     },
     {
       "word": "seem",
-      "definition": "To appear, or to appear to be.",
+      "definition": "To appear to be.",
       "difficulty": 2
     },
     {
       "word": "high",
-      "definition": "To hie. Men must high them apace, and make haste.",
+      "definition": "Extending far upward.",
       "difficulty": 2
     },
     {
       "word": "quiz",
-      "definition": "A riddle or obscure question.",
+      "definition": "A test of knowledge, especially a brief, informal one.",
       "difficulty": 2
     },
     {
       "word": "mood",
-      "definition": "Manner. style.",
+      "definition": "A temporary state of mind or feeling.",
       "difficulty": 2
     },
     {
       "word": "wave",
-      "definition": "Sir H. Wotton.",
+      "definition": "A ridge of water moving across the surface of the sea.",
       "difficulty": 2
     },
     {
@@ -1119,22 +1119,22 @@
     },
     {
       "word": "line",
-      "definition": "Flax. linen.",
+      "definition": "A long, narrow mark or band.",
       "difficulty": 1
     },
     {
       "word": "fair",
-      "definition": "Free from spots, specks, dirt, or imperfection.",
+      "definition": "Just and reasonable.",
       "difficulty": 1
     },
     {
       "word": "kind",
-      "definition": "Characteristic of the species.",
+      "definition": "Having a friendly or generous nature.",
       "difficulty": 2
     },
     {
       "word": "swim",
-      "definition": "To be supported by water or other fluid.",
+      "definition": "To move through water by using the limbs.",
       "difficulty": 1
     },
     {
@@ -1149,12 +1149,12 @@
     },
     {
       "word": "post",
-      "definition": "as, postcommissure, postdot, postscript.",
+      "definition": "A fixed station or position.",
       "difficulty": 1
     },
     {
       "word": "zone",
-      "definition": "A girdle. a cincture.",
+      "definition": "An area or spell characterized by a particular feature or activity.",
       "difficulty": 2
     },
     {
@@ -1164,42 +1164,42 @@
     },
     {
       "word": "most",
-      "definition": "Consisting of the greatest number or quantity.",
+      "definition": "Greatest in quantity or degree.",
       "difficulty": 2
     },
     {
       "word": "gift",
-      "definition": "Anything given.",
+      "definition": "Something given willingly to someone without payment.",
       "difficulty": 1
     },
     {
       "word": "wild",
-      "definition": "Living in a state of nature.",
+      "definition": "Not domesticated or tamed.",
       "difficulty": 2
     },
     {
       "word": "real",
-      "definition": "A small Spanish silver coin.",
+      "definition": "True or actual.",
       "difficulty": 1
     },
     {
       "word": "pass",
-      "definition": "To go. to move.",
+      "definition": "To move across or through.",
       "difficulty": 2
     },
     {
       "word": "tidy",
-      "definition": "The wren. -- called also tiddy.",
+      "definition": "Neat and orderly.",
       "difficulty": 2
     },
     {
       "word": "ruin",
-      "definition": "The act of falling or tumbling down.",
+      "definition": "Destroy or cause to collapse.",
       "difficulty": 2
     },
     {
       "word": "pink",
-      "definition": "A vessel with a very narrow stern.",
+      "definition": "A pale red color.",
       "difficulty": 2
     },
     {
@@ -1209,32 +1209,32 @@
     },
     {
       "word": "some",
-      "definition": "sw^ma (gen.",
+      "definition": "An indefinite quantity or number.",
       "difficulty": 1
     },
     {
       "word": "long",
-      "definition": "Drawn out in a line, or in the direction of length.",
+      "definition": "Extending over a great distance.",
       "difficulty": 1
     },
     {
       "word": "very",
-      "definition": "True. real.",
+      "definition": "To a high degree.",
       "difficulty": 1
     },
     {
       "word": "slow",
-      "definition": "Slew. Moving a short space in a relatively long time.",
+      "definition": "Moving a short space in a relatively long time.",
       "difficulty": 1
     },
     {
       "word": "past",
-      "definition": "neither present nor future.",
+      "definition": "Neither present nor future.",
       "difficulty": 1
     },
     {
       "word": "plus",
-      "definition": "(Math. )  More, required to be added.",
+      "definition": "More, required to be added.",
       "difficulty": 2
     },
     {
@@ -1244,12 +1244,12 @@
     },
     {
       "word": "bear",
-      "definition": "To support or sustain.",
+      "definition": "To carry or support the weight of.",
       "difficulty": 1
     },
     {
       "word": "here",
-      "definition": "their. Piers Plowman.",
+      "definition": "In or at this place.",
       "difficulty": 1
     },
     {
@@ -1264,17 +1264,17 @@
     },
     {
       "word": "slim",
-      "definition": "Worthless. bad.",
+      "definition": "Thin, slender.",
       "difficulty": 2
     },
     {
       "word": "surf",
-      "definition": "The swell of the sea which breaks upon the shore, esp.",
+      "definition": "The swell of the sea that breaks upon the shore.",
       "difficulty": 2
     },
     {
       "word": "verb",
-      "definition": "A word. a vocable.",
+      "definition": "A word that describes an action, state, or occurrence.",
       "difficulty": 2
     },
     {
@@ -1289,37 +1289,37 @@
     },
     {
       "word": "mail",
-      "definition": "A spot. A small piece of money.",
+      "definition": "Letters and packages conveyed by the postal system.",
       "difficulty": 1
     },
     {
       "word": "form",
-      "definition": "as, valiform.",
+      "definition": "The shape or structure of something.",
       "difficulty": 1
     },
     {
       "word": "want",
-      "definition": "The state of not having.",
+      "definition": "A strong feeling of desire.",
       "difficulty": 1
     },
     {
       "word": "cost",
-      "definition": "A rib. a side.",
+      "definition": "The amount of money needed to buy or obtain something.",
       "difficulty": 2
     },
     {
       "word": "lamp",
-      "definition": "A thin plate or lamina.",
+      "definition": "A device for giving light.",
       "difficulty": 2
     },
     {
       "word": "half",
-      "definition": "Consisting of a moiety, or half.",
+      "definition": "One of two equal or corresponding parts.",
       "difficulty": 2
     },
     {
       "word": "hope",
-      "definition": "A sloping plain between mountain ridges.",
+      "definition": "A feeling of expectation and desire for a certain thing to happen.",
       "difficulty": 1
     },
     {
@@ -1334,27 +1334,27 @@
     },
     {
       "word": "wine",
-      "definition": "The expressed juice of grapes, esp.",
+      "definition": "An alcoholic beverage made from fermented grapes.",
       "difficulty": 2
     },
     {
       "word": "self",
-      "definition": "Same. particular.",
+      "definition": "One's own being.",
       "difficulty": 1
     },
     {
       "word": "hole",
-      "definition": "A hollow place or cavity.",
+      "definition": "An opening or cavity.",
       "difficulty": 1
     },
     {
       "word": "keep",
-      "definition": "To care. to desire.",
+      "definition": "To retain possession of.",
       "difficulty": 1
     },
     {
       "word": "gram",
-      "definition": "-- as, monogram, telegram, chronogram.",
+      "definition": "A unit of mass equal to one-thousandth of a kilogram.",
       "difficulty": 2
     },
     {
@@ -1364,17 +1364,17 @@
     },
     {
       "word": "wall",
-      "definition": "A kind of knot often used at the end of a rope.",
+      "definition": "A vertical structure of brick or stone.",
       "difficulty": 1
     },
     {
       "word": "weak",
-      "definition": "Wanting physical strength.",
+      "definition": "Lacking strength.",
       "difficulty": 2
     },
     {
       "word": "does",
-      "definition": "The 3d pers.",
+      "definition": "Third-person singular present of do.",
       "difficulty": 1
     },
     {
@@ -1384,22 +1384,22 @@
     },
     {
       "word": "easy",
-      "definition": "At ease. free from pain, trouble, or constraint.",
+      "definition": "Not difficult to do or understand.",
       "difficulty": 1
     },
     {
       "word": "less",
-      "definition": "as witless, childless, fatherless.",
+      "definition": "A suffix meaning without.",
       "difficulty": 2
     },
     {
       "word": "yard",
-      "definition": "A rod. a stick.",
+      "definition": "A unit of length equal to three feet.",
       "difficulty": 1
     },
     {
       "word": "type",
-      "definition": "A combining form signifying impressed form.",
+      "definition": "A kind or class.",
       "difficulty": 1
     },
     {
@@ -1409,12 +1409,12 @@
     },
     {
       "word": "pull",
-      "definition": "To draw, or attempt to draw, toward one.",
+      "definition": "To draw toward one.",
       "difficulty": 2
     },
     {
       "word": "bank",
-      "definition": "A bench. a high seat, or seat of distinction or judgment.",
+      "definition": "A bench or seat.",
       "difficulty": 2
     },
     {
@@ -1424,22 +1424,22 @@
     },
     {
       "word": "care",
-      "definition": "A burdensome sense of responsibility.",
+      "definition": "A feeling of concern or interest.",
       "difficulty": 1
     },
     {
       "word": "rice",
-      "definition": "A well-known cereal grass (Oryza sativa) and its seed.",
+      "definition": "A cereal grass and its seed.",
       "difficulty": 1
     },
     {
       "word": "back",
-      "definition": "A large shallow vat.",
+      "definition": "The rear surface of the human body.",
       "difficulty": 1
     },
     {
       "word": "sick",
-      "definition": "Affected with disease of any kind.",
+      "definition": "Affected with disease.",
       "difficulty": 1
     },
     {
@@ -1449,17 +1449,17 @@
     },
     {
       "word": "sack",
-      "definition": "A anme formerly given to various dry Spanish wines.",
+      "definition": "A bag or pouch.",
       "difficulty": 4
     },
     {
       "word": "snap",
-      "definition": "To break at once.",
+      "definition": "To break suddenly and completely.",
       "difficulty": 4
     },
     {
       "word": "tiny",
-      "definition": "Very small.",
+      "definition": "Extremely small.",
       "difficulty": 3
     },
     {
@@ -1469,7 +1469,7 @@
     },
     {
       "word": "doze",
-      "definition": "To slumber.",
+      "definition": "To sleep lightly.",
       "difficulty": 3
     },
     {
@@ -1479,27 +1479,27 @@
     },
     {
       "word": "yell",
-      "definition": "To cry out, or shriek, with a hideous noise.",
+      "definition": "To cry out with a loud voice.",
       "difficulty": 4
     },
     {
       "word": "fine",
-      "definition": "Finished. brought to perfection.",
+      "definition": "Of superior quality; excellent.",
       "difficulty": 4
     },
     {
       "word": "lark",
-      "definition": "A frolic. a jolly time.",
+      "definition": "A bird known for its singing.",
       "difficulty": 4
     },
     {
       "word": "sink",
-      "definition": "To fall by, or as by, the force of gravity.",
+      "definition": "To fall by the force of gravity.",
       "difficulty": 3
     },
     {
       "word": "sand",
-      "definition": "Fine particles of stone, esp.",
+      "definition": "Fine particles of stone.",
       "difficulty": 3
     },
     {
@@ -1514,152 +1514,147 @@
     },
     {
       "word": "hunt",
-      "definition": "To search for or follow after, as game or wild animals.",
+      "definition": "To search for or follow after, as game.",
       "difficulty": 3
     },
     {
       "word": "fond",
-      "definition": "Found. Foolish.",
+      "definition": "Having a liking or affection for.",
       "difficulty": 3
     },
     {
       "word": "skin",
-      "definition": "(Anat. )  The external membranous integument of an animal.",
+      "definition": "The outer layer of a fruit.",
       "difficulty": 3
     },
     {
       "word": "base",
-      "definition": "as, base shrubs.",
+      "definition": "The lowest part or edge of something.",
       "difficulty": 3
     },
     {
       "word": "funk",
-      "definition": "An offensive smell.",
+      "definition": "A dejected mood.",
       "difficulty": 4
     },
     {
       "word": "gang",
-      "definition": "To go. to walk.",
+      "definition": "A group of people who associate together.",
       "difficulty": 4
     },
     {
       "word": "arch",
-      "definition": "(Geom. )  Any part of a curved line.",
+      "definition": "A curved symmetrical structure supporting the weight of a bridge.",
       "difficulty": 4
     },
     {
       "word": "wait",
-      "definition": "To watch. to observe.",
+      "definition": "To stay where one is or delay action until a particular time or event.",
       "difficulty": 4
     },
     {
       "word": "damn",
-      "definition": "To condemn.",
+      "definition": "To express strong disapproval of or indignation at.",
       "difficulty": 4
     },
     {
       "word": "urge",
-      "definition": "To press. to push.",
+      "definition": "The strong desire or impulse to do something.",
       "difficulty": 4
     },
     {
       "word": "calm",
-      "definition": "Freodom from motion, agitation, or disturbance.",
+      "definition": "Freedom from motion, agitation, or disturbance.",
       "difficulty": 3
     },
     {
       "word": "dude",
-      "definition": "A kind of dandy.",
+      "definition": "A man excessively concerned with his clothes, grooming, and manners.",
       "difficulty": 3
     },
     {
-      "word": "rape",
-      "definition": "Fruit, as grapes, plucked from the cluster.",
-      "difficulty": 4
-    },
-    {
       "word": "dumb",
-      "definition": "Destitute of the power of speech.",
+      "definition": "Unable to speak.",
       "difficulty": 4
     },
     {
       "word": "flee",
-      "definition": "To run away, as from danger or evil.",
+      "definition": "To run away from a place or situation of danger.",
       "difficulty": 4
     },
     {
       "word": "edge",
-      "definition": "The thin cutting side of the blade of an instrument.",
+      "definition": "The brink or border of something.",
       "difficulty": 3
     },
     {
       "word": "drag",
-      "definition": "A confection.",
+      "definition": "To pull (something heavy) along the ground or another surface.",
       "difficulty": 3
     },
     {
       "word": "peel",
-      "definition": "A small tower, fort, or castle.",
+      "definition": "To strip or remove the skin or rind from.",
       "difficulty": 4
     },
     {
       "word": "bull",
-      "definition": "(Zoöl. )  The male of any species of cattle (Bovidæ).",
+      "definition": "The male of any species of cattle.",
       "difficulty": 3
     },
     {
       "word": "keen",
-      "definition": "Sharp. having a fine edge or point.",
+      "definition": "Having or showing eagerness or enthusiasm.",
       "difficulty": 4
     },
     {
       "word": "mule",
-      "definition": "(Zoöl. )  A hybrid animal.",
+      "definition": "The offspring of a male donkey and a female horse.",
       "difficulty": 3
     },
     {
       "word": "twin",
-      "definition": "Being one of two born at a birth.",
+      "definition": "One of two children born at the same birth.",
       "difficulty": 3
     },
     {
       "word": "weed",
-      "definition": "A garment. clothing.",
+      "definition": "A plant growing where it is not wanted.",
       "difficulty": 4
     },
     {
       "word": "pump",
-      "definition": "A low shoe with a thin sole.",
+      "definition": "A device for raising or transferring fluids.",
       "difficulty": 3
     },
     {
       "word": "fade",
-      "definition": "Weak. insipid.",
+      "definition": "To lose freshness, brightness, or strength.",
       "difficulty": 3
     },
     {
       "word": "heal",
-      "definition": "To cover, as a roof, with tiles, slate, lead, or the like.",
+      "definition": "To cover with tiles, slate, lead, or the like.",
       "difficulty": 3
     },
     {
       "word": "huge",
-      "definition": "Very large.",
+      "definition": "Extremely large in size, amount, or degree.",
       "difficulty": 3
     },
     {
       "word": "risk",
-      "definition": "Hazard. danger.",
+      "definition": "Danger or the possibility of danger, loss, or injury.",
       "difficulty": 3
     },
     {
       "word": "trek",
-      "definition": "To draw or haul a load, as oxen.",
+      "definition": "A long, arduous journey, especially one made by foot.",
       "difficulty": 4
     },
     {
       "word": "view",
-      "definition": "The act of seeing or beholding.",
+      "definition": "The ability to see something or to be seen.",
       "difficulty": 3
     },
     {
@@ -1676,17 +1671,17 @@
   "5": [
     {
       "word": "error",
-      "definition": "A wandering.",
+      "definition": "A mistake.",
       "difficulty": 2
     },
     {
       "word": "build",
-      "definition": "To erect or construct, as an edifice or fabric of any kind.",
+      "definition": "To erect or construct.",
       "difficulty": 1
     },
     {
       "word": "spell",
-      "definition": "A spelk, or splinter.",
+      "definition": "A spoken word or series of words thought to have magic power.",
       "difficulty": 1
     },
     {
@@ -1696,17 +1691,17 @@
     },
     {
       "word": "drill",
-      "definition": "To pierce or bore with a drill, or a with a drill.",
+      "definition": "To pierce or bore with a drill.",
       "difficulty": 2
     },
     {
       "word": "early",
-      "definition": "Soon. in good season.",
+      "definition": "Happening or done before the usual or expected time.",
       "difficulty": 2
     },
     {
       "word": "bring",
-      "definition": "To convey to the place where the speaker is or is to be.",
+      "definition": "To convey to the place where the speaker is.",
       "difficulty": 1
     },
     {
@@ -1716,7 +1711,7 @@
     },
     {
       "word": "break",
-      "definition": "To strain apart.",
+      "definition": "To separate into pieces.",
       "difficulty": 2
     },
     {
@@ -1731,32 +1726,32 @@
     },
     {
       "word": "force",
-      "definition": "To stuff. to lard.",
+      "definition": "To stuff.",
       "difficulty": 2
     },
     {
       "word": "delay",
-      "definition": "A putting off or deferring.",
+      "definition": "To put off or defer.",
       "difficulty": 2
     },
     {
       "word": "snack",
-      "definition": "A share. a part or portion.",
+      "definition": "A small amount of food.",
       "difficulty": 2
     },
     {
       "word": "climb",
-      "definition": "To ascend or mount laboriously, esp.",
+      "definition": "To ascend or mount.",
       "difficulty": 2
     },
     {
       "word": "agent",
-      "definition": "Actingpatient, or sustaining, action.",
+      "definition": "One who acts for another.",
       "difficulty": 2
     },
     {
       "word": "bench",
-      "definition": "A long seat, differing from a stool in its greater length.",
+      "definition": "A long seat.",
       "difficulty": 2
     },
     {
@@ -1771,17 +1766,17 @@
     },
     {
       "word": "pilot",
-      "definition": "(Naut. )  One employed to steer a vessel.",
+      "definition": "One employed to steer a vessel.",
       "difficulty": 2
     },
     {
       "word": "black",
-      "definition": "Destitute of light, or incapable of reflecting it.",
+      "definition": "Destitute of light.",
       "difficulty": 1
     },
     {
       "word": "reach",
-      "definition": "An effort to vomit.",
+      "definition": "To stretch out.",
       "difficulty": 2
     },
     {
@@ -1791,17 +1786,17 @@
     },
     {
       "word": "front",
-      "definition": "The forehead or brow, the part of the face above the eyes.",
+      "definition": "Not behind.",
       "difficulty": 2
     },
     {
       "word": "birth",
-      "definition": "The act or fact of coming into life, or of being born.",
+      "definition": "The act or fact of coming into life.",
       "difficulty": 1
     },
     {
       "word": "along",
-      "definition": "By the length.",
+      "definition": "In a line with.",
       "difficulty": 2
     },
     {
@@ -1811,7 +1806,7 @@
     },
     {
       "word": "march",
-      "definition": "The third month of the year, containing thirty-one days.",
+      "definition": "The third month of the year.",
       "difficulty": 1
     },
     {
@@ -1826,12 +1821,12 @@
     },
     {
       "word": "young",
-      "definition": "Not long born.",
+      "definition": "Having lived or existed for only a short time.",
       "difficulty": 1
     },
     {
       "word": "nurse",
-      "definition": "One who nourishes.",
+      "definition": "A person who cares for the sick.",
       "difficulty": 1
     },
     {
@@ -1851,7 +1846,7 @@
     },
     {
       "word": "jelly",
-      "definition": "Anything brought to a gelatinous condition.",
+      "definition": "A gelatinous food.",
       "difficulty": 2
     },
     {
@@ -1861,7 +1856,7 @@
     },
     {
       "word": "onion",
-      "definition": "A liliaceous plant of the genus Allium (A.",
+      "definition": "A vegetable with layers.",
       "difficulty": 2
     },
     {
@@ -1871,7 +1866,7 @@
     },
     {
       "word": "steal",
-      "definition": "A handle. a stale, or stele.",
+      "definition": "To take without permission.",
       "difficulty": 2
     },
     {
@@ -1881,7 +1876,7 @@
     },
     {
       "word": "twice",
-      "definition": "Two times. once and again.",
+      "definition": "Two times or once and again.",
       "difficulty": 2
     },
     {
@@ -1896,17 +1891,17 @@
     },
     {
       "word": "write",
-      "definition": "To set down, as legible characters.",
+      "definition": "To set down characters.",
       "difficulty": 1
     },
     {
       "word": "start",
-      "definition": "To leap. to jump.",
+      "definition": "To leap or jump.",
       "difficulty": 1
     },
     {
       "word": "clerk",
-      "definition": "A clergyman or ecclesiastic.",
+      "definition": "A person employed in an office, bank, or shop.",
       "difficulty": 2
     },
     {
@@ -1921,7 +1916,7 @@
     },
     {
       "word": "daddy",
-      "definition": "Diminutive of Dad.",
+      "definition": "A father.",
       "difficulty": 1
     },
     {
@@ -1946,12 +1941,12 @@
     },
     {
       "word": "blame",
-      "definition": "To censure.",
+      "definition": "To hold responsible for something.",
       "difficulty": 2
     },
     {
       "word": "doing",
-      "definition": "Anything done.",
+      "definition": "The act of performing or executing.",
       "difficulty": 1
     },
     {
@@ -1961,7 +1956,7 @@
     },
     {
       "word": "loose",
-      "definition": "Unbound. untied.",
+      "definition": "Unbound or untied.",
       "difficulty": 2
     },
     {
@@ -1971,7 +1966,7 @@
     },
     {
       "word": "blank",
-      "definition": "without color.",
+      "definition": "Without color.",
       "difficulty": 1
     },
     {
@@ -1981,22 +1976,22 @@
     },
     {
       "word": "heavy",
-      "definition": "Having the heaves.",
+      "definition": "Having great weight.",
       "difficulty": 1
     },
     {
       "word": "brown",
-      "definition": "Cheeks brown as the oak leaves.",
+      "definition": "Having a color like that of earth or wood.",
       "difficulty": 1
     },
     {
       "word": "order",
-      "definition": "Regular arrangement.",
+      "definition": "Arrangement or disposition of things in relation to each other.",
       "difficulty": 2
     },
     {
       "word": "quick",
-      "definition": "Alive. living.",
+      "definition": "Moving fast or doing something in a short time.",
       "difficulty": 2
     },
     {
@@ -2006,22 +2001,22 @@
     },
     {
       "word": "round",
-      "definition": "To whisper.",
+      "definition": "Shaped like a circle or sphere.",
       "difficulty": 2
     },
     {
       "word": "block",
-      "definition": "A piece of wood more or less bulky.",
+      "definition": "A solid piece of material, typically wood or stone.",
       "difficulty": 1
     },
     {
       "word": "speak",
-      "definition": "To utter words or articulate sounds, as human beings.",
+      "definition": "To utter words or articulate sounds.",
       "difficulty": 1
     },
     {
       "word": "party",
-      "definition": "A part or portion.",
+      "definition": "A social gathering of people.",
       "difficulty": 1
     },
     {
@@ -2031,12 +2026,12 @@
     },
     {
       "word": "leave",
-      "definition": "To send out leaves.",
+      "definition": "To go away from.",
       "difficulty": 1
     },
     {
       "word": "after",
-      "definition": "Next. later in time.",
+      "definition": "Next or later in time.",
       "difficulty": 1
     },
     {
@@ -2066,7 +2061,7 @@
     },
     {
       "word": "bread",
-      "definition": "To spread. Ray.",
+      "definition": "A baked food made of flour, water, and yeast.",
       "difficulty": 1
     },
     {
@@ -2096,12 +2091,12 @@
     },
     {
       "word": "below",
-      "definition": "Under, or lower in place.",
+      "definition": "Under or lower in place.",
       "difficulty": 1
     },
     {
       "word": "greet",
-      "definition": "To weep. to cry.",
+      "definition": "To meet or welcome someone.",
       "difficulty": 1
     },
     {
@@ -2111,12 +2106,12 @@
     },
     {
       "word": "snake",
-      "definition": "Any species of the order Ophidia.",
+      "definition": "Any of numerous limbless, scaly, elongate reptiles of the suborder Serpentes.",
       "difficulty": 1
     },
     {
       "word": "sorry",
-      "definition": "Grieved for the loss of some good.",
+      "definition": "Feeling or showing regret or sadness.",
       "difficulty": 1
     },
     {
@@ -2126,12 +2121,12 @@
     },
     {
       "word": "horse",
-      "definition": "(Zoöl. )  A hoofed quadruped of the genus Equus.",
+      "definition": "A hoofed quadruped of the genus Equus.",
       "difficulty": 1
     },
     {
       "word": "comic",
-      "definition": "Relating to comedy, as distinct from tragedy.",
+      "definition": "Relating to comedy.",
       "difficulty": 2
     },
     {
@@ -2146,7 +2141,7 @@
     },
     {
       "word": "bloom",
-      "definition": "A blossom. the flower of a plant.",
+      "definition": "A blossom or the flower of a plant.",
       "difficulty": 2
     },
     {
@@ -2156,12 +2151,12 @@
     },
     {
       "word": "watch",
-      "definition": "The act of watching.",
+      "definition": "To look at or observe for a period of time.",
       "difficulty": 1
     },
     {
       "word": "about",
-      "definition": "Around. all round.",
+      "definition": "Around or all round.",
       "difficulty": 1
     },
     {
@@ -2176,12 +2171,12 @@
     },
     {
       "word": "avoid",
-      "definition": "To empty. Wyclif.",
+      "definition": "To keep away from or stop oneself from doing something.",
       "difficulty": 2
     },
     {
       "word": "silly",
-      "definition": "Happy. fortunate.",
+      "definition": "Foolish or lacking good sense.",
       "difficulty": 2
     },
     {
@@ -2191,17 +2186,17 @@
     },
     {
       "word": "honor",
-      "definition": "Esteem due or paid to worth.",
+      "definition": "High respect or admiration.",
       "difficulty": 2
     },
     {
       "word": "panic",
-      "definition": "A plant of the genus Panicum.",
+      "definition": "A sudden, widespread fear or anxiety.",
       "difficulty": 2
     },
     {
       "word": "cheap",
-      "definition": "A bargain. a purchase.",
+      "definition": "Low in price.",
       "difficulty": 2
     },
     {
@@ -2211,17 +2206,17 @@
     },
     {
       "word": "batch",
-      "definition": "The quantity of bread baked at one time.",
+      "definition": "A group of things or people appearing or done at the same time.",
       "difficulty": 2
     },
     {
       "word": "spoon",
-      "definition": "We might have spooned before the wind as well as they.",
+      "definition": "To take up or serve with a spoon.",
       "difficulty": 2
     },
     {
       "word": "solve",
-      "definition": "To explain.",
+      "definition": "To find an answer to, explain, or understand.",
       "difficulty": 1
     },
     {
@@ -2231,17 +2226,17 @@
     },
     {
       "word": "until",
-      "definition": "unto. towards.",
+      "definition": "Up to the time that.",
       "difficulty": 1
     },
     {
       "word": "novel",
-      "definition": "not ancient.",
+      "definition": "New or unusual in form or style.",
       "difficulty": 2
     },
     {
       "word": "lyric",
-      "definition": "Fitted to be sung to the lyre.",
+      "definition": "Pertaining to writing poetry.",
       "difficulty": 2
     },
     {
@@ -2256,12 +2251,12 @@
     },
     {
       "word": "candy",
-      "definition": "To conserve or boil in sugar.",
+      "definition": "To preserve or boil in sugar.",
       "difficulty": 1
     },
     {
       "word": "noisy",
-      "definition": "Making a noise, esp.",
+      "definition": "Making a noise.",
       "difficulty": 2
     },
     {
@@ -2291,7 +2286,7 @@
     },
     {
       "word": "funny",
-      "definition": "Droll. comical.",
+      "definition": "Causing laughter or amusement; comical.",
       "difficulty": 1
     },
     {
@@ -2301,7 +2296,7 @@
     },
     {
       "word": "basic",
-      "definition": "(Chem. ) (a) Relating to a base.",
+      "definition": "Relating to a base.",
       "difficulty": 2
     },
     {
@@ -2316,22 +2311,22 @@
     },
     {
       "word": "train",
-      "definition": "To draw along.",
+      "definition": "A line or procession of persons, vehicles, animals, etc., traveling together.",
       "difficulty": 1
     },
     {
       "word": "serve",
-      "definition": "To work for.",
+      "definition": "To perform duties or services for another person or an organization.",
       "difficulty": 2
     },
     {
       "word": "fresh",
-      "definition": "Possessed of original life and vigor.",
+      "definition": "Not stale or spoiled.",
       "difficulty": 2
     },
     {
       "word": "which",
-      "definition": "what. what a.",
+      "definition": "What one?",
       "difficulty": 1
     },
     {
@@ -2351,12 +2346,12 @@
     },
     {
       "word": "slang",
-      "definition": "Slung. Any long, narrow piece of land.",
+      "definition": "Informal language that is not considered to be proper or polite.",
       "difficulty": 4
     },
     {
       "word": "queue",
-      "definition": "A tail-like appendage of hair.",
+      "definition": "A line of people or vehicles waiting for something.",
       "difficulty": 4
     },
     {
@@ -2366,7 +2361,7 @@
     },
     {
       "word": "mourn",
-      "definition": "To express or to feel grief or sorrow.",
+      "definition": "To feel or express grief or sorrow.",
       "difficulty": 3
     },
     {
@@ -2406,7 +2401,7 @@
     },
     {
       "word": "straw",
-      "definition": "To spread or scatter.",
+      "definition": "A tube for sucking up a beverage from a container.",
       "difficulty": 3
     },
     {
@@ -2416,7 +2411,7 @@
     },
     {
       "word": "niece",
-      "definition": "A relative, in general.",
+      "definition": "A daughter of one's brother or sister.",
       "difficulty": 3
     },
     {
@@ -2426,17 +2421,17 @@
     },
     {
       "word": "petty",
-      "definition": "Little. trifling.",
+      "definition": "Of little importance; trivial.",
       "difficulty": 4
     },
     {
       "word": "press",
-      "definition": "An East Indian insectivore (Tupaia ferruginea).",
+      "definition": "To apply pressure to.",
       "difficulty": 3
     },
     {
       "word": "prick",
-      "definition": "That which pricks, penetrates, or punctures.",
+      "definition": "To pierce or puncture with a sharp point.",
       "difficulty": 4
     },
     {
@@ -2446,7 +2441,7 @@
     },
     {
       "word": "phase",
-      "definition": "That which is exhibited to the eye.",
+      "definition": "A stage in a process of change or development.",
       "difficulty": 4
     },
     {
@@ -2456,7 +2451,7 @@
     },
     {
       "word": "haunt",
-      "definition": "To frequent.",
+      "definition": "To visit or appear in a place regularly or frequently.",
       "difficulty": 4
     },
     {
@@ -2466,7 +2461,7 @@
     },
     {
       "word": "utter",
-      "definition": "Outer. \"Thine utter eyen.",
+      "definition": "To give audible expression to; speak or pronounce.",
       "difficulty": 4
     },
     {
@@ -2501,17 +2496,17 @@
     },
     {
       "word": "blink",
-      "definition": "To wink. to twinkle with, or as with, the eye.",
+      "definition": "To wink. To twinkle with, or as with, the eye.",
       "difficulty": 4
     },
     {
       "word": "infer",
-      "definition": "To bring on.",
+      "definition": "To deduce or conclude (information) from evidence and reasoning.",
       "difficulty": 4
     },
     {
       "word": "adore",
-      "definition": "To worship with profound reverence.",
+      "definition": "To love and respect deeply.",
       "difficulty": 4
     },
     {
@@ -2531,22 +2526,22 @@
     },
     {
       "word": "haste",
-      "definition": "Celerity of motion.",
+      "definition": "Urgent need of quick action; a hurry or rush.",
       "difficulty": 4
     },
     {
       "word": "alter",
-      "definition": "To make otherwise.",
+      "definition": "To edit. To modify.",
       "difficulty": 4
     },
     {
       "word": "ozone",
-      "definition": "A colorless gaseous substance (O.",
+      "definition": "A form of oxygen in upper atmosphere.",
       "difficulty": 4
     },
     {
       "word": "vague",
-      "definition": "Wandering. vagrant.",
+      "definition": "Not clearly or explicitly stated or expressed.",
       "difficulty": 3
     },
     {
@@ -2576,7 +2571,7 @@
     },
     {
       "word": "blast",
-      "definition": "as, bioblast, epiblast, mesoblast, etc.",
+      "definition": "A sudden gust of wind.",
       "difficulty": 4
     },
     {
@@ -2586,7 +2581,7 @@
     },
     {
       "word": "lower",
-      "definition": "To let descend by its own weight, as something suspended.",
+      "definition": "To let descend by its own weight.",
       "difficulty": 4
     },
     {
@@ -2606,12 +2601,12 @@
     },
     {
       "word": "blend",
-      "definition": "To mix or mingle together.",
+      "definition": "To mix or mingle.",
       "difficulty": 3
     },
     {
       "word": "audit",
-      "definition": "An audience.",
+      "definition": "An official examination and verification of accounts and records.",
       "difficulty": 4
     },
     {
@@ -2638,12 +2633,12 @@
     },
     {
       "word": "sudden",
-      "definition": "Happening without previous notice or with very brief notice.",
+      "definition": "Happening without previous notice.",
       "difficulty": 2
     },
     {
       "word": "forbid",
-      "definition": "To command against, or contrary to.",
+      "definition": "To command against.",
       "difficulty": 2
     },
     {
@@ -2658,17 +2653,17 @@
     },
     {
       "word": "finish",
-      "definition": "To arrive at the end of.",
+      "definition": "To bring to an end.",
       "difficulty": 1
     },
     {
       "word": "weekly",
-      "definition": "as, weekly labor.",
+      "definition": "Happening once a week.",
       "difficulty": 2
     },
     {
       "word": "handle",
-      "definition": "To touch. to feel with the hand.",
+      "definition": "To touch or feel with the hand.",
       "difficulty": 2
     },
     {
@@ -2683,12 +2678,12 @@
     },
     {
       "word": "change",
-      "definition": "To alter. to make different.",
+      "definition": "To make different.",
       "difficulty": 1
     },
     {
       "word": "return",
-      "definition": "To turn back.",
+      "definition": "To go back.",
       "difficulty": 2
     },
     {
@@ -2743,7 +2738,7 @@
     },
     {
       "word": "expect",
-      "definition": "To wait for.",
+      "definition": "To look for; anticipate.",
       "difficulty": 2
     },
     {
@@ -2763,7 +2758,7 @@
     },
     {
       "word": "letter",
-      "definition": "One who lets or permits.",
+      "definition": "A written message.",
       "difficulty": 1
     },
     {
@@ -2778,7 +2773,7 @@
     },
     {
       "word": "divide",
-      "definition": "To part asunder (a whole).",
+      "definition": "To separate into parts.",
       "difficulty": 2
     },
     {
@@ -2793,22 +2788,22 @@
     },
     {
       "word": "danger",
-      "definition": "Authority. jurisdiction.",
+      "definition": "Risk of harm or loss.",
       "difficulty": 2
     },
     {
       "word": "member",
-      "definition": "To remember.",
+      "definition": "A part of a group or organization.",
       "difficulty": 2
     },
     {
       "word": "omelet",
-      "definition": "Eggs beaten up with a little flour, etc.",
+      "definition": "Eggs beaten with a little flour, etc.",
       "difficulty": 2
     },
     {
       "word": "blonde",
-      "definition": "light-colored.",
+      "definition": "Light-colored.",
       "difficulty": 2
     },
     {
@@ -2823,12 +2818,12 @@
     },
     {
       "word": "public",
-      "definition": "belonging to the people.",
+      "definition": "Belonging to the people.",
       "difficulty": 2
     },
     {
       "word": "design",
-      "definition": "To draw preliminary outline or main features of.",
+      "definition": "To draw outline or main features of.",
       "difficulty": 1
     },
     {
@@ -2853,7 +2848,7 @@
     },
     {
       "word": "author",
-      "definition": "The beginner, former, or first mover of anything.",
+      "definition": "The beginner or first mover of anything.",
       "difficulty": 2
     },
     {
@@ -2868,7 +2863,7 @@
     },
     {
       "word": "modern",
-      "definition": "late. not ancient or remote in past time.",
+      "definition": "Not ancient or remote in past time.",
       "difficulty": 2
     },
     {
@@ -2883,7 +2878,7 @@
     },
     {
       "word": "subway",
-      "definition": "An underground way or gallery.",
+      "definition": "An underground railway.",
       "difficulty": 1
     },
     {
@@ -2913,12 +2908,12 @@
     },
     {
       "word": "softly",
-      "definition": "In a soft manner.",
+      "definition": "In a quiet or gentle way.",
       "difficulty": 2
     },
     {
       "word": "lively",
-      "definition": "Endowed with or manifesting life.",
+      "definition": "Full of life and energy.",
       "difficulty": 2
     },
     {
@@ -2928,12 +2923,12 @@
     },
     {
       "word": "nearly",
-      "definition": "In a near manner.",
+      "definition": "Almost; not quite.",
       "difficulty": 2
     },
     {
       "word": "anyway",
-      "definition": "Anywise. at all.",
+      "definition": "In any way; at all.",
       "difficulty": 2
     },
     {
@@ -2943,12 +2938,12 @@
     },
     {
       "word": "forest",
-      "definition": "An extensive wood.",
+      "definition": "A large area covered chiefly with trees and undergrowth.",
       "difficulty": 2
     },
     {
       "word": "leader",
-      "definition": "One who, or that which, leads or conducts.",
+      "definition": "One who leads or conducts.",
       "difficulty": 1
     },
     {
@@ -2958,67 +2953,67 @@
     },
     {
       "word": "likely",
-      "definition": "Worthy of belief.",
+      "definition": "Probable or expected.",
       "difficulty": 2
     },
     {
       "word": "inside",
-      "definition": "Within the sides of.",
+      "definition": "The inner side or surface of something.",
       "difficulty": 2
     },
     {
       "word": "beyond",
-      "definition": "On the further side of.",
+      "definition": "At or to the further side of.",
       "difficulty": 2
     },
     {
       "word": "result",
-      "definition": "To leap back.",
+      "definition": "To spring from; arise out of.",
       "difficulty": 1
     },
     {
       "word": "become",
-      "definition": "To pass from one state to another.",
+      "definition": "To come to be.",
       "difficulty": 1
     },
     {
       "word": "better",
-      "definition": "Having good qualities in a greater degree than another.",
+      "definition": "Of a higher standard or quality.",
       "difficulty": 2
     },
     {
       "word": "junior",
-      "definition": "Less advanced in age than another.",
+      "definition": "Younger than another.",
       "difficulty": 2
     },
     {
       "word": "travel",
-      "definition": "To labor. to travail.",
+      "definition": "To journey.",
       "difficulty": 2
     },
     {
       "word": "mosque",
-      "definition": "A Mohammedan church or place of religious worship.",
+      "definition": "A Muslim place of worship.",
       "difficulty": 2
     },
     {
       "word": "advise",
-      "definition": "To give advice to.",
+      "definition": "To give counsel to.",
       "difficulty": 2
     },
     {
       "word": "double",
-      "definition": "Twofold. multiplied by two.",
+      "definition": "Twice as much or as many.",
       "difficulty": 2
     },
     {
       "word": "latter",
-      "definition": "Later. more recent.",
+      "definition": "The second of two things mentioned.",
       "difficulty": 2
     },
     {
       "word": "fairly",
-      "definition": "In a fairmanner.",
+      "definition": "In a just or reasonable way.",
       "difficulty": 2
     },
     {
@@ -3038,37 +3033,37 @@
     },
     {
       "word": "mobile",
-      "definition": "Capable of being moved.",
+      "definition": "Able to move or be moved easily.",
       "difficulty": 2
     },
     {
       "word": "gender",
-      "definition": "Kind. sort.",
+      "definition": "The class of nouns which are distinguished as masculine, feminine, or neuter.",
       "difficulty": 2
     },
     {
       "word": "person",
-      "definition": "A character or part, as in a play.",
+      "definition": "A human being.",
       "difficulty": 1
     },
     {
       "word": "accept",
-      "definition": "To receive with a consenting mind (something offered).",
+      "definition": "To receive willingly.",
       "difficulty": 2
     },
     {
       "word": "almost",
-      "definition": "Nearly. well nigh.",
+      "definition": "Nearly.",
       "difficulty": 1
     },
     {
       "word": "prince",
-      "definition": "The one of highest rank.",
+      "definition": "A male member of a royal family.",
       "difficulty": 1
     },
     {
       "word": "beside",
-      "definition": "At the side of.",
+      "definition": "Apart from; not connected with.",
       "difficulty": 1
     },
     {
@@ -3088,12 +3083,12 @@
     },
     {
       "word": "report",
-      "definition": "To refer. Baldwin, his son,.",
+      "definition": "A statement or announcement.",
       "difficulty": 2
     },
     {
       "word": "source",
-      "definition": "The act of rising.",
+      "definition": "The beginning or place of origin of a stream or river.",
       "difficulty": 2
     },
     {
@@ -3103,7 +3098,7 @@
     },
     {
       "word": "partly",
-      "definition": "In part. in some measure of degree.",
+      "definition": "In part. In some measure or degree.",
       "difficulty": 2
     },
     {
@@ -3113,22 +3108,22 @@
     },
     {
       "word": "napkin",
-      "definition": "A little towel, or small cloth, esp.",
+      "definition": "A small cloth used at meals.",
       "difficulty": 2
     },
     {
       "word": "button",
-      "definition": "A knob. a small ball.",
+      "definition": "A knob. A small ball.",
       "difficulty": 1
     },
     {
       "word": "greedy",
-      "definition": "Having a keen appetite for food or drink.",
+      "definition": "Having an eager desire for more than one needs.",
       "difficulty": 2
     },
     {
       "word": "ending",
-      "definition": "concluding part.",
+      "definition": "Concluding part.",
       "difficulty": 2
     },
     {
@@ -3143,17 +3138,17 @@
     },
     {
       "word": "detail",
-      "definition": "A minute portion.",
+      "definition": "A minute part or particular.",
       "difficulty": 2
     },
     {
       "word": "street",
-      "definition": "Originally, a paved way or road.",
+      "definition": "A paved way or road.",
       "difficulty": 1
     },
     {
       "word": "dollar",
-      "definition": "(a) A silver coin of the United States containing 371.",
+      "definition": "A silver coin of the United States.",
       "difficulty": 1
     },
     {
@@ -3163,7 +3158,7 @@
     },
     {
       "word": "remain",
-      "definition": "To stay behind while others withdraw.",
+      "definition": "To stay behind or in the same place.",
       "difficulty": 2
     },
     {
@@ -3178,22 +3173,22 @@
     },
     {
       "word": "budget",
-      "definition": "A bag or sack with its contents.",
+      "definition": "A plan of operations based on such an estimate.",
       "difficulty": 2
     },
     {
       "word": "school",
-      "definition": "A shoal. a multitude.",
+      "definition": "An institution where instruction is given.",
       "difficulty": 1
     },
     {
       "word": "direct",
-      "definition": "Straight. not crooked, oblique, or circuitous.",
+      "definition": "Straight. Not crooked, oblique, or circuitous.",
       "difficulty": 2
     },
     {
       "word": "recent",
-      "definition": "lately come.",
+      "definition": "Not long past.",
       "difficulty": 2
     },
     {
@@ -3203,7 +3198,7 @@
     },
     {
       "word": "nobody",
-      "definition": "No person. no one.",
+      "definition": "No person. No one.",
       "difficulty": 2
     },
     {
@@ -3224,7 +3219,7 @@
     {
       "word": "itself",
       "definition": "The neuter reciprocal pronoun of It.",
-      "difficulty": 2
+      "difficulty": 4
     },
     {
       "word": "drawer",
@@ -3233,7 +3228,7 @@
     },
     {
       "word": "choose",
-      "definition": "To make choice of.",
+      "definition": "To select or make choice of.",
       "difficulty": 1
     },
     {
@@ -3243,7 +3238,7 @@
     },
     {
       "word": "twenty",
-      "definition": "One more that nineteen.",
+      "definition": "One more than nineteen.",
       "difficulty": 1
     },
     {
@@ -3278,27 +3273,27 @@
     },
     {
       "word": "frozen",
-      "definition": "Congealed with cold.",
+      "definition": "Turned into ice; congealed with cold.",
       "difficulty": 3
     },
     {
       "word": "sexual",
-      "definition": "distinguishing sex.",
+      "definition": "Relating to the sexes.",
       "difficulty": 4
     },
     {
       "word": "virtue",
-      "definition": "Manly strength or courage.",
+      "definition": "Moral excellence; goodness.",
       "difficulty": 4
     },
     {
       "word": "stress",
-      "definition": "Distress. Sad hersal of his heavy stress.",
+      "definition": "Emphasis in melody, rhythm, etc.; beat.",
       "difficulty": 4
     },
     {
       "word": "stream",
-      "definition": "A current water or other fluid.",
+      "definition": "A current of water or other fluid.",
       "difficulty": 3
     },
     {
@@ -3308,7 +3303,7 @@
     },
     {
       "word": "serial",
-      "definition": "consisting of a series.",
+      "definition": "Consisting of a series.",
       "difficulty": 4
     },
     {
@@ -3328,7 +3323,7 @@
     },
     {
       "word": "turtle",
-      "definition": "The turtledove.",
+      "definition": "A reptile of the order Testudines, having the trunk enclosed in a shell.",
       "difficulty": 3
     },
     {
@@ -3338,7 +3333,7 @@
     },
     {
       "word": "unload",
-      "definition": "To take the load from.",
+      "definition": "To remove a load from.",
       "difficulty": 4
     },
     {
@@ -3348,7 +3343,7 @@
     },
     {
       "word": "pickle",
-      "definition": "(a) A solution of salt and water, in which fish, meat, etc.",
+      "definition": "A solution of salt and water, in which fish, meat, etc.",
       "difficulty": 4
     },
     {
@@ -3358,7 +3353,7 @@
     },
     {
       "word": "tricky",
-      "definition": "Given to tricks.",
+      "definition": "Full of tricks.",
       "difficulty": 4
     },
     {
@@ -3368,17 +3363,17 @@
     },
     {
       "word": "thrill",
-      "definition": "A warbling.",
+      "definition": "A sudden feeling of excitement.",
       "difficulty": 4
     },
     {
       "word": "regime",
-      "definition": "Mode or system of rule or management.",
+      "definition": "System of rule.",
       "difficulty": 4
     },
     {
       "word": "refund",
-      "definition": "To fund again or anew.",
+      "definition": "To give back money.",
       "difficulty": 3
     },
     {
@@ -3393,7 +3388,7 @@
     },
     {
       "word": "pallet",
-      "definition": "A small and mean bed.",
+      "definition": "A small bed.",
       "difficulty": 4
     },
     {
@@ -3418,7 +3413,7 @@
     },
     {
       "word": "shrimp",
-      "definition": "To contract.",
+      "definition": "Any of several small, long-tailed, certain species of which are used as food.",
       "difficulty": 3
     },
     {
@@ -3433,7 +3428,7 @@
     },
     {
       "word": "tragic",
-      "definition": "as, a tragic poem.",
+      "definition": "Extremely mournful, melancholy, or pathetic.",
       "difficulty": 3
     },
     {
@@ -3478,22 +3473,22 @@
     },
     {
       "word": "superb",
-      "definition": "Grand. magnificent.",
+      "definition": "Grand. Magnificent.",
       "difficulty": 4
     },
     {
       "word": "hostel",
-      "definition": "An inn. Poe.",
+      "definition": "An inn.",
       "difficulty": 3
     },
     {
       "word": "narrow",
-      "definition": "not wide or broad.",
+      "definition": "Not wide or broad.",
       "difficulty": 3
     },
     {
       "word": "former",
-      "definition": "One who forms.",
+      "definition": "Preceding in time or order.",
       "difficulty": 3
     },
     {
@@ -3508,7 +3503,7 @@
     },
     {
       "word": "trophy",
-      "definition": "(Gr. & Rom.",
+      "definition": "A prize or memorial of victory.",
       "difficulty": 4
     },
     {
@@ -3518,12 +3513,12 @@
     },
     {
       "word": "retail",
-      "definition": "The sale of commodities in small quantities or parcels.",
+      "definition": "The sale of commodities in small quantities.",
       "difficulty": 3
     },
     {
       "word": "ensure",
-      "definition": "To make sure.",
+      "definition": "To make certain of.",
       "difficulty": 3
     },
     {
@@ -3565,17 +3560,17 @@
   "7": [
     {
       "word": "olympic",
-      "definition": "Olympic games, or Olympics (Greek Antiq.",
+      "definition": "Pertaining to Mount Olympus, in Greece.",
       "difficulty": 2
     },
     {
       "word": "achieve",
-      "definition": "To carry on to a final close.",
+      "definition": "To bring to a successful end.",
       "difficulty": 2
     },
     {
       "word": "display",
-      "definition": "To unfold. to spread wide.",
+      "definition": "To spread out or unfold.",
       "difficulty": 2
     },
     {
@@ -3585,7 +3580,7 @@
     },
     {
       "word": "against",
-      "definition": "Abreast. opposite to.",
+      "definition": "In opposition to.",
       "difficulty": 2
     },
     {
@@ -3621,11 +3616,11 @@
     {
       "word": "exactly",
       "definition": "In an exact manner.",
-      "difficulty": 2
+      "difficulty": 1
     },
     {
       "word": "journey",
-      "definition": "The travel or work of a day.",
+      "definition": "A traveling from one place to another.",
       "difficulty": 2
     },
     {
@@ -3636,7 +3631,7 @@
     {
       "word": "address",
       "definition": "To aim. to direct.",
-      "difficulty": 1
+      "difficulty": 2
     },
     {
       "word": "fighter",
@@ -3780,7 +3775,7 @@
     },
     {
       "word": "chicken",
-      "definition": "A young bird or fowl, esp.",
+      "definition": "A young bird or fowl.",
       "difficulty": 1
     },
     {
@@ -3850,7 +3845,7 @@
     },
     {
       "word": "happily",
-      "definition": "By chance. peradventure.",
+      "definition": "By good fortune; providentially; luckily.",
       "difficulty": 2
     },
     {
@@ -3860,7 +3855,7 @@
     },
     {
       "word": "grandma",
-      "definition": "A grand mother.",
+      "definition": "A grandmother.",
       "difficulty": 1
     },
     {
@@ -3875,7 +3870,7 @@
     },
     {
       "word": "confuse",
-      "definition": "Mixed. confounded.",
+      "definition": "To perplex or bewilder.",
       "difficulty": 2
     },
     {
@@ -4192,12 +4187,12 @@
     },
     {
       "word": "romantic",
-      "definition": "involving or resembling romance.",
+      "definition": "Involving or resembling romance.",
       "difficulty": 2
     },
     {
       "word": "complete",
-      "definition": "Filled up. with no part or element lacking.",
+      "definition": "Filled up with no part or element lacking.",
       "difficulty": 2
     },
     {
@@ -4217,12 +4212,12 @@
     },
     {
       "word": "handsome",
-      "definition": "Dexterous. skillful.",
+      "definition": "Good-looking.",
       "difficulty": 1
     },
     {
       "word": "climbing",
-      "definition": "& vb. Climbing fern.",
+      "definition": "Sport, hobby, or physical activity of ascending steep objects.",
       "difficulty": 2
     },
     {
@@ -4257,7 +4252,7 @@
     },
     {
       "word": "accident",
-      "definition": "Literally, a befalling.",
+      "definition": "A befalling.",
       "difficulty": 2
     },
     {
@@ -4277,7 +4272,7 @@
     },
     {
       "word": "director",
-      "definition": "One who, or that which, directs.",
+      "definition": "One who directs.",
       "difficulty": 2
     },
     {
@@ -4292,7 +4287,7 @@
     },
     {
       "word": "hospital",
-      "definition": "A place for shelter or entertainment.",
+      "definition": "A place for the reception and treatment of the sick or injured.",
       "difficulty": 1
     },
     {
@@ -4307,7 +4302,7 @@
     },
     {
       "word": "continue",
-      "definition": "To remain ina given place or condition.",
+      "definition": "To remain in a given place or condition.",
       "difficulty": 2
     },
     {
@@ -4322,12 +4317,12 @@
     },
     {
       "word": "envelope",
-      "definition": "That which envelops, wraps up, encases, or surrounds.",
+      "definition": "A flat paper container, usually having a gummed flap or other means of closure.",
       "difficulty": 2
     },
     {
       "word": "although",
-      "definition": "Grant all this.",
+      "definition": "In spite of the fact that.",
       "difficulty": 2
     },
     {
@@ -4342,7 +4337,7 @@
     },
     {
       "word": "specific",
-      "definition": "characterizing or constituting a species.",
+      "definition": "Characterizing or constituting a species.",
       "difficulty": 2
     },
     {
@@ -4362,7 +4357,7 @@
     },
     {
       "word": "everyone",
-      "definition": "Everybody. -- commonly separated, every one.",
+      "definition": "Everybody.",
       "difficulty": 1
     },
     {
