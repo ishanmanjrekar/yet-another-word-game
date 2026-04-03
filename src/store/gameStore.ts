@@ -83,6 +83,7 @@ interface GameState {
   executeLightning: () => void;
   completeStage: () => void;
   advanceToNextStage: () => void;
+  goToNextUnsolved: () => void;
 }
 
 export const useGameStore = create<GameState>()(
@@ -429,7 +430,16 @@ export const useGameStore = create<GameState>()(
         console.error('Failed to generate next stage:', e);
         return { gameState: 'menu' };
       }
-    })
+    }),
+
+    goToNextUnsolved: () =>
+      set((state) => {
+        const nextIdx = state.stageWords.findIndex((_, i) => !state.completedWords.includes(i));
+        if (nextIdx !== -1) {
+          return { activeWordIndex: nextIdx };
+        }
+        return {};
+      })
   }),
   {
     name: 'yawg-game-storage',

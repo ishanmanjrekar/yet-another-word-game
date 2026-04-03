@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface StageSuccessOverlayProps {
@@ -12,6 +12,17 @@ export const StageSuccessOverlay: React.FC<StageSuccessOverlayProps> = ({
   coinsAwarded, 
   onContinue 
 }) => {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Small debounce delay if needed? No, user just wants support.
+      if (e.key === 'Enter' || e.key === ' ') {
+        onContinue();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onContinue]);
+
   return (
     <AnimatePresence>
       <motion.div 

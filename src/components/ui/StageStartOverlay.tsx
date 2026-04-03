@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface StageStartOverlayProps {
@@ -7,6 +7,16 @@ interface StageStartOverlayProps {
 }
 
 export const StageStartOverlay: React.FC<StageStartOverlayProps> = ({ stageNumber, onStart }) => {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        onStart();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onStart]);
+
   return (
     <AnimatePresence>
       <motion.div 

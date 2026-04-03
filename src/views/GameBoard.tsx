@@ -17,10 +17,12 @@ export const GameBoard: React.FC = () => {
     activeWordIndex,
     selectTile,
     deselectSlot,
+    clearSelection,
     completedWords,
     highlightedIndices,
     nextWord,
     prevWord,
+    goToNextUnsolved,
     setGameState,
     gameState,
     economy,
@@ -73,12 +75,11 @@ export const GameBoard: React.FC = () => {
   // Auto-transition logic with delay
   useEffect(() => {
     const isCompleted = completedWords.includes(activeWordIndex);
-    const isLastWord = activeWordIndex === stageWords.length - 1;
     const allWordsCompleted = completedWords.length === stageWords.length;
     
-    if (isCompleted && !isLastWord) {
+    if (isCompleted && !allWordsCompleted) {
       const timer = setTimeout(() => {
-        nextWord();
+        goToNextUnsolved();
       }, 1000);
       return () => clearTimeout(timer);
     } else if (allWordsCompleted && gameState === 'playing') {
@@ -88,18 +89,68 @@ export const GameBoard: React.FC = () => {
       return () => clearTimeout(timer);
     }
   }, [completedWords, activeWordIndex, stageWords.length, nextWord, gameState, completeStage]);
+  
+  // Keyboard Support
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (gameState !== 'playing') return;
+      
+      const key = e.key.toUpperCase();
+      
+      // Handle Backspace: remove last letter
+      if (e.key === 'Backspace') {
+        const lastFilledSlot = [...selectedIndices[activeWordIndex]].reverse().findIndex(idx => idx !== null);
+        if (lastFilledSlot !== -1) {
+          const actualIndex = selectedIndices[activeWordIndex].length - 1 - lastFilledSlot;
+          deselectSlot(actualIndex);
+        }
+        return;
+      }
+      
+      // Handle Escape: clear selection
+      if (e.key === 'Escape') {
+        clearSelection();
+        return;
+      }
+      
+      // Handle A-Z letters
+      if (/^[A-Z]$/.test(key)) {
+        const indices = gridLetters.map((char, i) => char.toUpperCase() === key ? i : -1).filter(i => i !== -1);
+        if (indices.length === 0) return;
+        
+        const currentSelectedForWord = selectedIndices[activeWordIndex] || [];
+        const availableIndex = indices.find(idx => !currentSelectedForWord.includes(idx));
+        
+        if (availableIndex !== undefined) {
+          // Select next available
+          selectTile(availableIndex);
+        } else {
+          // If all are selected, deselect the last one found in the grid to simulate toggle
+          const lastSelectedIndex = indices[indices.length - 1];
+          selectTile(lastSelectedIndex);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [gameState, gridLetters, selectedIndices, activeWordIndex, selectTile, deselectSlot, clearSelection]);
 
   const activeWordObj = stageWords[activeWordIndex];
 
   // Feedback check
   useEffect(() => {
     if (completedWords.length > prevCompletedCount) {
-      const messages = ["Great", "Good", "Nice", "Wow", "Perfect", "Cool"];
-      const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-      const bonus = economy?.rewards.timerBonusPerWord || 10;
+      const isFinalLevelWord = completedWords.length === stageWords.length;
       
-      setFeedback({ message: randomMsg, id: Date.now() });
-      setTimeLeft(t => t + bonus);
+      if (!isFinalLevelWord) {
+        const messages = ["Great", "Good", "Nice", "Wow", "Perfect", "Cool"];
+        const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+        const bonus = economy?.rewards.timerBonusPerWord || 10;
+        
+        setFeedback({ message: randomMsg, id: Date.now() });
+        setTimeLeft(t => t + bonus);
+      }
       setPrevCompletedCount(completedWords.length);
     } else if (completedWords.length < prevCompletedCount) {
       setPrevCompletedCount(completedWords.length);
