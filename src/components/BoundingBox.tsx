@@ -14,20 +14,27 @@ export const BoundingBox: React.FC<GameLayerProps> = ({ width, height, children 
     const handleResize = () => {
       if (containerRef.current) {
         const { clientWidth, clientHeight } = containerRef.current.parentElement || document.body;
-        
-        // Calculate the maximum scale that fits the window
-        const scaleX = clientWidth / width;
-        const scaleY = clientHeight / height;
-        const optimalScale = Math.min(scaleX, scaleY);
-        
-        setScale(optimalScale);
+
+        // On mobile itch.io, the iframe may be wider/taller than the physical screen.
+        // screen.width/height give the actual device dimensions in CSS pixels,
+        // so we clamp the available space to what the device can actually show.
+        const availW = Math.min(clientWidth || window.innerWidth, window.screen.width);
+        const availH = Math.min(clientHeight || window.innerHeight, window.screen.height);
+
+        const scaleX = availW / width;
+        const scaleY = availH / height;
+        setScale(Math.min(scaleX, scaleY));
       }
     };
 
     window.addEventListener('resize', handleResize);
+    window.screen.orientation?.addEventListener('change', handleResize);
     handleResize();
 
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.screen.orientation?.removeEventListener('change', handleResize);
+    };
   }, [width, height]);
 
   return (
