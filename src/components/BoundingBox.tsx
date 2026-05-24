@@ -9,9 +9,13 @@ interface GameLayerProps {
 export const BoundingBox: React.FC<GameLayerProps> = ({ width, height, children }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
-  const [dynamicHeight, setDynamicHeight] = useState(height);
+  const [isCapacitor, setIsCapacitor] = useState(false);
 
   useLayoutEffect(() => {
+    // Detect if running inside the Capacitor native WebView shell
+    const checkCapacitor = (window as any).Capacitor !== undefined;
+    setIsCapacitor(checkCapacitor);
+
     const handleResize = () => {
       if (containerRef.current) {
         const { clientWidth, clientHeight } = containerRef.current.parentElement || document.body;
@@ -22,21 +26,14 @@ export const BoundingBox: React.FC<GameLayerProps> = ({ width, height, children 
         const availW = Math.min(clientWidth || window.innerWidth, window.screen.width);
         const availH = Math.min(clientHeight || window.innerHeight, window.screen.height);
 
-        const targetRatio = width / height;
-        const availRatio = availW / availH;
-
-        if (availRatio <= targetRatio) {
-          // Screen is taller than standard aspect ratio (e.g. Galaxy Z Flip, modern taller smartphones)
-          // Fit perfectly to the screen width and expand the height dynamically to eliminate empty space.
-          const s = availW / width;
-          setScale(s);
-          setDynamicHeight(availH / s);
+        if (checkCapacitor) {
+          // Native Android APK: 100% fluid full-screen borderless layout
+          setScale(1);
         } else {
-          // Screen is wider than standard aspect ratio (e.g. desktops, tablets, landscape)
-          // Fit perfectly to the screen height and keep the standard phone aspect ratio width.
-          const s = availH / height;
-          setScale(s);
-          setDynamicHeight(height);
+          // Standard Web/Itch.io: EXACT original scaling logic to prevent any regression
+          const scaleX = availW / width;
+          const scaleY = availH / height;
+          setScale(Math.min(scaleX, scaleY));
         }
       }
     };
@@ -51,6 +48,21 @@ export const BoundingBox: React.FC<GameLayerProps> = ({ width, height, children 
     };
   }, [width, height]);
 
+  // Capacitor runs borderless and fluid; Web uses simulated phone sizing
+  const innerStyle: React.CSSProperties = isCapacitor
+    ? {
+        width: '100%',
+        height: '100%',
+        position: 'relative',
+      }
+    : {
+        width: `${width}px`,
+        height: `${height}px`,
+        transform: `scale(${scale})`,
+        transformOrigin: 'center center',
+        position: 'relative',
+      };
+
   return (
     <div
       ref={containerRef}
@@ -63,15 +75,7 @@ export const BoundingBox: React.FC<GameLayerProps> = ({ width, height, children 
         overflow: 'hidden'
       }}
     >
-      <div
-        style={{
-          width: `${width}px`,
-          height: `${dynamicHeight}px`,
-          transform: `scale(${scale})`,
-          transformOrigin: 'center center', // Keep centered
-          position: 'relative',
-        }}
-      >
+      <div style={innerStyle}>
         {children}
       </div>
     </div>

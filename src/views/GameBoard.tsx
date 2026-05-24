@@ -295,7 +295,7 @@ export const GameBoard: React.FC = () => {
                     <div 
                       key={i} 
                       onClick={() => !isCompleted && tileIndex !== null && deselectSlot(i)}
-                      className={`w-12 h-14 bg-[#111125] rounded-xl flex items-center justify-center font-headline text-2xl shadow-inner relative overflow-hidden transition-all ${showSuccess ? 'border-2 border-tertiary shadow-[0_0_8px_rgba(0,228,113,0.4)]' : 'border border-white/5'} ${!isCompleted && tileIndex !== null ? 'cursor-pointer hover:bg-[#1a1a35] active:scale-95' : ''}`}
+                      className={`w-[clamp(2.25rem,8.5vw,3rem)] h-[clamp(2.75rem,10vw,3.5rem)] bg-[#111125] rounded-xl flex items-center justify-center font-headline text-[clamp(1.25rem,5.5vw,1.75rem)] shadow-inner relative overflow-hidden transition-all ${showSuccess ? 'border-2 border-tertiary shadow-[0_0_8px_rgba(0,228,113,0.4)]' : 'border border-white/5'} ${!isCompleted && tileIndex !== null ? 'cursor-pointer hover:bg-[#1a1a35] active:scale-95' : ''}`}
                     >
                       <span className={`text-[#77778b] absolute font-black tracking-tighter ${displayedLetter ? 'hidden' : 'block'}`}>_</span>
                       <span className={`${showSuccess ? 'text-tertiary' : 'text-primary'} uppercase ${displayedLetter ? 'block' : 'hidden'}`}>{displayedLetter}</span>
@@ -416,7 +416,7 @@ export const GameBoard: React.FC = () => {
                     <Tile 
                       key={`${index}-${char}`}
                       letter={char} 
-                      className="w-full h-full !text-[clamp(1rem,4rem,2rem)] pb-0 sm:pb-1"
+                      className="w-full h-full !text-[clamp(1.25rem,10cqw,2.25rem)] pb-0 sm:pb-1"
                       isActive={isSelected} 
                       isHighlighted={isHighlighted}
                       onClick={() => !isShuffling && selectTile(index)} 
