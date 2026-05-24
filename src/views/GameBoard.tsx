@@ -175,6 +175,18 @@ export const GameBoard: React.FC = () => {
     return def;
   };
 
+  const getDefinitionFontSizeClass = (def: string) => {
+    const formatted = formatDefinition(def);
+    const len = formatted.length;
+    if (len < 25) {
+      return "text-[clamp(1.125rem,5vw,1.25rem)]";
+    } else if (len < 40) {
+      return "text-[clamp(1rem,4.5vw,1.125rem)]";
+    } else {
+      return "text-[clamp(0.875rem,4vw,1rem)]";
+    }
+  };
+
 
   const handleContinue = () => {
     advanceToNextStage();
@@ -334,7 +346,7 @@ export const GameBoard: React.FC = () => {
               <h3 className="tracking-[0.1em] text-[#dfb7ff] text-xs uppercase font-headline mb-1.5 text-center opacity-70">
                 DEFINITION
               </h3>
-              <p className="font-body tracking-wide text-center text-white px-2 break-words italic line-clamp-2 text-xl leading-snug">
+              <p className={`font-body tracking-wide text-center text-white px-2 break-words italic line-clamp-2 leading-snug ${getDefinitionFontSizeClass(activeWordObj.definition)}`}>
                 {formatDefinition(activeWordObj.definition)}
               </p>
             </div>
