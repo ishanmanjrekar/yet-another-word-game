@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">YAWG</string>
+    <string name="title_activity_main">YAWG</string>
+    <string name="package_name">com.ishanmanjrekar.yawg</string>
+    <string name="custom_url_scheme">com.ishanmanjrekar.yawg</string>
+</resources>

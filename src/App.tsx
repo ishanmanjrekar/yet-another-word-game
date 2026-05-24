@@ -43,15 +43,26 @@ function App() {
 
   if (!isHydrated) {
     return (
-      <div className="flex h-screen w-screen items-center justify-center bg-[#161625] text-white">
-        <div className="text-center font-body">
-          <div className="mb-4 text-2xl font-bold tracking-widest opacity-80 animate-pulse">
-            LOADING ASSETS
+      <div className="flex h-[100dvh] w-screen bg-[#161625] overflow-hidden">
+        <BoundingBox width={480} height={880}>
+          <div className="flex flex-col h-full w-full items-center justify-center bg-[#161625] text-white px-6">
+            <div className="flex flex-col items-center justify-center gap-10">
+              <img 
+                src="/splash-cover.png" 
+                alt="YAWG Splash Cover" 
+                className="select-none pointer-events-none" 
+              />
+              <div className="flex flex-col items-center gap-4 w-64">
+                <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+                  <div className="h-full bg-primary animate-[loading-bar_1.5s_infinite]" />
+                </div>
+                <div className="text-sm font-bold tracking-widest text-primary/80 animate-pulse font-body uppercase">
+                  Loading Assets...
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="h-1 w-48 bg-white/10 rounded-full overflow-hidden">
-            <div className="h-full bg-blue-500 animate-[loading-bar_2s_infinite]" />
-          </div>
-        </div>
+        </BoundingBox>
       </div>
     );
   }

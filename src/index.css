@@ -39,6 +39,8 @@ body {
   background-color: var(--color-surface);
   color: var(--color-on-surface);
   font-family: 'Be Vietnam Pro', sans-serif;
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 ::-webkit-scrollbar {

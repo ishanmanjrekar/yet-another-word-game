@@ -16,6 +16,7 @@
     "compile-levels": "node scripts/compile-levels.js"
   },
   "dependencies": {
+    "@capacitor/android": "^8.3.4",
     "@capacitor/core": "^8.3.0",
     "@tailwindcss/vite": "^4.2.2",
     "framer-motion": "^12.38.0",
