@@ -9,6 +9,7 @@ interface GameLayerProps {
 export const BoundingBox: React.FC<GameLayerProps> = ({ width, height, children }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
+  const [dynamicHeight, setDynamicHeight] = useState(height);
 
   useLayoutEffect(() => {
     const handleResize = () => {
@@ -21,9 +22,22 @@ export const BoundingBox: React.FC<GameLayerProps> = ({ width, height, children 
         const availW = Math.min(clientWidth || window.innerWidth, window.screen.width);
         const availH = Math.min(clientHeight || window.innerHeight, window.screen.height);
 
-        const scaleX = availW / width;
-        const scaleY = availH / height;
-        setScale(Math.min(scaleX, scaleY));
+        const targetRatio = width / height;
+        const availRatio = availW / availH;
+
+        if (availRatio <= targetRatio) {
+          // Screen is taller than standard aspect ratio (e.g. Galaxy Z Flip, modern taller smartphones)
+          // Fit perfectly to the screen width and expand the height dynamically to eliminate empty space.
+          const s = availW / width;
+          setScale(s);
+          setDynamicHeight(availH / s);
+        } else {
+          // Screen is wider than standard aspect ratio (e.g. desktops, tablets, landscape)
+          // Fit perfectly to the screen height and keep the standard phone aspect ratio width.
+          const s = availH / height;
+          setScale(s);
+          setDynamicHeight(height);
+        }
       }
     };
 
@@ -46,14 +60,13 @@ export const BoundingBox: React.FC<GameLayerProps> = ({ width, height, children 
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        overflowY: 'auto',
-        overflowX: 'hidden'
+        overflow: 'hidden'
       }}
     >
       <div
         style={{
           width: `${width}px`,
-          height: `${height}px`,
+          height: `${dynamicHeight}px`,
           transform: `scale(${scale})`,
           transformOrigin: 'center center', // Keep centered
           position: 'relative',
