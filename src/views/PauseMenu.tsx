@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useGameStore } from '../store/gameStore';
 
 const QUIPS = [
@@ -23,11 +23,7 @@ export const PauseMenu: React.FC = () => {
   const { coins, setGameState } = useGameStore(state => state);
   const [showExitConfirm, setShowExitConfirm] = useState(false);
   
-  const [randomQuip, setRandomQuip] = useState(QUIPS[0]);
-  
-  useEffect(() => {
-    setRandomQuip(QUIPS[Math.floor(Math.random() * QUIPS.length)]);
-  }, []);
+  const [randomQuip] = useState(() => QUIPS[Math.floor(Math.random() * QUIPS.length)]);
 
   if (showExitConfirm) {
     return (
