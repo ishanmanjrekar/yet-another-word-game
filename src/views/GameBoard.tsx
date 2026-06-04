@@ -55,15 +55,16 @@ export const GameBoard: React.FC = () => {
   };
 
   const [timeLeft, setTimeLeft] = useState(0);
+  const [initializedStage, setInitializedStage] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (levelDesign) {
-      const stageConfig = levelDesign.stages[activeStage.toString()];
-      if (stageConfig) {
-        setTimeLeft(stageConfig.timer);
-      }
+  const stageKey = `${activeStage}_${levelDesign ? 'loaded' : 'unloaded'}`;
+  if (initializedStage !== stageKey && levelDesign) {
+    setInitializedStage(stageKey);
+    const stageConfig = levelDesign.stages[activeStage.toString()];
+    if (stageConfig) {
+      setTimeLeft(stageConfig.timer);
     }
-  }, [levelDesign, activeStage]);
+  }
 
   useInterval(() => {
     setTimeLeft(t => {
@@ -91,7 +92,7 @@ export const GameBoard: React.FC = () => {
       }, 1500); // 1.5s delay to show final word
       return () => clearTimeout(timer);
     }
-  }, [completedWords, activeWordIndex, stageWords.length, nextWord, gameState, completeStage]);
+  }, [completedWords, activeWordIndex, stageWords.length, nextWord, gameState, completeStage, goToNextUnsolved]);
   
   // Keyboard Support
   useEffect(() => {
@@ -151,14 +152,20 @@ export const GameBoard: React.FC = () => {
         const randomMsg = messages[Math.floor(Math.random() * messages.length)];
         const bonus = economy?.rewards.timerBonusPerWord || 10;
         
-        setFeedback({ message: randomMsg, id: Date.now() });
-        setTimeLeft(t => t + bonus);
+        setTimeout(() => {
+          setFeedback({ message: randomMsg, id: Date.now() });
+          setTimeLeft(t => t + bonus);
+        }, 0);
       }
-      setPrevCompletedCount(completedWords.length);
+      setTimeout(() => {
+        setPrevCompletedCount(completedWords.length);
+      }, 0);
     } else if (completedWords.length < prevCompletedCount) {
-      setPrevCompletedCount(completedWords.length);
+      setTimeout(() => {
+        setPrevCompletedCount(completedWords.length);
+      }, 0);
     }
-  }, [completedWords.length, prevCompletedCount, economy]);
+  }, [completedWords.length, prevCompletedCount, economy, stageWords.length]);
 
   const stageConfig = levelDesign?.stages[activeStage.toString()];
   const gridCols = stageConfig?.grid.cols || 4;
@@ -272,7 +279,7 @@ export const GameBoard: React.FC = () => {
 
             {/* Progress Dots */}
             <div className="flex justify-center items-center gap-3 h-7">
-              {stageWords.map((_: any, i: number) => {
+              {stageWords.map((_, i: number) => {
                 const isActive = i === activeWordIndex;
                 const isComp = completedWords.includes(i);
                 return isActive ? (

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;700;800&family=Lilita+One&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -23,8 +24,6 @@
   --radius-xl: 1.5rem;
   --radius-md: 0.75rem;
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;700;800&family=Lilita+One&display=swap');
 
 /* Scrollbar Neutralization */
 html,

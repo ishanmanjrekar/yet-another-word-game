@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 
 interface HUDProps {
@@ -9,17 +9,17 @@ interface HUDProps {
 
 const HUD: React.FC<HUDProps> = ({ coins, stage, maxStages = 10 }) => {
   const coinControls = useAnimation();
-  const [prevCoins, setPrevCoins] = useState(coins);
+  const prevCoinsRef = useRef(coins);
 
   useEffect(() => {
-    if (coins > prevCoins) {
+    if (coins > prevCoinsRef.current) {
       coinControls.start({
         scale: [1, 1.3, 1],
         transition: { duration: 0.3, type: 'spring', stiffness: 300 }
       });
     }
-    setPrevCoins(coins);
-  }, [coins, prevCoins, coinControls]);
+    prevCoinsRef.current = coins;
+  }, [coins, coinControls]);
 
   return (
     <header className="w-full flex justify-between items-center p-4 bg-surface max-w-xl mx-auto shadow-chunky-surface">

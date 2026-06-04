@@ -9,13 +9,9 @@ interface GameLayerProps {
 export const BoundingBox: React.FC<GameLayerProps> = ({ width, height, children }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
-  const [isCapacitor, setIsCapacitor] = useState(false);
+  const isCapacitor = typeof window !== 'undefined' && 'Capacitor' in window;
 
   useLayoutEffect(() => {
-    // Detect if running inside the Capacitor native WebView shell
-    const checkCapacitor = (window as any).Capacitor !== undefined;
-    setIsCapacitor(checkCapacitor);
-
     const handleResize = () => {
       if (containerRef.current) {
         const { clientWidth, clientHeight } = containerRef.current.parentElement || document.body;
@@ -26,7 +22,7 @@ export const BoundingBox: React.FC<GameLayerProps> = ({ width, height, children 
         const availW = Math.min(clientWidth || window.innerWidth, window.screen.width);
         const availH = Math.min(clientHeight || window.innerHeight, window.screen.height);
 
-        if (checkCapacitor) {
+        if (isCapacitor) {
           // Native Android APK: 100% fluid full-screen borderless layout
           setScale(1);
         } else {
@@ -46,7 +42,7 @@ export const BoundingBox: React.FC<GameLayerProps> = ({ width, height, children 
       window.removeEventListener('resize', handleResize);
       window.screen.orientation?.removeEventListener('change', handleResize);
     };
-  }, [width, height]);
+  }, [width, height, isCapacitor]);
 
   // Capacitor runs borderless and fluid; Web uses simulated phone sizing
   const innerStyle: React.CSSProperties = isCapacitor

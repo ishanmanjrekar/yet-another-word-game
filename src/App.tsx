@@ -5,6 +5,7 @@ import { PauseMenu } from './views/PauseMenu';
 import { GameOverModal } from './views/GameOverModal';
 import { BoundingBox } from './components/BoundingBox';
 import { useGameStore } from './store/gameStore';
+import type { LevelDesign, WordBank, EconomyConfig } from './store/gameStore';
 import { fetchRemoteConfig } from './utils/remoteData';
 
 import levelDesignData from './data/level-design.json';
@@ -32,9 +33,9 @@ function App() {
         fetchRemoteConfig(`${ASSETS_BASE_URL}economy.json`, economyData)
       ]);
 
-      setLevelDesign(remoteLevel as any);
-      setWordBank(remoteWords as any);
-      setEconomy(remoteEconomy as any);
+      setLevelDesign(remoteLevel as unknown as LevelDesign);
+      setWordBank(remoteWords as unknown as WordBank);
+      setEconomy(remoteEconomy as unknown as EconomyConfig);
       setIsHydrated(true);
     }
     

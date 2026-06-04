@@ -174,7 +174,7 @@ export const useGameStore = create<GameState>()(
         currentSelected[firstEmpty] = index;
       }
 
-      let newlyCompleted = [...state.completedWords];
+      const newlyCompleted = [...state.completedWords];
       let finalCurrentSelected = currentSelected;
 
       // Check if word is complete (all slots filled)
@@ -354,7 +354,7 @@ export const useGameStore = create<GameState>()(
       currentWordSelected[targetSlotPos] = targetGridIndex;
  
       // 5. Completion Check
-      let newlyCompleted = [...state.completedWords];
+      const newlyCompleted = [...state.completedWords];
       let finalWordSelected = currentWordSelected;
  
       if (currentWordSelected.every(idx => idx !== null)) {
