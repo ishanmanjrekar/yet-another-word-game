@@ -33,7 +33,9 @@ export const GameBoard: React.FC = () => {
     completeStage,
     advanceToNextStage,
     addExtraTime,
-    resetGame
+    resetGame,
+    theme,
+    toggleTheme
   } = useGameStore((state) => state);
 
   const [activeTooltip, setActiveTooltip] = useState<'shuffle' | 'highlight' | 'lightning' | null>(null);
@@ -172,7 +174,7 @@ export const GameBoard: React.FC = () => {
   const numRows = stageConfig?.grid.rows || 4;
 
 
-  if (!activeWordObj) return <div className="flex bg-[#161625] h-full w-full text-white items-center justify-center font-headline text-2xl">Loading...</div>;
+  if (!activeWordObj) return <div className="flex bg-surface-low h-full w-full text-on-surface items-center justify-center font-headline text-2xl">Loading...</div>;
   
   const formatDefinition = (def: string) => {
     const semiIndex = def.indexOf(';');
@@ -252,29 +254,47 @@ export const GameBoard: React.FC = () => {
   return (
     <div 
       onClick={() => setActiveTooltip(null)}
-      className="flex items-center justify-center h-full w-full bg-[#161625] overflow-hidden text-white font-body selection:bg-transparent tracking-wide"
+      className="flex items-center justify-center h-full w-full bg-surface-low overflow-hidden text-on-surface font-body selection:bg-transparent tracking-wide"
     >
       <div className="flex flex-col h-full w-full max-w-full max-h-full relative px-2 sm:px-4 py-2 sm:py-4 overflow-hidden">
         {/* HEADER SECTION (Bolted Top) */}
-        <div className="flex-none h-16 px-4 flex justify-between items-center z-10 border-b border-[#1f1f33] mb-2">
-        {/* Pause Button */}
-          <button onClick={() => setGameState('paused')} className="w-11 h-11 bg-[#2a2a4b] rounded-xl flex items-center justify-center border-b-[5px] border-[#18182b] active:border-b-0 active:translate-y-[5px] transition-all">
-            <svg viewBox="0 0 24 24" className="w-5 h-5 text-primary fill-current"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-        </button>
-          <div className={`font-headline text-4xl ${timeLeft <= 10 ? 'text-red-500 animate-pulse' : 'text-primary'}`} style={{ textShadow: timeLeft <= 10 ? '0 3px 0 #ffffff' : '0 3px 0 #8c7600' }}>
-          {Math.floor(timeLeft / 60).toString().padStart(2, '0')}:{(timeLeft % 60).toString().padStart(2, '0')}
+        <div className="flex-none h-16 px-4 flex justify-between items-center z-10 border-b border-[var(--border-color)] mb-2">
+          {/* Pause & Theme Button Wrapper */}
+          <div className="flex items-center gap-2">
+            {/* Pause Button */}
+            <button 
+              onClick={() => setGameState('paused')} 
+              className="w-11 h-11 bg-[var(--nav-btn-bg)] rounded-xl flex items-center justify-center border-b-[5px] border-[var(--nav-btn-border)] active:border-b-0 active:translate-y-[5px] transition-all text-primary"
+            >
+              <svg viewBox="0 0 24 24" className="w-5 h-5 text-primary fill-current"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+            </button>
+            {/* Theme Toggle Button */}
+            <button 
+              onClick={(e) => { e.stopPropagation(); toggleTheme(); }} 
+              className="w-11 h-11 bg-[var(--nav-btn-bg)] rounded-xl flex items-center justify-center border-b-[5px] border-[var(--nav-btn-border)] active:border-b-0 active:translate-y-[5px] transition-all text-primary"
+            >
+              <span className="material-symbols-outlined text-xl" style={{ fontVariationSettings: theme === 'dark' ? "'FILL' 1" : "'FILL' 0" }}>
+                {theme === 'dark' ? 'light_mode' : 'dark_mode'}
+              </span>
+            </button>
+          </div>
+          <div 
+            className={`font-headline text-4xl ${timeLeft <= 10 ? 'text-red-500 animate-pulse' : 'text-primary'}`} 
+            style={{ textShadow: timeLeft <= 10 ? '0 3px 0 var(--surface-highest)' : '0 3px 0 var(--chunky-shadow-primary)' }}
+          >
+            {Math.floor(timeLeft / 60).toString().padStart(2, '0')}:{(timeLeft % 60).toString().padStart(2, '0')}
+          </div>
+          <div className="h-11 bg-[var(--nav-btn-bg)] px-3 rounded-full flex items-center justify-center gap-2 border-b-[5px] border-[var(--nav-btn-border)]">
+            <div className="w-5 h-5 bg-primary rounded-full text-on-primary flex items-center justify-center font-headline text-sm"><span className="-mt-0.5">$</span></div>
+            <span className="font-headline text-lg text-on-surface mt-1">{coins.toLocaleString()}</span>
+          </div>
         </div>
-          <div className="h-11 bg-[#2a2a4b] px-3 rounded-full flex items-center justify-center gap-2 border-b-[5px] border-[#18182b]">
-            <div className="w-5 h-5 bg-primary rounded-full text-black flex items-center justify-center font-headline text-sm"><span className="-mt-0.5">$</span></div>
-            <span className="font-headline text-lg text-white mt-1">{coins.toLocaleString()}</span>
-        </div>
-      </div>
 
       {/* BODY SECTION (Elastic Content) */}
       <div className="flex-1 min-h-0 flex flex-col gap-3 overflow-hidden text-base">
         
         {/* Upper Card: Definition & Progress */}
-        <div className="bg-[#1d1d3d] rounded-2xl flex flex-col p-3 shadow-xl flex-[2] min-h-0 relative">
+        <div className="bg-surface-highest rounded-2xl flex flex-col p-3 shadow-xl flex-[2] min-h-0 relative">
           <div className="flex-1 flex flex-col justify-center gap-3 min-h-0">
 
             {/* Progress Dots */}
@@ -283,15 +303,15 @@ export const GameBoard: React.FC = () => {
                 const isActive = i === activeWordIndex;
                 const isComp = completedWords.includes(i);
                 return isActive ? (
-                  <div key={i} className="w-5 h-5 rounded-full border-[2.5px] border-[#8a8a25] flex items-center justify-center relative">
-                     <div className="absolute w-2 h-2 bg-primary rounded-full"></div>
+                  <div key={i} className="w-5 h-5 rounded-full border-[2.5px] border-primary flex items-center justify-center relative">
+                     <div className="absolute w-2.5 h-2.5 bg-primary rounded-full"></div>
                   </div>
                 ) : isComp ? (
                   <div key={i} className="w-5 h-5 bg-tertiary rounded-full flex items-center justify-center">
                     <svg className="w-3 h-3 text-black" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
                   </div>
                 ) : (
-                  <div key={i} className="w-5 h-5 bg-[#3b2b6b] rounded-full"></div>
+                  <div key={i} className="w-5 h-5 bg-[var(--progress-dot-inactive)] rounded-full"></div>
                 );
               })}
             </div>
@@ -314,9 +334,9 @@ export const GameBoard: React.FC = () => {
                     <div 
                       key={i} 
                       onClick={() => !isCompleted && tileIndex !== null && deselectSlot(i)}
-                      className={`w-[clamp(2.25rem,8.5vw,3rem)] h-[clamp(2.75rem,10vw,3.5rem)] bg-[#111125] rounded-xl flex items-center justify-center font-headline text-[clamp(1.25rem,5.5vw,1.75rem)] shadow-inner relative overflow-hidden transition-all ${showSuccess ? 'border-2 border-tertiary shadow-[0_0_8px_rgba(0,228,113,0.4)]' : 'border border-white/5'} ${!isCompleted && tileIndex !== null ? 'cursor-pointer hover:bg-[#1a1a35] active:scale-95' : ''}`}
+                      className={`w-[clamp(2.25rem,8.5vw,3rem)] h-[clamp(2.75rem,10vw,3.5rem)] bg-surface rounded-xl flex items-center justify-center font-headline text-[clamp(1.25rem,5.5vw,1.75rem)] shadow-inner relative overflow-hidden transition-all ${showSuccess ? 'border-2 border-tertiary shadow-[0_0_8px_rgba(0,228,113,0.4)]' : 'border border-on-surface/5'} ${!isCompleted && tileIndex !== null ? 'cursor-pointer hover:bg-surface-low active:scale-95' : ''}`}
                     >
-                      <span className={`text-[#77778b] absolute font-black tracking-tighter ${displayedLetter ? 'hidden' : 'block'}`}>_</span>
+                      <span className={`text-on-surface/40 absolute font-black tracking-tighter ${displayedLetter ? 'hidden' : 'block'}`}>_</span>
                       <span className={`${showSuccess ? 'text-tertiary' : 'text-primary'} uppercase ${displayedLetter ? 'block' : 'hidden'}`}>{displayedLetter}</span>
                     </div>
                   );
@@ -350,10 +370,10 @@ export const GameBoard: React.FC = () => {
 
             {/* Definition Area (Max 2 lines) */}
             <div className="flex flex-col items-center justify-center">
-              <h3 className="tracking-[0.1em] text-[#dfb7ff] text-xs uppercase font-headline mb-1.5 text-center opacity-70">
+              <h3 className="tracking-[0.1em] text-[var(--definition-header)] text-xs uppercase font-headline mb-1.5 text-center opacity-70">
                 DEFINITION
               </h3>
-              <p className={`font-body tracking-wide text-center text-white px-2 break-words italic line-clamp-2 leading-snug ${getDefinitionFontSizeClass(activeWordObj.definition)}`}>
+              <p className={`font-body tracking-wide text-center text-on-surface px-2 break-words italic line-clamp-2 leading-snug ${getDefinitionFontSizeClass(activeWordObj.definition)}`}>
                 {formatDefinition(activeWordObj.definition)}
               </p>
             </div>
@@ -365,14 +385,14 @@ export const GameBoard: React.FC = () => {
             <button 
               onClick={prevWord} 
               disabled={activeWordIndex === 0}
-              className={`flex-1 bg-[#2a2a4b] text-[#dfb7ff] border-b-[5px] border-[#18182b] active:border-b-0 active:translate-y-[5px] font-headline tracking-widest uppercase py-3.5 rounded-2xl transition-all text-sm ${activeWordIndex === 0 ? 'opacity-40 grayscale pointer-events-none' : ''}`}
+              className={`flex-1 bg-[var(--nav-btn-bg)] text-[var(--nav-btn-text)] border-b-[5px] border-[var(--nav-btn-border)] active:border-b-0 active:translate-y-[5px] font-headline tracking-widest uppercase py-3.5 rounded-2xl transition-all text-sm ${activeWordIndex === 0 ? 'opacity-40 grayscale pointer-events-none' : ''}`}
             >
               PREVIOUS
             </button>
             <button 
               onClick={nextWord} 
               disabled={activeWordIndex === stageWords.length - 1}
-              className={`flex-1 bg-primary text-[#554600] border-b-[5px] border-[#b09400] active:border-b-0 active:translate-y-[5px] font-headline tracking-widest uppercase py-3.5 rounded-2xl transition-all text-sm ${activeWordIndex === stageWords.length - 1 ? 'opacity-40 grayscale pointer-events-none' : ''}`}
+              className={`flex-1 bg-primary text-on-primary border-b-[5px] border-[var(--chunky-shadow-primary)] active:border-b-0 active:translate-y-[5px] font-headline tracking-widest uppercase py-3.5 rounded-2xl transition-all text-sm ${activeWordIndex === stageWords.length - 1 ? 'opacity-40 grayscale pointer-events-none' : ''}`}
             >
               NEXT
             </button>
@@ -380,7 +400,7 @@ export const GameBoard: React.FC = () => {
         </div>
 
         {/* Lower Card: Grid Area */}
-        <div className="flex-[3] min-h-0 flex flex-col items-center justify-center bg-[#1d1d3d] rounded-2xl p-3 shadow-xl overflow-hidden relative">
+        <div className="flex-[3] min-h-0 flex flex-col items-center justify-center bg-surface-highest rounded-2xl p-3 shadow-xl overflow-hidden relative">
           {/*
             CSS Container Query approach:
             - container-type:size lets children use cqw/cqh relative to THIS div
@@ -456,26 +476,26 @@ export const GameBoard: React.FC = () => {
               {activeTooltip === 'shuffle' && (
                 <div 
                   onClick={(e) => e.stopPropagation()}
-                  className="absolute bottom-[calc(100%+16px)] z-50 flex flex-col items-center bg-[#e2e0fc] rounded-2xl p-3 shadow-2xl tooltip-arrow animate-bounce-short px-4 w-44 border border-white/20"
+                  className="absolute bottom-[calc(100%+16px)] z-50 flex flex-col items-center bg-[var(--tooltip-bg)] rounded-2xl p-3 shadow-2xl tooltip-arrow animate-bounce-short px-4 w-44 border border-on-surface/10"
                 >
                   <div className="flex flex-col items-center gap-1">
-                    <span className="text-[#2f2e43] font-body text-sm font-medium leading-tight text-center px-1">Rearrange the tiles</span>
+                    <span className="text-[var(--tooltip-text)] font-body text-sm font-medium leading-tight text-center px-1">Rearrange the tiles</span>
                     <button 
                       onClick={() => { handleShuffleAction(); setActiveTooltip(null); }}
                       disabled={coins < (economy?.powerups.shuffle.cost ?? 0)}
-                      className={`mt-1.5 flex items-center gap-1.5 bg-primary text-[#3a3000] px-4 py-1.5 rounded-full text-[13px] font-bold shadow-sm border-b-[3px] border-[#554600] active:translate-y-0.5 active:border-b-0 transition-all uppercase tracking-tight ${coins < (economy?.powerups.shuffle.cost ?? 0) ? 'opacity-50 grayscale pointer-events-none' : ''}`}
+                      className={`mt-1.5 flex items-center gap-1.5 bg-primary text-on-primary px-4 py-1.5 rounded-full text-[13px] font-bold shadow-sm border-b-[3px] border-[var(--chunky-shadow-primary)] active:translate-y-0.5 active:border-b-0 transition-all uppercase tracking-tight ${coins < (economy?.powerups.shuffle.cost ?? 0) ? 'opacity-50 grayscale pointer-events-none' : ''}`}
                     >
                       <span>USE {economy?.powerups.shuffle.cost ?? 0}</span>
-                      <span className="w-4 h-4 bg-[#3a3000] rounded-full flex items-center justify-center text-[10px] text-primary">$</span>
+                      <span className="w-4 h-4 bg-primary-container rounded-full flex items-center justify-center text-[10px] text-primary">$</span>
                     </button>
                   </div>
                 </div>
               )}
               <button 
                 onClick={(e) => { e.stopPropagation(); setActiveTooltip(activeTooltip === 'shuffle' ? null : 'shuffle'); }}
-                className={`w-20 h-20 rounded-full bg-tertiary border-b-[6px] border-[#009b4c] flex items-center justify-center active:border-b-0 active:translate-y-[6px] transition-all ${activeTooltip === 'shuffle' ? 'ring-4 ring-tertiary/40 brightness-110 shadow-lg' : ''}`}
+                className={`w-20 h-20 rounded-full bg-tertiary border-b-[6px] border-[var(--chunky-shadow-tertiary-btn)] flex items-center justify-center active:border-b-0 active:translate-y-[6px] transition-all ${activeTooltip === 'shuffle' ? 'ring-4 ring-tertiary/40 brightness-110 shadow-lg' : ''}`}
               >
-                <svg viewBox="0 0 24 24" className="w-10 h-10 text-[#00602f]" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+                <svg viewBox="0 0 24 24" className="w-10 h-10 text-white" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
               </button>
             </div>
 
@@ -484,26 +504,26 @@ export const GameBoard: React.FC = () => {
               {activeTooltip === 'highlight' && (
                 <div 
                   onClick={(e) => e.stopPropagation()}
-                  className="absolute bottom-[calc(100%+16px)] z-50 flex flex-col items-center bg-[#e2e0fc] rounded-2xl p-3 shadow-2xl tooltip-arrow animate-bounce-short px-4 w-44 border border-white/20"
+                  className="absolute bottom-[calc(100%+16px)] z-50 flex flex-col items-center bg-[var(--tooltip-bg)] rounded-2xl p-3 shadow-2xl tooltip-arrow animate-bounce-short px-4 w-44 border border-on-surface/10"
                 >
                   <div className="flex flex-col items-center gap-1">
-                    <span className="text-[#2f2e43] font-body text-sm font-medium leading-tight text-center px-1">Highlight a correct letter</span>
+                    <span className="text-[var(--tooltip-text)] font-body text-sm font-medium leading-tight text-center px-1">Highlight a correct letter</span>
                     <button 
                       onClick={() => { executeHighlight(); setActiveTooltip(null); }}
                       disabled={!isHighlightAvailable || coins < (economy?.powerups.highlight.cost ?? 0)}
-                      className={`mt-1.5 flex items-center gap-1.5 bg-primary text-[#3a3000] px-4 py-1.5 rounded-full text-[13px] font-bold shadow-sm border-b-[3px] border-[#554600] active:translate-y-0.5 active:border-b-0 transition-all uppercase tracking-tight ${(!isHighlightAvailable || coins < (economy?.powerups.highlight.cost ?? 0)) ? 'opacity-40 grayscale pointer-events-none' : ''}`}
+                      className={`mt-1.5 flex items-center gap-1.5 bg-primary text-on-primary px-4 py-1.5 rounded-full text-[13px] font-bold shadow-sm border-b-[3px] border-[var(--chunky-shadow-primary)] active:translate-y-0.5 active:border-b-0 transition-all uppercase tracking-tight ${(!isHighlightAvailable || coins < (economy?.powerups.highlight.cost ?? 0)) ? 'opacity-40 grayscale pointer-events-none' : ''}`}
                     >
                       <span>{isHighlightAvailable ? `USE ${economy?.powerups.highlight.cost ?? 0}` : 'NO HIGHLIGHTS LEFT'}</span>
-                      {isHighlightAvailable && <span className="w-3 h-3 bg-[#3a3000] rounded-full flex items-center justify-center text-[8px] text-primary">$</span>}
+                      {isHighlightAvailable && <span className="w-3 h-3 bg-primary-container rounded-full flex items-center justify-center text-[8px] text-primary">$</span>}
                     </button>
                   </div>
                 </div>
               )}
               <button 
                 onClick={(e) => { e.stopPropagation(); setActiveTooltip(activeTooltip === 'highlight' ? null : 'highlight'); }}
-                className={`w-20 h-20 rounded-full bg-secondary border-b-[6px] border-[#b580e0] flex items-center justify-center active:border-b-0 active:translate-y-[6px] transition-all ${activeTooltip === 'highlight' ? 'ring-4 ring-secondary/40 brightness-110 shadow-lg' : ''}`}
+                className={`w-20 h-20 rounded-full bg-secondary border-b-[6px] border-[var(--chunky-shadow-secondary-btn)] flex items-center justify-center active:border-b-0 active:translate-y-[6px] transition-all ${activeTooltip === 'highlight' ? 'ring-4 ring-secondary/40 brightness-110 shadow-lg' : ''}`}
               >
-                <svg viewBox="0 0 24 24" className="w-11 h-11 text-[#6c11af] fill-current"><path d="M12 22a2.98 2.98 0 0 0 2.818-2H9.182A2.98 2.98 0 0 0 12 22zm7-7.41V11c0-3.866-3.134-7-7-7s-7 3.134-7 7v3.59l-2 2V18h18v-1.41l-2-2z"/></svg>
+                <svg viewBox="0 0 24 24" className="w-11 h-11 text-white fill-current"><path d="M12 22a2.98 2.98 0 0 0 2.818-2H9.182A2.98 2.98 0 0 0 12 22zm7-7.41V11c0-3.866-3.134-7-7-7s-7 3.134-7 7v3.59l-2 2V18h18v-1.41l-2-2z"/></svg>
               </button>
             </div>
 
@@ -512,26 +532,26 @@ export const GameBoard: React.FC = () => {
               {activeTooltip === 'lightning' && (
                 <div 
                   onClick={(e) => e.stopPropagation()}
-                  className="absolute bottom-[calc(100%+16px)] z-50 flex flex-col items-center bg-[#e2e0fc] rounded-2xl p-3 shadow-2xl tooltip-arrow animate-bounce-short px-4 w-44 border border-white/20"
+                  className="absolute bottom-[calc(100%+16px)] z-50 flex flex-col items-center bg-[var(--tooltip-bg)] rounded-2xl p-3 shadow-2xl tooltip-arrow animate-bounce-short px-4 w-44 border border-on-surface/10"
                 >
                   <div className="flex flex-col items-center gap-1">
-                    <span className="text-[#2f2e43] font-body text-sm font-medium leading-tight text-center px-1">Place a correct letter</span>
+                    <span className="text-[var(--tooltip-text)] font-body text-sm font-medium leading-tight text-center px-1">Place a correct letter</span>
                     <button 
                       onClick={() => { executeLightning(); setActiveTooltip(null); }}
                       disabled={!isLightningAvailable || coins < (economy?.powerups.lightning.cost ?? 0)}
-                      className={`mt-1.5 flex items-center gap-1.5 bg-primary text-[#3a3000] px-4 py-1.5 rounded-full text-[13px] font-bold shadow-sm border-b-[3px] border-[#554600] active:translate-y-0.5 active:border-b-0 transition-all uppercase tracking-tight ${(!isLightningAvailable || coins < (economy?.powerups.lightning.cost ?? 0)) ? 'opacity-40 grayscale pointer-events-none' : ''}`}
+                      className={`mt-1.5 flex items-center gap-1.5 bg-primary text-on-primary px-4 py-1.5 rounded-full text-[13px] font-bold shadow-sm border-b-[3px] border-[var(--chunky-shadow-primary)] active:translate-y-0.5 active:border-b-0 transition-all uppercase tracking-tight ${(!isLightningAvailable || coins < (economy?.powerups.lightning.cost ?? 0)) ? 'opacity-40 grayscale pointer-events-none' : ''}`}
                     >
                       <span>{isLightningAvailable ? `USE ${economy?.powerups.lightning.cost ?? 0}` : 'NO SLOTS LEFT'}</span>
-                      {isLightningAvailable && <span className="w-3 h-3 bg-[#3a3000] rounded-full flex items-center justify-center text-[8px] text-primary">$</span>}
+                      {isLightningAvailable && <span className="w-3 h-3 bg-primary-container rounded-full flex items-center justify-center text-[8px] text-primary">$</span>}
                     </button>
                   </div>
                 </div>
               )}
               <button 
                 onClick={(e) => { e.stopPropagation(); setActiveTooltip(activeTooltip === 'lightning' ? null : 'lightning'); }}
-                className={`w-20 h-20 rounded-full bg-primary border-b-[6px] border-[#ba9a00] flex items-center justify-center active:border-b-0 active:translate-y-[6px] transition-all ${activeTooltip === 'lightning' ? 'ring-4 ring-primary/40 brightness-110 shadow-lg' : ''}`}
+                className={`w-20 h-20 rounded-full bg-primary border-b-[6px] border-[var(--chunky-shadow-primary-btn)] flex items-center justify-center active:border-b-0 active:translate-y-[6px] transition-all ${activeTooltip === 'lightning' ? 'ring-4 ring-primary/40 brightness-110 shadow-lg' : ''}`}
               >
-                <svg viewBox="0 0 24 24" className="w-10 h-10 text-[#665400] fill-current"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                <svg viewBox="0 0 24 24" className="w-10 h-10 text-on-primary fill-current"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
               </button>
             </div>
           </div>

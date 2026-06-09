@@ -67,6 +67,7 @@ interface GameState {
   highlightedIndices: number[][];
   highScore: number;
   usedWords: string[];
+  theme: 'light' | 'dark';
   
   incrementCoins: (amount: number) => void;
   changeStage: (stage: number) => void;
@@ -89,6 +90,8 @@ interface GameState {
   advanceToNextStage: () => void;
   goToNextUnsolved: () => void;
   addExtraTime: () => void;
+  setTheme: (theme: 'light' | 'dark') => void;
+  toggleTheme: () => void;
 }
 
 export const useGameStore = create<GameState>()(
@@ -108,6 +111,9 @@ export const useGameStore = create<GameState>()(
       highlightedIndices: [],
       highScore: 0,
       usedWords: [],
+      theme: 'dark',
+      setTheme: (theme) => set({ theme }),
+      toggleTheme: () => set((state) => ({ theme: state.theme === 'dark' ? 'light' : 'dark' })),
 
       incrementCoins: (amount) => 
         set((state) => ({ coins: state.coins + amount })),
@@ -462,7 +468,8 @@ export const useGameStore = create<GameState>()(
       coins: state.coins, 
       activeStage: state.activeStage,
       highScore: state.highScore,
-      usedWords: state.usedWords
+      usedWords: state.usedWords,
+      theme: state.theme
     }),
   }
 ));

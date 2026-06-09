@@ -1,25 +1,122 @@
 @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;700;800&family=Lilita+One&display=swap');
 @import "tailwindcss";
 
+:root {
+  /* Default theme is Dark */
+  --primary: #e9c400;
+  --primary-container: #554600;
+  --secondary: #dfb7ff;
+  --secondary-container: #6c11af;
+  --tertiary: #00e471;
+  --tertiary-container: #00552a;
+  
+  --surface: #111125;
+  --surface-low: #1a1a2e;
+  --surface-lowest: #0c0c1f;
+  --surface-highest: #1d1d3d;
+  --surface-container: #1e1e32;
+  --surface-container-high: #25253c;
+  --surface-container-highest: #2a2a4b;
+  --surface-container-lowest: #0a0a1a;
+  --surface-bright: #37374d;
+
+  --on-surface: #ffffff;
+  --on-primary: #000000;
+  --error: #ffb4ab;
+  --error-container: #93000a;
+  --on-error-container: #ffdad6;
+
+  /* Helper variables for borders/shadows/components */
+  --nav-btn-bg: #2a2a4b;
+  --nav-btn-border: #18182b;
+  --nav-btn-text: #dfb7ff;
+  --border-color: #1f1f33;
+  --chunky-shadow-primary: #554600;
+  --chunky-shadow-secondary: #4b007e;
+  --chunky-shadow-tertiary-btn: #009b4c;
+  --chunky-shadow-secondary-btn: #b580e0;
+  --chunky-shadow-primary-btn: #ba9a00;
+  --tile-shadow: #1a1a2e;
+  --tile-bg: #35354f;
+  --tile-bg-hover: #3d3d5a;
+  --tile-bg-active: #2b2b40;
+  --tile-text: #ffffff;
+  --tile-text-active: #9ca3af;
+  --progress-dot-inactive: #3b2b6b;
+  --definition-header: #dfb7ff;
+  --tooltip-bg: #e2e0fc;
+  --tooltip-text: #2f2e43;
+}
+
+[data-theme="light"] {
+  --primary: #e9c400;
+  --primary-container: #fff9d4;
+  --secondary: #6c11af;
+  --secondary-container: #f5e8ff;
+  --tertiary: #008f47;
+  --tertiary-container: #dcfce7;
+  
+  --surface: #f3f4f6;
+  --surface-low: #e5e7eb;
+  --surface-lowest: #cbd5e1;
+  --surface-highest: #ffffff;
+  --surface-container: #e5e7eb;
+  --surface-container-high: #f3f4f6;
+  --surface-container-highest: #cbd5e1;
+  --surface-container-lowest: #f9fafb;
+  --surface-bright: #cbd5e1;
+
+  --on-surface: #1f1f33;
+  --on-primary: #372a00;
+  --error: #ba1a1a;
+  --error-container: #ffdad6;
+  --on-error-container: #410002;
+
+  --nav-btn-bg: #e5e7eb;
+  --nav-btn-border: #cbd5e1;
+  --nav-btn-text: #6c11af;
+  --border-color: #cbd5e1;
+  --chunky-shadow-primary: #b09400;
+  --chunky-shadow-secondary: #cca8ff;
+  --chunky-shadow-tertiary-btn: #006633;
+  --chunky-shadow-secondary-btn: #4b007e;
+  --chunky-shadow-primary-btn: #b09400;
+  --tile-shadow: #cbd5e1;
+  --tile-bg: #ffffff;
+  --tile-bg-hover: #f1f5f9;
+  --tile-bg-active: #e2e8f0;
+  --tile-text: #1f1f33;
+  --tile-text-active: #94a3b8;
+  --progress-dot-inactive: #cbd5e1;
+  --definition-header: #6c11af;
+  --tooltip-bg: #1e1b4b;
+  --tooltip-text: #ffffff;
+}
+
 @theme {
   --font-headline: "Lilita One", sans-serif;
   --font-body: "Be Vietnam Pro", sans-serif;
 
-  --color-primary: #e9c400;
-  --color-primary-container: #554600;
-  --color-secondary: #dfb7ff;
-  --color-secondary-container: #6c11af;
-  --color-tertiary: #00e471;
-  --color-tertiary-container: #00552a;
-  --color-surface: #111125;
-  --color-surface-low: #1a1a2e;
-  --color-surface-lowest: #0c0c1f;
-  --color-surface-highest: #1d1d3d;
-  --color-on-surface: #ffffff;
-  --color-on-primary: #000000;
-  --color-error: #ffb4ab;
-  --color-error-container: #93000a;
-  --color-on-error-container: #ffdad6;
+  --color-primary: var(--primary);
+  --color-primary-container: var(--primary-container);
+  --color-secondary: var(--secondary);
+  --color-secondary-container: var(--secondary-container);
+  --color-tertiary: var(--tertiary);
+  --color-tertiary-container: var(--tertiary-container);
+  --color-surface: var(--surface);
+  --color-surface-low: var(--surface-low);
+  --color-surface-lowest: var(--surface-lowest);
+  --color-surface-highest: var(--surface-highest);
+  --color-surface-container: var(--surface-container);
+  --color-surface-container-high: var(--surface-container-high);
+  --color-surface-container-highest: var(--surface-container-highest);
+  --color-surface-container-lowest: var(--surface-container-lowest);
+  --color-surface-bright: var(--surface-bright);
+  --color-on-surface: var(--on-surface);
+  --color-on-primary: var(--on-primary);
+  --color-error: var(--error);
+  --color-error-container: var(--error-container);
+  --color-on-error-container: var(--on-error-container);
 
   --radius-xl: 1.5rem;
   --radius-md: 0.75rem;
@@ -117,21 +214,21 @@ body {
 }
 
 .chunky-button-primary {
-  box-shadow: 0 4px 0 0 #554600;
+  box-shadow: 0 4px 0 0 var(--chunky-shadow-primary);
 }
 
 .chunky-button-primary:active {
   transform: translateY(2px);
-  box-shadow: 0 2px 0 0 #554600 !important;
+  box-shadow: 0 2px 0 0 var(--chunky-shadow-primary) !important;
 }
 
 .chunky-button-secondary {
-  box-shadow: 0 4px 0 0 #6c11af;
+  box-shadow: 0 4px 0 0 var(--chunky-shadow-secondary);
 }
 
 .chunky-button-secondary:active {
   transform: translateY(2px);
-  box-shadow: 0 2px 0 0 #6c11af !important;
+  box-shadow: 0 2px 0 0 var(--chunky-shadow-secondary) !important;
 }
 
 .tile-floating-ref {
@@ -163,8 +260,8 @@ body {
 
 .stage-overlay-text {
   text-shadow:
-    0 4px 0 #554600,
-    0 8px 0 #554600,
+    0 4px 0 var(--chunky-shadow-primary),
+    0 8px 0 var(--chunky-shadow-primary),
     0 0 20px rgba(233, 196, 0, 0.3);
 }
 
@@ -193,7 +290,7 @@ body {
   transform: translateX(-50%);
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
-  border-top: 8px solid #e2e0fc;
+  border-top: 8px solid var(--tooltip-bg);
   /* Light purple to match bg-inverse-surface */
 }
 

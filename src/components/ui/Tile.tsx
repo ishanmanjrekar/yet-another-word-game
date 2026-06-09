@@ -21,10 +21,10 @@ export const Tile: React.FC<TileProps> = ({
       className={`
         aspect-square rounded-[14px] flex items-center justify-center
         font-headline text-[2.25rem] select-none uppercase
-        shadow-[inset_0_2px_0_0_rgba(255,255,255,0.05),0_4px_0_0_#1a1a2e]
+        shadow-[inset_0_2px_0_0_rgba(255,255,255,0.05),0_4px_0_0_var(--tile-shadow)]
         transition-all duration-100 ease-in-out cursor-pointer outline-none pb-1
-        active:translate-y-[4px] active:shadow-[inset_0_2px_0_0_rgba(255,255,255,0.05),0_0px_0_0_#1a1a2e]
-        ${isActive ? 'translate-y-[4px] shadow-[inset_0_2px_0_0_rgba(255,255,255,0.05),0_0px_0_0_#1a1a2e] opacity-40 bg-[#2b2b40] text-gray-400' : 'bg-[#35354f] text-white hover:bg-[#3d3d5a]'}
+        active:translate-y-[4px] active:shadow-[inset_0_2px_0_0_rgba(255,255,255,0.05),0_0px_0_0_var(--tile-shadow)]
+        ${isActive ? 'translate-y-[4px] shadow-[inset_0_2px_0_0_rgba(255,255,255,0.05),0_0px_0_0_var(--tile-shadow)] opacity-40 bg-[var(--tile-bg-active)] text-[var(--tile-text-active)]' : 'bg-[var(--tile-bg)] text-[var(--tile-text)] hover:bg-[var(--tile-bg-hover)]'}
         ${isHighlighted ? 'ring-4 ring-secondary animate-pulse' : ''}
         ${className}
       `}

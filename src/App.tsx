@@ -17,12 +17,17 @@ const ASSETS_BASE_URL = 'https://raw.githubusercontent.com/ishanmanjrekar/yet-an
 function App() {
   const gameState = useGameStore(state => state.gameState);
   const activeStage = useGameStore(state => state.activeStage);
+  const theme = useGameStore(state => state.theme);
   
   const [isHydrated, setIsHydrated] = useState(false);
   
   const setLevelDesign = useGameStore(state => state.setLevelDesign);
   const setWordBank = useGameStore(state => state.setWordBank);
   const setEconomy = useGameStore(state => state.setEconomy);
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
 
   useEffect(() => {
     async function hydrateStore() {
@@ -44,9 +49,9 @@ function App() {
 
   if (!isHydrated) {
     return (
-      <div className="flex h-[100dvh] w-screen bg-[#161625] overflow-hidden">
+      <div className="flex h-[100dvh] w-screen bg-surface-lowest overflow-hidden">
         <BoundingBox width={480} height={880}>
-          <div className="flex flex-col h-full w-full items-center justify-center bg-[#161625] text-white px-6">
+          <div className="flex flex-col h-full w-full items-center justify-center bg-surface-low text-on-surface px-6">
             <div className="flex flex-col items-center justify-center gap-10">
               <img 
                 src="/splash-cover.png" 
@@ -74,7 +79,7 @@ function App() {
         {gameState === 'menu' && <MainMenu />}
         
         {gameState !== 'menu' && (
-          <div className="relative w-full h-full bg-[#161625] overflow-hidden">
+          <div className="relative w-full h-full bg-surface-low overflow-hidden">
              <GameBoard key={activeStage} />
              {gameState === 'paused' && <PauseMenu />}
              {gameState === 'gameover' && <GameOverModal />}
